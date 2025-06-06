@@ -36,67 +36,75 @@ export function ToolSidebar({ selectedTool, onToolSelect, searchQuery, onSearchC
     .filter((category) => category.tools.length > 0)
 
   return (
-    <div className="h-full border-r bg-background">
-      <div className="p-4 space-y-4">
-        {/* Mobile Search */}
-        <div className="relative sm:hidden">
+    <div className="h-full border-r bg-background flex flex-col">
+      {/* Mobile Search - only show on mobile */}
+      <div className="px-4 py-3 border-b flex-shrink-0 sm:hidden">
+        <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="搜索工具..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-9"
+            className="pl-9 h-8"
           />
         </div>
+      </div>
 
-        {/* Tool Categories */}
-        <div className="space-y-2">
-          {filteredCategories.map((category) => (
-            <div key={category.id} className="space-y-1">
-              <Button
-                variant="ghost"
-                className="w-full justify-between p-2 h-auto"
-                onClick={() => toggleCategory(category.id)}
-              >
-                <div className="flex items-center gap-2">
-                  <category.icon className="h-4 w-4" />
-                  <span className="font-medium">{category.name}</span>
-                </div>
-                {expandedCategories.includes(category.id) ? (
-                  <ChevronDown className="h-4 w-4" />
-                ) : (
-                  <ChevronRight className="h-4 w-4" />
-                )}
-              </Button>
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="px-4 py-3">
+          {/* Tool Categories */}
+          <div className="space-y-1.5">
+            {filteredCategories.map((category) => (
+              <div key={category.id} className="space-y-1">
+                <Button
+                  variant="ghost"
+                  className="w-full justify-between px-0 py-1.5 h-auto text-sm font-semibold hover:bg-muted/50"
+                  style={{ color: '#71717A' }}
+                  onClick={() => toggleCategory(category.id)}
+                >
+                  <div className="flex items-center gap-2">
+                    <category.icon className="h-4 w-4" style={{ color: '#71717A' }} />
+                    <span className="font-semibold">{category.name}</span>
+                  </div>
+                  {expandedCategories.includes(category.id) ? (
+                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+                  ) : (
+                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
+                  )}
+                </Button>
 
-              {expandedCategories.includes(category.id) && (
-                <div className="ml-4 space-y-1">
-                  {category.tools.map((tool) => (
-                    <Button
-                      key={tool.id}
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start p-2 h-auto text-left",
-                        selectedTool === tool.id && "bg-accent text-accent-foreground",
-                      )}
-                      onClick={() => {
-                        onToolSelect(tool.id)
-                        onClose()
-                      }}
-                    >
-                      <div className="flex items-start gap-2">
-                        <tool.icon className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                        <div className="min-w-0">
-                          <div className="font-medium text-sm">{tool.name}</div>
-                          <div className="text-xs text-muted-foreground line-clamp-2">{tool.description}</div>
+                {expandedCategories.includes(category.id) && (
+                  <div className="ml-6 space-y-0.5">
+                    {category.tools.map((tool) => (
+                                              <Button
+                        key={tool.id}
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start px-0 py-1 h-auto text-left text-sm hover:bg-muted/70",
+                          selectedTool === tool.id 
+                            ? "bg-accent font-medium" 
+                            : "font-normal",
+                        )}
+                        style={{ 
+                          color: selectedTool === tool.id ? '#18181B' : '#18181B'
+                        }}
+                        onClick={() => {
+                          onToolSelect(tool.id)
+                          onClose()
+                        }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <tool.icon className="h-3.5 w-3.5 flex-shrink-0" style={{ color: '#18181B' }} />
+                          <span className="text-sm truncate">{tool.name}</span>
                         </div>
-                      </div>
-                    </Button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                      </Button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
