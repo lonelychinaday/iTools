@@ -19,7 +19,7 @@ export function PricingSection() {
             <CardHeader>
               <CardTitle>Free</CardTitle>
               <div className="mt-4 flex items-baseline text-5xl font-bold">
-                $0<span className="ml-1 text-lg font-medium text-muted-foreground">/month</span>
+                $0<span className="ml-1 text-lg text-muted-foreground">/month</span>
               </div>
               <CardDescription className="mt-4">Perfect for trying out our toolkit.</CardDescription>
             </CardHeader>
@@ -42,12 +42,12 @@ export function PricingSection() {
 
           <Card className="border-primary">
             <CardHeader>
-              <div className="rounded-full bg-primary/10 text-primary text-sm font-medium py-1 px-3 w-fit mb-4">
+              <div className="rounded-full bg-primary/10 text-primary text-sm py-1 px-3 w-fit mb-4">
                 Most Popular
               </div>
               <CardTitle>Pro</CardTitle>
               <div className="mt-4 flex items-baseline text-5xl font-bold">
-                $29<span className="ml-1 text-lg font-medium text-muted-foreground">/month</span>
+                $29<span className="ml-1 text-lg text-muted-foreground">/month</span>
               </div>
               <CardDescription className="mt-4">Everything you need for professional work.</CardDescription>
             </CardHeader>
@@ -72,7 +72,7 @@ export function PricingSection() {
             <CardHeader>
               <CardTitle>Enterprise</CardTitle>
               <div className="mt-4 flex items-baseline text-5xl font-bold">
-                $99<span className="ml-1 text-lg font-medium text-muted-foreground">/month</span>
+                $99<span className="ml-1 text-lg text-muted-foreground">/month</span>
               </div>
               <CardDescription className="mt-4">For teams that need more power and control.</CardDescription>
             </CardHeader>

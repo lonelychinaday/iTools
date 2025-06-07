@@ -9,7 +9,7 @@ export function HeroSection() {
       <div className="container flex flex-col items-center text-center">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         <div className="space-y-4 md:space-y-6">
-          <div className="inline-block rounded-full bg-muted px-4 py-1.5 text-sm font-medium">
+          <div className="inline-block rounded-full bg-muted px-4 py-1.5 text-sm">
             ✨ New tools added weekly
           </div>
           <h1 className="text-4xl font-bold tracking-tight md:text-6xl">

@@ -10,14 +10,44 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { useTheme } from "next-themes"
 
-// Logo组件 - 仿照v0.dev风格的抽象几何设计
+// Logo组件 - 与favicon.svg保持一致的设计
 function Logo() {
   return (
-    <div className="w-5 h-5 rounded bg-primary flex items-center justify-center relative overflow-hidden">
-      {/* 三个几何形状组成的抽象工具图标 */}
-      <div className="absolute top-1 left-1 w-1.5 h-1.5 bg-primary-foreground rounded-sm transform rotate-45"></div>
-      <div className="absolute bottom-0.5 left-0.5 w-2 h-0.5 bg-primary-foreground rounded-full"></div>
-      <div className="absolute bottom-0.5 right-0.5 w-1 h-1 bg-primary-foreground rounded-full"></div>
+    <div className="w-5 h-5 rounded bg-primary relative overflow-hidden" style={{ borderRadius: '3px' }}>
+      {/* 旋转的正方形 - 对应favicon中的 rect x="6" y="8" width="6" height="6" */}
+      <div 
+        className="absolute bg-primary-foreground"
+        style={{
+          left: '3.75px',  // 6 * 20/32
+          top: '5px',      // 8 * 20/32
+          width: '3.75px', // 6 * 20/32
+          height: '3.75px',// 6 * 20/32
+          borderRadius: '1.25px', // 2 * 20/32
+          transform: 'rotate(45deg)',
+          transformOrigin: '1.875px 1.875px' // 围绕中心旋转
+        }}
+      ></div>
+      {/* 水平矩形 - 对应favicon中的 rect x="8" y="20" width="8" height="2" */}
+      <div 
+        className="absolute bg-primary-foreground"
+        style={{
+          left: '5px',     // 8 * 20/32
+          top: '12.5px',   // 20 * 20/32
+          width: '5px',    // 8 * 20/32
+          height: '1.25px',// 2 * 20/32
+          borderRadius: '0.625px' // 1 * 20/32
+        }}
+      ></div>
+      {/* 圆形 - 对应favicon中的 circle cx="22" cy="22" r="4" */}
+      <div 
+        className="absolute bg-primary-foreground rounded-full"
+        style={{
+          left: '11.25px', // 22 * 20/32 - 2.5 (半径)
+          top: '11.25px',  // 22 * 20/32 - 2.5 (半径)
+          width: '5px',    // 4 * 20/32 * 2 (直径)
+          height: '5px'    // 4 * 20/32 * 2 (直径)
+        }}
+      ></div>
     </div>
   )
 }
@@ -42,12 +72,12 @@ export default function Home() {
               {/* Logo and title - always visible */}
               <div className="flex items-center gap-2 flex-shrink-0">
                 <Logo />
-                <span className="font-semibold text-foreground text-sm">iTools</span>
+                <span className="font-orbitron text-foreground text-lg tracking-wider font-bold">iTools</span>
               </div>
               
               {/* Desktop: Show separator and breadcrumb */}
               <div className="hidden md:flex items-center">
-                <span aria-hidden="true" className="text-muted-foreground/40 w-4 min-w-4 select-none text-center text-sm mx-1">/</span>
+                <span aria-hidden="true" className="text-muted-foreground/40 w-4 min-w-4 select-none text-center text-lg mx-1">/</span>
                 <Breadcrumb selectedTool={selectedTool} />
               </div>
             </div>

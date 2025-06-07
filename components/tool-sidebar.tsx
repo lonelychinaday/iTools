@@ -59,18 +59,18 @@ export function ToolSidebar({ selectedTool, onToolSelect, searchQuery, onSearchC
               <div key={category.id} className="space-y-1">
                 <Button
                   variant="ghost"
-                  className="w-full justify-between px-0 py-1.5 h-auto text-sm font-semibold hover:bg-muted/50"
-                  style={{ color: '#71717A' }}
+                  className="w-full justify-between px-0 py-1.5 h-auto text-sm hover:bg-muted/50"
+                  style={{ color: 'rgb(133, 134, 136)' }}
                   onClick={() => toggleCategory(category.id)}
                 >
                   <div className="flex items-center gap-2">
-                    <category.icon className="h-4 w-4" style={{ color: '#71717A' }} />
-                    <span className="font-semibold">{category.name}</span>
+                    <category.icon className="h-4 w-4" style={{ color: 'rgb(133, 134, 136)' }} />
+                    <span className="font-normal">{category.name}</span>
                   </div>
                   {expandedCategories.includes(category.id) ? (
-                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" style={{ color: 'rgb(133, 134, 136)' }} />
                   ) : (
-                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
+                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" style={{ color: 'rgb(133, 134, 136)' }} />
                   )}
                 </Button>
 
@@ -82,12 +82,10 @@ export function ToolSidebar({ selectedTool, onToolSelect, searchQuery, onSearchC
                         variant="ghost"
                         className={cn(
                           "w-full justify-start px-0 py-1 h-auto text-left text-sm hover:bg-muted/70",
-                          selectedTool === tool.id 
-                            ? "bg-accent font-medium" 
-                            : "font-normal",
+                          selectedTool === tool.id ? "bg-accent" : "",
                         )}
                         style={{ 
-                          color: selectedTool === tool.id ? '#18181B' : '#18181B'
+                          color: 'rgb(51, 54, 57)'
                         }}
                         onClick={() => {
                           onToolSelect(tool.id)
@@ -95,7 +93,7 @@ export function ToolSidebar({ selectedTool, onToolSelect, searchQuery, onSearchC
                         }}
                       >
                         <div className="flex items-center gap-2">
-                          <tool.icon className="h-3.5 w-3.5 flex-shrink-0" style={{ color: '#18181B' }} />
+                          <tool.icon className="h-3.5 w-3.5 flex-shrink-0" style={{ color: 'rgb(51, 54, 57)' }} />
                           <span className="text-sm truncate">{tool.name}</span>
                         </div>
                       </Button>

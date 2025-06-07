@@ -39,7 +39,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-medium mb-4">Product</h3>
+            <h3 className="mb-4">Product</h3>
             <ul className="space-y-2 text-sm">
               {["Features", "Pricing", "Integrations", "Changelog", "Documentation"].map((item) => (
                 <li key={item}>
@@ -52,7 +52,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-medium mb-4">Company</h3>
+            <h3 className="mb-4">Company</h3>
             <ul className="space-y-2 text-sm">
               {["About", "Blog", "Careers", "Customers", "Partners"].map((item) => (
                 <li key={item}>
@@ -65,7 +65,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-medium mb-4">Support</h3>
+            <h3 className="mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
               {["Help Center", "Contact Us", "Status", "Terms of Service", "Privacy Policy"].map((item) => (
                 <li key={item}>

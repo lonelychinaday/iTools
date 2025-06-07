@@ -144,15 +144,15 @@ export function QrGenerator() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <h4 className="font-medium">网址链接</h4>
+              <h4>网址链接</h4>
               <p className="text-sm text-muted-foreground">https://example.com</p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">WiFi 连接</h4>
+              <h4>WiFi 连接</h4>
               <p className="text-sm text-muted-foreground">WIFI:T:WPA;S:网络名;P:密码;;</p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">联系信息</h4>
+              <h4>联系信息</h4>
               <p className="text-sm text-muted-foreground">
                 BEGIN:VCARD
                 <br />
@@ -166,7 +166,7 @@ export function QrGenerator() {
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">短信</h4>
+              <h4>短信</h4>
               <p className="text-sm text-muted-foreground">SMS:手机号:短信内容</p>
             </div>
           </div>

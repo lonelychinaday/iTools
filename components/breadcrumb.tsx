@@ -27,8 +27,8 @@ export function Breadcrumb({ selectedTool }: BreadcrumbProps) {
   return (
     <div className="flex items-center text-sm">
       <span className="text-muted-foreground">{currentCategory.name}</span>
-      <span aria-hidden="true" className="text-muted-foreground/40 w-4 min-w-4 select-none text-center text-sm mx-1">/</span>
-      <span className="text-foreground font-medium">{currentTool.name}</span>
+      <span aria-hidden="true" className="text-muted-foreground/40 w-4 min-w-4 select-none text-center text-lg mx-1">/</span>
+      <span className="text-foreground">{currentTool.name}</span>
     </div>
   )
 } 

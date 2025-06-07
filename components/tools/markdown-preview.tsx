@@ -233,7 +233,7 @@ function greet(name) {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="space-y-2">
-              <h4 className="font-medium">标题</h4>
+              <h4>标题</h4>
               <code># 一级标题</code>
               <br />
               <code>## 二级标题</code>
@@ -241,7 +241,7 @@ function greet(name) {
               <code>### 三级标题</code>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">文本样式</h4>
+              <h4>文本样式</h4>
               <code>**粗体**</code>
               <br />
               <code>*斜体*</code>
@@ -249,13 +249,13 @@ function greet(name) {
               <code>`行内代码`</code>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">列表</h4>
+              <h4>列表</h4>
               <code>- 无序列表</code>
               <br />
               <code>1. 有序列表</code>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">链接和引用</h4>
+              <h4>链接和引用</h4>
               <code>[链接文字](URL)</code>
               <br />
               <code>&gt; 引用文字</code>

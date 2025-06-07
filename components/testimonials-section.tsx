@@ -55,7 +55,7 @@ export function TestimonialsSection() {
                   />
                 </div>
                 <div>
-                  <p className="font-medium">{testimonial.author}</p>
+                  <p>{testimonial.author}</p>
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                 </div>
               </CardFooter>
