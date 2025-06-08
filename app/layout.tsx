@@ -4,12 +4,13 @@ import './globals.css';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { Analytics } from '@vercel/analytics/next';
+
 const orbitron = Orbitron({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-orbitron',
 });
-
 export const metadata: Metadata = {
   title: 'iTools - 工具箱',
   description:
@@ -35,6 +36,7 @@ export default function RootLayout({
       <body className={`${orbitron.variable}`} suppressHydrationWarning={true}>
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
