@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Orbitron } from 'next/font/google';
 import './globals.css';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 const orbitron = Orbitron({
   weight: ['400', '700'],
   subsets: ['latin'],
@@ -32,6 +34,7 @@ export default function RootLayout({
     <html lang='zh-CN'>
       <body className={`${orbitron.variable}`} suppressHydrationWarning={true}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
