@@ -1,16 +1,17 @@
-import type { Metadata } from 'next'
-import { Orbitron } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from 'next';
+import { Orbitron } from 'next/font/google';
+import './globals.css';
 
 const orbitron = Orbitron({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-orbitron',
-})
+});
 
 export const metadata: Metadata = {
   title: 'iTools - 工具箱',
-  description: '现代化的开发者工具集合，包含JSON格式化、Base64编码、密码生成等实用工具',
+  description:
+    '现代化的开发者工具集合，包含JSON格式化、Base64编码、密码生成等实用工具',
   icons: {
     icon: [
       {
@@ -20,16 +21,18 @@ export const metadata: Metadata = {
     ],
     shortcut: '/favicon.svg',
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
-      <body className={`${orbitron.variable}`} suppressHydrationWarning={true}>{children}</body>
+    <html lang='zh-CN'>
+      <body className={`${orbitron.variable}`} suppressHydrationWarning={true}>
+        {children}
+      </body>
     </html>
-  )
+  );
 }
