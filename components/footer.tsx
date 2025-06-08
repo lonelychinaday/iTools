@@ -3,7 +3,9 @@ import { Facebook, Github, Instagram, Linkedin, Settings, Twitter } from "lucide
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/40">
+    <footer className="border-t bg-muted/40" style={{
+      '--custom-hover-color': '#18a058'
+    } as React.CSSProperties}>
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -15,23 +17,23 @@ export function Footer() {
               Powerful tools to streamline your workflow and boost productivity.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
+              <Link href="#" className="text-muted-foreground hover-green">
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
+              <Link href="#" className="text-muted-foreground hover-green">
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
+              <Link href="#" className="text-muted-foreground hover-green">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
+              <Link href="#" className="text-muted-foreground hover-green">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
+              <Link href="#" className="text-muted-foreground hover-green">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
@@ -43,7 +45,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {["Features", "Pricing", "Integrations", "Changelog", "Documentation"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  <Link href="#" className="text-muted-foreground hover-green">
                     {item}
                   </Link>
                 </li>
@@ -56,7 +58,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {["About", "Blog", "Careers", "Customers", "Partners"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  <Link href="#" className="text-muted-foreground hover-green">
                     {item}
                   </Link>
                 </li>
@@ -69,7 +71,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {["Help Center", "Contact Us", "Status", "Terms of Service", "Privacy Policy"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  <Link href="#" className="text-muted-foreground hover-green">
                     {item}
                   </Link>
                 </li>

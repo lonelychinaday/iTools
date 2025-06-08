@@ -78,7 +78,7 @@ export default function Home() {
               {/* Desktop: Show separator and breadcrumb */}
               <div className="hidden md:flex items-center">
                 <span aria-hidden="true" className="text-muted-foreground/40 w-4 min-w-4 select-none text-center text-lg mx-1">/</span>
-                <Breadcrumb selectedTool={selectedTool} />
+                <Breadcrumb selectedTool={selectedTool} onToolSelect={setSelectedTool} />
               </div>
             </div>
 
@@ -87,10 +87,10 @@ export default function Home() {
               <div className="relative hidden sm:block">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  placeholder="搜索工具..."
+                  placeholder="搜索工具"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-64 pl-9 h-9 bg-muted/30 border-0 rounded-lg focus:bg-background focus:ring-1 focus:ring-ring transition-colors"
+                  className="w-48 pl-9 h-7 bg-muted/30 border-0 rounded-md focus:bg-background focus:ring-1 focus:ring-ring transition-colors text-sm"
                 />
               </div>
               <ThemeToggle />
