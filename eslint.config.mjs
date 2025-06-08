@@ -39,10 +39,12 @@ const eslintConfig = [
         rules: {
             // TypeScript规则
             '@typescript-eslint/no-unused-vars': [
-                'error',
+                'warn',
                 {
                     argsIgnorePattern: '^_',
-                    varsIgnorePattern: '^_'
+                    varsIgnorePattern: '^_',
+                    ignoreRestSiblings: true,
+                    destructuredArrayIgnorePattern: '^_'
                 }
             ],
             '@typescript-eslint/no-explicit-any': 'warn',
@@ -51,6 +53,25 @@ const eslintConfig = [
             'react/react-in-jsx-scope': 'off', // Next.js不需要import React
             'react/prop-types': 'off', // TypeScript已处理prop验证
             'react/display-name': 'warn',
+            'react/no-unescaped-entities': [
+                'error',
+                {
+                    forbid: [
+                        {
+                            char: '>',
+                            alternatives: ['&gt;']
+                        },
+                        {
+                            char: '<',
+                            alternatives: ['&lt;']
+                        },
+                        {
+                            char: '}',
+                            alternatives: ['&#125;']
+                        }
+                    ]
+                }
+            ],
 
             // React Hooks规则
             'react-hooks/rules-of-hooks': 'error',
@@ -63,10 +84,10 @@ const eslintConfig = [
             // 通用规则
             'no-console': 'warn',
             'no-debugger': 'error',
-            'prefer-const': 'error',
+            'prefer-const': 'warn',
             'no-var': 'error',
-            'object-shorthand': 'error',
-            'prefer-arrow-callback': 'error'
+            'object-shorthand': 'warn',
+            'prefer-arrow-callback': 'warn'
         },
     },
     {

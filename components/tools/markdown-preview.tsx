@@ -98,7 +98,7 @@ function greet(name) {
       .replace(/^(?!<[h|l|b|p|u])(.*)$/gm, '<p>$1</p>');
 
     // 包装列表项
-    html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+    html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
 
     // 清理多余的标签
     html = html.replace(/<\/ul>\s*<ul>/g, '');
@@ -106,8 +106,8 @@ function greet(name) {
     html = html.replace(/<p>(<h[1-6]>.*<\/h[1-6]>)<\/p>/g, '$1');
     html = html.replace(/<p>(<hr>)<\/p>/g, '$1');
     html = html.replace(/<p>(<blockquote>.*<\/blockquote>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<pre>.*<\/pre>)<\/p>/gs, '$1');
-    html = html.replace(/<p>(<ul>.*<\/ul>)<\/p>/gs, '$1');
+    html = html.replace(/<p>(<pre>[\s\S]*?<\/pre>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<ul>[\s\S]*?<\/ul>)<\/p>/g, '$1');
 
     return html;
   };
