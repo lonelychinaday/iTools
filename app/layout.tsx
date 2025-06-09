@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import { Orbitron } from 'next/font/google';
+import { Lilita_One } from 'next/font/google';
 import './globals.css';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Analytics } from '@vercel/analytics/next';
 
-const orbitron = Orbitron({
-  weight: ['400', '700'],
+const lilitaOne = Lilita_One({
+  weight: ['400'],
   subsets: ['latin'],
-  variable: '--font-orbitron',
+  variable: '--font-lilita-one',
 });
 export const metadata: Metadata = {
   title: 'iTools - 工具箱',
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='zh-CN'>
-      <body className={`${orbitron.variable}`} suppressHydrationWarning={true}>
+      <body className={`${lilitaOne.variable}`} suppressHydrationWarning={true}>
         {children}
         <SpeedInsights />
         <Analytics />

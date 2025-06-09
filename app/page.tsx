@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Search, Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,48 +11,15 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { useTheme } from 'next-themes';
 
-// Logo组件 - 与favicon.svg保持一致的设计
 function Logo() {
   return (
-    <div
-      className='w-5 h-5 rounded bg-primary relative overflow-hidden'
-      style={{ borderRadius: '3px' }}
-    >
-      {/* 旋转的正方形 - 对应favicon中的 rect x="6" y="8" width="6" height="6" */}
-      <div
-        className='absolute bg-primary-foreground'
-        style={{
-          left: '3.75px', // 6 * 20/32
-          top: '5px', // 8 * 20/32
-          width: '3.75px', // 6 * 20/32
-          height: '3.75px', // 6 * 20/32
-          borderRadius: '1.25px', // 2 * 20/32
-          transform: 'rotate(45deg)',
-          transformOrigin: '1.875px 1.875px', // 围绕中心旋转
-        }}
-      ></div>
-      {/* 水平矩形 - 对应favicon中的 rect x="8" y="20" width="8" height="2" */}
-      <div
-        className='absolute bg-primary-foreground'
-        style={{
-          left: '5px', // 8 * 20/32
-          top: '12.5px', // 20 * 20/32
-          width: '5px', // 8 * 20/32
-          height: '1.25px', // 2 * 20/32
-          borderRadius: '0.625px', // 1 * 20/32
-        }}
-      ></div>
-      {/* 圆形 - 对应favicon中的 circle cx="22" cy="22" r="4" */}
-      <div
-        className='absolute bg-primary-foreground rounded-full'
-        style={{
-          left: '11.25px', // 22 * 20/32 - 2.5 (半径)
-          top: '11.25px', // 22 * 20/32 - 2.5 (半径)
-          width: '5px', // 4 * 20/32 * 2 (直径)
-          height: '5px', // 4 * 20/32 * 2 (直径)
-        }}
-      ></div>
-    </div>
+    <Image
+      src='/icon.svg'
+      alt='iTools Logo'
+      width={20}
+      height={20}
+      className='w-5 h-5'
+    />
   );
 }
 
@@ -84,7 +52,7 @@ export default function Home() {
               {/* Logo and title - always visible */}
               <div className='flex items-center gap-2 flex-shrink-0'>
                 <Logo />
-                <span className='font-orbitron text-foreground text-lg tracking-wider font-bold'>
+                <span className='font-lilita-one text-foreground text-lg tracking-wider font-bold'>
                   iTools
                 </span>
               </div>
