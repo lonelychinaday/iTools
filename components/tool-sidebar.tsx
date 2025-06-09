@@ -56,11 +56,11 @@ export function ToolSidebar({
               <div key={category.id} className='space-y-1'>
                 <Button
                   variant='ghost'
-                  className='w-full justify-between px-0 py-1.5 h-auto text-sm hover:bg-muted/50 text-muted-foreground'
+                  className='w-full justify-between px-0 py-1.5 h-auto text-sm font-semibold text-muted-foreground hover:bg-muted/50'
                   onClick={() => toggleCategory(category.id)}
                 >
                   <div className='flex items-center gap-2'>
-                    <category.icon className='h-4 w-4' />
+                    <category.icon className='h-4 w-4 text-muted-foreground' />
                     <span className='font-normal'>{category.name}</span>
                   </div>
                   {expandedCategories.includes(category.id) ? (
@@ -76,24 +76,26 @@ export function ToolSidebar({
                       <Button
                         key={tool.id}
                         variant='ghost'
-                        className={`w-full justify-start px-2 py-1.5 h-auto text-left text-sm rounded-md ${
+                        className={cn(
+                          'w-full justify-start px-2 py-1.5 h-auto text-left text-sm hover:bg-muted/70',
                           selectedTool === tool.id
-                            ? ''
-                            : 'hover-green text-foreground'
-                        }`}
-                        style={{
-                          backgroundColor:
-                            selectedTool === tool.id ? '#e9f5ef' : undefined,
-                          color:
-                            selectedTool === tool.id ? '#18a058' : undefined,
-                        }}
+                            ? 'bg-accent text-accent-foreground font-medium'
+                            : 'text-muted-foreground hover:text-foreground font-normal'
+                        )}
                         onClick={() => {
                           onToolSelect(tool.id);
                           onClose();
                         }}
                       >
                         <div className='flex items-center gap-2'>
-                          <tool.icon className='h-3.5 w-3.5 flex-shrink-0' />
+                          <tool.icon
+                            className={cn(
+                              'h-3.5 w-3.5 flex-shrink-0',
+                              selectedTool === tool.id
+                                ? 'text-accent-foreground'
+                                : 'text-muted-foreground'
+                            )}
+                          />
                           <span className='text-sm truncate'>{tool.name}</span>
                         </div>
                       </Button>
