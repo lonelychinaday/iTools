@@ -5,7 +5,6 @@ import { Moon, Sun, Grid3X3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToolHome } from '@/components/tool-home';
 import { Logo as LogoComponent } from '@/components/ui/logo';
-import { ThemeProvider } from '@/components/theme-provider';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 
@@ -28,52 +27,50 @@ export default function Home() {
   };
 
   return (
-    <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
-      <div className='min-h-screen bg-background flex flex-col'>
-        {/* Header */}
-        <header className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0'>
-          <div className='flex h-12 items-center justify-between px-4'>
-            {/* Left section with logo and title */}
-            <div className='flex items-center min-w-0 flex-1'>
-              {/* Logo and title */}
-              <div className='flex items-center gap-2 flex-shrink-0'>
-                <div className='p-1'>
-                  <Logo />
-                </div>
-                <span className='font-lilita-one text-foreground text-lg tracking-wider font-bold'>
-                  iTools
-                </span>
+    <div className='min-h-screen bg-background flex flex-col'>
+      {/* Header */}
+      <header className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0'>
+        <div className='flex h-12 items-center justify-between px-4'>
+          {/* Left section with logo and title */}
+          <div className='flex items-center min-w-0 flex-1'>
+            {/* Logo and title */}
+            <div className='flex items-center gap-2 flex-shrink-0'>
+              <div className='p-1'>
+                <Logo />
               </div>
-            </div>
-
-            {/* Right section with tool list button and theme toggle */}
-            <div className='flex items-center gap-3 flex-shrink-0'>
-              {/* Tool List button */}
-              <Button
-                variant='ghost'
-                size='sm'
-                className='hidden sm:flex items-center gap-1 rounded-lg'
-                onClick={handleShowToolList}
-              >
-                <Grid3X3 className='h-4 w-4' />
-                <span className='text-sm'>工具列表</span>
-              </Button>
-
-              <ThemeToggle />
+              <span className='font-lilita-one text-foreground text-lg tracking-wider font-bold'>
+                iTools
+              </span>
             </div>
           </div>
-        </header>
 
-        {/* Main Content */}
-        <main className='w-full'>
-          <ToolHome
-            onToolSelect={handleToolSelect}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-          />
-        </main>
-      </div>
-    </ThemeProvider>
+          {/* Right section with tool list button and theme toggle */}
+          <div className='flex items-center gap-3 flex-shrink-0'>
+            {/* Tool List button */}
+            <Button
+              variant='ghost'
+              size='sm'
+              className='hidden sm:flex items-center gap-1 rounded-lg'
+              onClick={handleShowToolList}
+            >
+              <Grid3X3 className='h-4 w-4' />
+              <span className='text-sm'>工具列表</span>
+            </Button>
+
+            <ThemeToggle />
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className='w-full'>
+        <ToolHome
+          onToolSelect={handleToolSelect}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
+      </main>
+    </div>
   );
 }
 
