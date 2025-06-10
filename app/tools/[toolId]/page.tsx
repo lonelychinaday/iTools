@@ -28,6 +28,7 @@ function Logo() {
 export default function ToolPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const router = useRouter();
   const params = useParams();
   const toolId = params.toolId as string;
@@ -55,6 +56,11 @@ export default function ToolPage() {
   // 返回首页
   const handleGoHome = () => {
     router.push('/');
+  };
+
+  // 切换桌面端侧边栏收起/展开
+  const handleToggleSidebarCollapse = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
   };
 
   // 如果工具ID无效，不渲染任何内容
@@ -157,10 +163,17 @@ export default function ToolPage() {
           {/* Sidebar */}
           <div
             className={`
-              fixed top-12 bottom-0 left-0 z-40 w-52 transform transition-transform duration-200 ease-in-out
+              fixed top-12 bottom-0 left-0 z-40 transform transition-transform duration-200 ease-in-out
               md:relative md:top-0 md:translate-x-0 md:z-0 md:flex-shrink-0
               ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             `}
+            style={{
+              width: sidebarOpen
+                ? '208px'
+                : sidebarCollapsed
+                  ? '48px'
+                  : '208px',
+            }}
           >
             <ToolSidebar
               selectedTool={toolId}
@@ -168,6 +181,8 @@ export default function ToolPage() {
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
               onClose={() => setSidebarOpen(false)}
+              collapsed={sidebarCollapsed}
+              onToggleCollapse={handleToggleSidebarCollapse}
             />
           </div>
 
