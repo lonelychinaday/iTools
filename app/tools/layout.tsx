@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { ToolSidebar } from '@/components/tool-sidebar';
 import { Header } from '@/components/ui/header';
+import { CommandPalette } from '@/components/ui/command-palette';
+import { useCommandPalette } from '@/hooks/use-command-palette';
 import { useRouter, usePathname } from 'next/navigation';
 import { toolCategories } from '@/lib/tools';
 
@@ -18,6 +20,7 @@ export default function ToolsLayout({
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { open, setOpen, openCommandPalette } = useCommandPalette();
 
   // 从pathname提取当前工具ID
   const pathSegments = pathname.split('/');
@@ -61,6 +64,7 @@ export default function ToolsLayout({
         onSearchChange={setSearchQuery}
         selectedTool={isValidTool ? toolId : undefined}
         onToolSelect={handleToolSelect}
+        onCommandPaletteTrigger={openCommandPalette}
       />
 
       <div className='flex flex-1'>
@@ -103,6 +107,9 @@ export default function ToolsLayout({
         {/* Main Content */}
         <main className='flex-1 relative'>{children}</main>
       </div>
+
+      {/* 统一的命令面板 */}
+      <CommandPalette open={open} onOpenChange={setOpen} />
     </div>
   );
 }

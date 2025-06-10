@@ -17,12 +17,14 @@ interface ToolHomeProps {
   onToolSelect: (toolId: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onCommandPaletteTrigger?: () => void;
 }
 
 export function ToolHome({
   onToolSelect,
   searchQuery,
   onSearchChange,
+  onCommandPaletteTrigger,
 }: ToolHomeProps) {
   // 获取所有工具的平铺列表
   const allTools = toolCategories.flatMap(category =>
@@ -63,11 +65,14 @@ export function ToolHome({
             {/* 搜索框 */}
             <div className='max-w-md mx-auto mt-8'>
               <SearchBox
-                value={searchQuery}
-                onChange={onSearchChange}
+                value=''
+                onChange={() => {}}
                 placeholder='搜索工具'
                 size='lg'
                 variant='home'
+                showShortcut={true}
+                triggerCommandPalette={true}
+                onCommandPaletteTrigger={onCommandPaletteTrigger}
               />
             </div>
           </div>

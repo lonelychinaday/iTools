@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -27,6 +28,12 @@ export interface SearchBoxProps {
   size?: 'sm' | 'md' | 'lg';
   /** 样式变体 */
   variant?: 'default' | 'header' | 'home';
+  /** 是否显示快捷键提示 */
+  showShortcut?: boolean;
+  /** 点击时是否触发命令面板 */
+  triggerCommandPalette?: boolean;
+  /** 命令面板触发回调 */
+  onCommandPaletteTrigger?: () => void;
 }
 
 /**
@@ -45,11 +52,34 @@ export function SearchBox({
   disabled = false,
   size = 'md',
   variant = 'default',
+  showShortcut = false,
+  triggerCommandPalette = false,
+  onCommandPaletteTrigger,
 }: SearchBoxProps) {
   // 清除搜索内容
   const handleClear = () => {
     onChange('');
   };
+
+  // 处理输入框点击
+  const handleInputClick = () => {
+    if (triggerCommandPalette && onCommandPaletteTrigger) {
+      onCommandPaletteTrigger();
+    }
+  };
+
+  // 使用状态管理操作系统检测，避免SSR水合错误
+  const [isMac, setIsMac] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // 只在客户端执行
+    setIsClient(true);
+    setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.platform));
+  }, []);
+
+  // 获取快捷键文本
+  const shortcutText = isMac ? '⌘K' : 'Ctrl+K';
 
   // 根据尺寸设置样式
   const sizeStyles = {
@@ -106,19 +136,37 @@ export function SearchBox({
       <Input
         type='text'
         placeholder={placeholder}
-        value={value}
-        onChange={e => onChange(e.target.value)}
+        value={triggerCommandPalette ? '' : value}
+        onChange={
+          triggerCommandPalette ? undefined : e => onChange(e.target.value)
+        }
+        onClick={handleInputClick}
         disabled={disabled}
+        readOnly={triggerCommandPalette}
         className={cn(
           currentSizeStyles.input,
           currentVariantStyles.input,
           'relative z-0',
+          triggerCommandPalette && 'cursor-pointer',
           inputClassName
         )}
       />
 
+      {/* 快捷键提示 */}
+      {showShortcut && isClient && (
+        <div
+          className={cn(
+            'absolute top-1/2 -translate-y-1/2 right-3 text-xs text-muted-foreground/60 pointer-events-none z-10 border border-border/30 rounded px-1.5 py-0.5 bg-muted/30',
+            size === 'sm' && 'right-2 text-xs',
+            size === 'lg' && 'right-3 text-sm'
+          )}
+        >
+          {shortcutText}
+        </div>
+      )}
+
       {/* 清除按钮 */}
-      {showClearButton && value && (
+      {showClearButton && value && !triggerCommandPalette && (
         <button
           onClick={handleClear}
           disabled={disabled}

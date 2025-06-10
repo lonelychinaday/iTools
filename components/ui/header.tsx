@@ -45,6 +45,9 @@ export interface HeaderProps {
   // 首页相关props
   onShowToolList?: () => void;
 
+  // 命令面板相关props
+  onCommandPaletteTrigger?: () => void;
+
   // 自定义className
   className?: string;
 }
@@ -58,6 +61,7 @@ export function Header({
   selectedTool,
   onToolSelect,
   onShowToolList,
+  onCommandPaletteTrigger,
   className = '',
 }: HeaderProps) {
   const router = useRouter();
@@ -185,12 +189,15 @@ export function Header({
           {/* Search */}
           <div className='hidden sm:block'>
             <SearchBox
-              value={searchQuery}
-              onChange={onSearchChange || (() => {})}
+              value=''
+              onChange={() => {}}
               placeholder='搜索工具...'
               size='sm'
               variant='header'
               className='w-48'
+              showShortcut={true}
+              triggerCommandPalette={true}
+              onCommandPaletteTrigger={onCommandPaletteTrigger}
             />
           </div>
 
