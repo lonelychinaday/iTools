@@ -1,7 +1,6 @@
 'use client';
 
-import { Search, X } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { SearchBox } from '@/components/ui/search-box';
 import { Logo } from '@/components/ui/logo';
 import {
   Card,
@@ -63,23 +62,13 @@ export function ToolHome({
 
             {/* 搜索框 */}
             <div className='max-w-md mx-auto mt-8'>
-              <div className='relative'>
-                <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10 pointer-events-none' />
-                <Input
-                  placeholder='搜索工具'
-                  value={searchQuery}
-                  onChange={e => onSearchChange(e.target.value)}
-                  className='pl-10 pr-10 h-11 bg-muted/50 border border-border/20 backdrop-blur-sm focus:bg-background transition-colors relative z-0'
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => onSearchChange('')}
-                    className='absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10'
-                  >
-                    <X className='h-4 w-4' />
-                  </button>
-                )}
-              </div>
+              <SearchBox
+                value={searchQuery}
+                onChange={onSearchChange}
+                placeholder='搜索工具'
+                size='lg'
+                variant='home'
+              />
             </div>
           </div>
         </div>

@@ -1,16 +1,8 @@
 'use client';
 
-import {
-  Search,
-  Moon,
-  Sun,
-  Menu,
-  X,
-  Home as HomeIcon,
-  Grid3X3,
-} from 'lucide-react';
+import { Moon, Sun, Menu, X, Home as HomeIcon, Grid3X3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { SearchBox } from '@/components/ui/search-box';
 import { Logo as LogoComponent } from '@/components/ui/logo';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { useTheme } from 'next-themes';
@@ -92,11 +84,6 @@ export function Header({
   const handleShowToolList = () => {
     onShowToolList?.();
     router.push('/tools');
-  };
-
-  // 处理搜索清除
-  const handleClearSearch = () => {
-    onSearchChange?.('');
   };
 
   // 渲染首页Header
@@ -196,22 +183,15 @@ export function Header({
         {/* Right section with search and theme toggle */}
         <div className='flex items-center gap-1 flex-shrink-0'>
           {/* Search */}
-          <div className='relative hidden sm:block'>
-            <Search className='absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none z-10' />
-            <Input
-              placeholder='搜索工具...'
+          <div className='hidden sm:block'>
+            <SearchBox
               value={searchQuery}
-              onChange={e => onSearchChange?.(e.target.value)}
-              className='w-48 pl-8 pr-8 h-8 bg-muted/50 border border-border/20 rounded-md focus:bg-background focus:ring-1 focus:ring-ring/30 transition-all text-sm placeholder:text-muted-foreground/70'
+              onChange={onSearchChange || (() => {})}
+              placeholder='搜索工具...'
+              size='sm'
+              variant='header'
+              className='w-48'
             />
-            {searchQuery && (
-              <button
-                onClick={handleClearSearch}
-                className='absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-foreground transition-colors z-10'
-              >
-                <X className='h-3 w-3' />
-              </button>
-            )}
           </div>
 
           {/* Tool List button - Mobile only */}
