@@ -1,16 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Moon, Sun, Grid3X3 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { ToolHome } from '@/components/tool-home';
-import { Logo as LogoComponent } from '@/components/ui/logo';
-import { useTheme } from 'next-themes';
+import { Header } from '@/components/ui/header';
 import { useRouter } from 'next/navigation';
-
-function Logo() {
-  return <LogoComponent size='sm' />;
-}
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,38 +22,7 @@ export default function Home() {
   return (
     <div className='min-h-screen bg-background flex flex-col'>
       {/* Header */}
-      <header className='bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0'>
-        <div className='flex h-12 items-center justify-between px-4'>
-          {/* Left section with logo and title */}
-          <div className='flex items-center min-w-0 flex-1'>
-            {/* Logo and title */}
-            <div className='flex items-center gap-2 flex-shrink-0'>
-              <div className='p-1'>
-                <Logo />
-              </div>
-              <span className='font-lilita-one text-foreground text-lg tracking-wider font-bold'>
-                iTools
-              </span>
-            </div>
-          </div>
-
-          {/* Right section with tool list button and theme toggle */}
-          <div className='flex items-center gap-1 flex-shrink-0'>
-            {/* Tool List button */}
-            <Button
-              variant='ghost'
-              size='sm'
-              className='flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
-              onClick={handleShowToolList}
-            >
-              <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-px' />
-              <span className='leading-4 hidden sm:inline'>工具列表</span>
-            </Button>
-
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <Header variant='home' onShowToolList={handleShowToolList} />
 
       {/* Main Content */}
       <main className='w-full'>
@@ -71,22 +33,5 @@ export default function Home() {
         />
       </main>
     </div>
-  );
-}
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
-  return (
-    <Button
-      variant='ghost'
-      size='sm'
-      className='h-8 w-8 p-0 rounded-md hover:bg-muted/40 transition-colors'
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-    >
-      <Sun className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
-      <Moon className='absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
-      <span className='sr-only'>切换主题</span>
-    </Button>
   );
 }

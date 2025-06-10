@@ -1,0 +1,234 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import {
+  Search,
+  Moon,
+  Sun,
+  Menu,
+  X,
+  Home as HomeIcon,
+  Grid3X3,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Logo as LogoComponent } from '@/components/ui/logo';
+import { Breadcrumb } from '@/components/breadcrumb';
+import { useTheme } from 'next-themes';
+import { useRouter, usePathname } from 'next/navigation';
+import { toolCategories } from '@/lib/tools';
+
+function Logo() {
+  return <LogoComponent size='sm' />;
+}
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <Button
+      variant='ghost'
+      size='sm'
+      className='h-8 w-8 p-0 rounded-md hover:bg-muted/40 transition-colors'
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+    >
+      <Sun className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+      <Moon className='absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
+      <span className='sr-only'>切换主题</span>
+    </Button>
+  );
+}
+
+export interface HeaderProps {
+  // Header类型：home为首页，tools为工具页面
+  variant?: 'home' | 'tools';
+
+  // 工具页面相关props
+  sidebarOpen?: boolean;
+  onSidebarToggle?: () => void;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+  selectedTool?: string;
+  onToolSelect?: (toolId: string) => void;
+
+  // 首页相关props
+  onShowToolList?: () => void;
+
+  // 自定义className
+  className?: string;
+}
+
+export function Header({
+  variant = 'home',
+  sidebarOpen = false,
+  onSidebarToggle,
+  searchQuery = '',
+  onSearchChange,
+  selectedTool,
+  onToolSelect,
+  onShowToolList,
+  className = '',
+}: HeaderProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // 从pathname提取当前工具ID
+  const pathSegments = pathname.split('/');
+  const toolId = pathSegments.length > 2 ? pathSegments[2] : '';
+
+  // 验证工具ID是否有效
+  const isValidTool = Boolean(
+    toolId &&
+      toolCategories.some(category =>
+        category.tools.some(tool => tool.id === toolId)
+      )
+  );
+
+  // 返回首页
+  const handleGoHome = () => {
+    router.push('/');
+  };
+
+  // 进入工具列表
+  const handleShowToolList = () => {
+    onShowToolList?.();
+    router.push('/tools');
+  };
+
+  // 处理搜索清除
+  const handleClearSearch = () => {
+    onSearchChange?.('');
+  };
+
+  // 渲染首页Header
+  if (variant === 'home') {
+    return (
+      <header
+        className={`bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0 ${className}`}
+      >
+        <div className='flex h-12 items-center justify-between px-4'>
+          {/* Left section with logo and title */}
+          <div className='flex items-center min-w-0 flex-1'>
+            {/* Logo and title - always visible */}
+            <div className='flex items-center gap-2 flex-shrink-0'>
+              <div className='p-1 cursor-pointer' onClick={handleGoHome}>
+                <Logo />
+              </div>
+              <Button
+                variant='ghost'
+                className='p-0 h-auto font-lilita-one text-foreground text-lg tracking-wider font-bold hover:bg-transparent'
+                onClick={handleGoHome}
+              >
+                iTools
+              </Button>
+            </div>
+          </div>
+
+          {/* Right section with tool list button and theme toggle */}
+          <div className='flex items-center gap-1 flex-shrink-0'>
+            <Button
+              variant='ghost'
+              size='sm'
+              className='flex items-center gap-1 md:gap-1.5 h-8 px-1.5 md:px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+              onClick={handleShowToolList}
+            >
+              <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
+              <span className='leading-4 inline'>工具列表</span>
+            </Button>
+            <ThemeToggle />
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  // 渲染工具页面Header
+  return (
+    <header
+      className={`border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 flex-shrink-0 md:sticky md:top-0 md:z-50 ${className}`}
+    >
+      <div className='flex h-12 items-center justify-between px-4'>
+        {/* Left section with logo, title and breadcrumb */}
+        <div className='flex items-center min-w-0 flex-1'>
+          <Button
+            variant='ghost'
+            size='icon'
+            className='md:hidden flex-shrink-0 w-8 h-8'
+            onClick={onSidebarToggle}
+          >
+            {sidebarOpen ? (
+              <X className='h-4 w-4' />
+            ) : (
+              <Menu className='h-4 w-4' />
+            )}
+          </Button>
+
+          {/* Logo and title - always visible */}
+          <div className='flex items-center gap-2 flex-shrink-0'>
+            <div className='p-1 cursor-pointer' onClick={handleGoHome}>
+              <Logo />
+            </div>
+            <Button
+              variant='ghost'
+              className='p-0 h-auto font-lilita-one text-foreground text-lg tracking-wider font-bold hover:bg-transparent'
+              onClick={handleGoHome}
+            >
+              iTools
+            </Button>
+          </div>
+
+          {/* Desktop: Show separator and breadcrumb */}
+          {isValidTool && (
+            <div className='hidden md:flex items-center'>
+              <span
+                aria-hidden='true'
+                className='text-muted-foreground/40 w-4 min-w-4 select-none text-center text-lg mx-1'
+              >
+                /
+              </span>
+              <Breadcrumb
+                selectedTool={selectedTool || toolId}
+                onToolSelect={onToolSelect || (() => {})}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Right section with search and theme toggle */}
+        <div className='flex items-center gap-1 flex-shrink-0'>
+          {/* Search */}
+          <div className='relative hidden sm:block'>
+            <Search className='absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none z-10' />
+            <Input
+              placeholder='搜索工具...'
+              value={searchQuery}
+              onChange={e => onSearchChange?.(e.target.value)}
+              className='w-48 pl-8 pr-8 h-8 bg-muted/30 border-0 rounded-md focus:bg-background focus:ring-1 focus:ring-ring/30 transition-all text-sm placeholder:text-muted-foreground/70'
+            />
+            {searchQuery && (
+              <button
+                onClick={handleClearSearch}
+                className='absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-foreground transition-colors z-10'
+              >
+                <X className='h-3 w-3' />
+              </button>
+            )}
+          </div>
+
+          {/* Home button */}
+          <Button
+            variant='ghost'
+            size='sm'
+            className='hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+            onClick={handleGoHome}
+          >
+            <HomeIcon className='h-4 w-4 flex-shrink-0' />
+            <span className='leading-4'>首页</span>
+          </Button>
+
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+  );
+}
