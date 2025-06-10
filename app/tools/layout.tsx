@@ -39,8 +39,8 @@ export default function ToolsLayout({
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // 初始状态总是true（收起），避免SSR不一致
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
+  // 初始状态总是false（展开），避免SSR不一致
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -50,11 +50,12 @@ export default function ToolsLayout({
   const toolId = pathSegments.length > 2 ? pathSegments[2] : '';
 
   // 验证工具ID是否有效
-  const isValidTool =
+  const isValidTool = Boolean(
     toolId &&
-    toolCategories.some(category =>
-      category.tools.some(tool => tool.id === toolId)
-    );
+      toolCategories.some(category =>
+        category.tools.some(tool => tool.id === toolId)
+      )
+  );
 
   // 客户端hydration后设置标志
   useEffect(() => {
@@ -81,9 +82,9 @@ export default function ToolsLayout({
   };
 
   return (
-    <div className='h-screen overflow-hidden bg-background flex flex-col'>
+    <div className='min-h-screen md:h-screen md:overflow-hidden bg-background flex flex-col'>
       {/* Header */}
-      <header className='border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0'>
+      <header className='border-b static md:sticky md:top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0'>
         <div className='flex h-12 items-center justify-between px-4'>
           {/* Left section with logo, title and breadcrumb */}
           <div className='flex items-center min-w-0 flex-1'>
@@ -173,12 +174,12 @@ export default function ToolsLayout({
         </div>
       </header>
 
-      <div className='flex flex-1 overflow-hidden'>
+      <div className='flex flex-1'>
         {/* Sidebar */}
         <div
           className={`
-              fixed top-12 bottom-0 left-0 z-40 transform transition-transform duration-200 ease-in-out
-              md:relative md:top-0 md:translate-x-0 md:z-0 md:flex-shrink-0
+              fixed top-12 md:top-0 bottom-0 left-0 z-40 transform transition-transform duration-200 ease-in-out bg-background
+              md:relative md:translate-x-0 md:z-0 md:flex-shrink-0
               ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             `}
           style={{
@@ -205,7 +206,7 @@ export default function ToolsLayout({
         )}
 
         {/* Main Content */}
-        <main className='flex-1 overflow-hidden'>{children} </main>
+        <main className='flex-1 relative'>{children}</main>
       </div>
     </div>
   );

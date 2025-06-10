@@ -50,11 +50,11 @@ export default function Home() {
             <Button
               variant='ghost'
               size='sm'
-              className='hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+              className='flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
               onClick={handleShowToolList}
             >
               <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-px' />
-              <span className='leading-4'>工具列表</span>
+              <span className='leading-4 hidden sm:inline'>工具列表</span>
             </Button>
 
             <ThemeToggle />
