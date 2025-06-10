@@ -66,8 +66,11 @@ export function Base64Tool() {
 
   return (
     <div className='p-6 space-y-6'>
-      <div>
-        <h1 className='text-2xl font-bold'>Base64 编码/解码工具</h1>
+      {/* 页面标题区域 */}
+      <div className='space-y-2'>
+        <h1 className='text-2xl font-bold tracking-tight'>
+          Base64 编码/解码工具
+        </h1>
         <p className='text-muted-foreground'>Base64 格式的编码和解码转换</p>
       </div>
 
@@ -79,9 +82,10 @@ export function Base64Tool() {
 
         <TabsContent value='encode' className='space-y-6'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+            {/* 编码输入面板 */}
             <Card>
-              <CardHeader>
-                <CardTitle>原始文本</CardTitle>
+              <CardHeader className='pb-4'>
+                <CardTitle className='text-lg'>原始文本</CardTitle>
                 <CardDescription>输入需要编码的文本</CardDescription>
               </CardHeader>
               <CardContent className='space-y-4'>
@@ -89,34 +93,35 @@ export function Base64Tool() {
                   placeholder='请输入要编码的文本...'
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  className='min-h-[200px]'
+                  className='min-h-[250px] resize-none'
                 />
-                <Button onClick={encode} className='w-full'>
+                <Button onClick={encode} className='w-full h-10'>
                   编码为 Base64
                 </Button>
               </CardContent>
             </Card>
 
+            {/* 编码结果面板 */}
             <Card>
-              <CardHeader>
-                <CardTitle>Base64 结果</CardTitle>
+              <CardHeader className='pb-4'>
+                <CardTitle className='text-lg'>Base64 结果</CardTitle>
                 <CardDescription>编码后的 Base64 字符串</CardDescription>
               </CardHeader>
               <CardContent className='space-y-4'>
                 <Textarea
                   value={output}
                   readOnly
-                  className='min-h-[200px] font-mono'
+                  className='min-h-[250px] font-mono text-sm resize-none'
                   placeholder='编码结果将显示在这里...'
                 />
                 <Button
                   onClick={copyToClipboard}
                   disabled={!output}
                   variant='outline'
-                  className='w-full'
+                  className='w-full h-10'
                 >
                   {copied ? (
-                    <Check className='h-4 w-4 mr-2' />
+                    <Check className='h-4 w-4 mr-2 text-green-600' />
                   ) : (
                     <Copy className='h-4 w-4 mr-2' />
                   )}
@@ -129,9 +134,10 @@ export function Base64Tool() {
 
         <TabsContent value='decode' className='space-y-6'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+            {/* 解码输入面板 */}
             <Card>
-              <CardHeader>
-                <CardTitle>Base64 字符串</CardTitle>
+              <CardHeader className='pb-4'>
+                <CardTitle className='text-lg'>Base64 字符串</CardTitle>
                 <CardDescription>输入需要解码的 Base64 字符串</CardDescription>
               </CardHeader>
               <CardContent className='space-y-4'>
@@ -139,34 +145,35 @@ export function Base64Tool() {
                   placeholder='请输入 Base64 字符串...'
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  className='min-h-[200px] font-mono'
+                  className='min-h-[250px] font-mono text-sm resize-none'
                 />
-                <Button onClick={decode} className='w-full'>
+                <Button onClick={decode} className='w-full h-10'>
                   解码 Base64
                 </Button>
               </CardContent>
             </Card>
 
+            {/* 解码结果面板 */}
             <Card>
-              <CardHeader>
-                <CardTitle>解码结果</CardTitle>
+              <CardHeader className='pb-4'>
+                <CardTitle className='text-lg'>解码结果</CardTitle>
                 <CardDescription>解码后的原始文本</CardDescription>
               </CardHeader>
               <CardContent className='space-y-4'>
                 <Textarea
                   value={output}
                   readOnly
-                  className='min-h-[200px]'
+                  className='min-h-[250px] resize-none'
                   placeholder='解码结果将显示在这里...'
                 />
                 <Button
                   onClick={copyToClipboard}
                   disabled={!output}
                   variant='outline'
-                  className='w-full'
+                  className='w-full h-10'
                 >
                   {copied ? (
-                    <Check className='h-4 w-4 mr-2' />
+                    <Check className='h-4 w-4 mr-2 text-green-600' />
                   ) : (
                     <Copy className='h-4 w-4 mr-2' />
                   )}
@@ -178,18 +185,32 @@ export function Base64Tool() {
         </TabsContent>
       </Tabs>
 
+      {/* 使用说明 */}
       <Card>
-        <CardHeader>
-          <CardTitle>使用说明</CardTitle>
+        <CardHeader className='pb-4'>
+          <CardTitle className='text-lg'>使用说明</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className='space-y-2 text-sm text-muted-foreground'>
-            <li>• Base64 是一种基于64个可打印字符来表示二进制数据的编码方式</li>
-            <li>• 常用于在文本协议中传输二进制数据</li>
-            <li>• 编码：将普通文本转换为 Base64 格式</li>
-            <li>• 解码：将 Base64 格式转换回原始文本</li>
-            <li>• 支持中文和特殊字符的编码解码</li>
-          </ul>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground'>
+            <div className='space-y-2'>
+              <h4 className='font-medium text-foreground'>Base64 特点</h4>
+              <ul className='space-y-1'>
+                <li>• 基于64个可打印字符的编码方式</li>
+                <li>• 将3个字节转换为4个字符</li>
+                <li>• 编码后数据长度增加约33%</li>
+                <li>• 支持中文和特殊字符</li>
+              </ul>
+            </div>
+            <div className='space-y-2'>
+              <h4 className='font-medium text-foreground'>应用场景</h4>
+              <ul className='space-y-1'>
+                <li>• 电子邮件附件传输</li>
+                <li>• 网页中嵌入图片数据</li>
+                <li>• API 接口数据传输</li>
+                <li>• 配置文件中存储二进制数据</li>
+              </ul>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>

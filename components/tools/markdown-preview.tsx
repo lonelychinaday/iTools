@@ -132,8 +132,9 @@ function greet(name) {
 
   return (
     <div className='p-6 space-y-6'>
-      <div>
-        <h1 className='text-2xl font-bold'>Markdown 预览工具</h1>
+      {/* 页面标题区域 */}
+      <div className='space-y-2'>
+        <h1 className='text-2xl font-bold tracking-tight'>Markdown 预览工具</h1>
         <p className='text-muted-foreground'>实时预览 Markdown 格式文档</p>
       </div>
 
@@ -154,24 +155,24 @@ function greet(name) {
 
         <TabsContent value='edit'>
           <Card>
-            <CardHeader>
-              <CardTitle>Markdown 编辑器</CardTitle>
+            <CardHeader className='pb-4'>
+              <CardTitle className='text-lg'>Markdown 编辑器</CardTitle>
               <CardDescription>输入 Markdown 格式的文本</CardDescription>
             </CardHeader>
             <CardContent className='space-y-4'>
               <Textarea
                 value={markdown}
                 onChange={e => setMarkdown(e.target.value)}
-                className='min-h-[500px] font-mono text-sm'
+                className='min-h-[500px] font-mono text-sm resize-none'
                 placeholder='在这里输入 Markdown 内容...'
               />
               <Button
                 onClick={() => copyToClipboard(markdown, 'Markdown 内容')}
                 variant='outline'
-                className='w-full'
+                className='w-full h-10'
               >
                 {copied ? (
-                  <Check className='h-4 w-4 mr-2' />
+                  <Check className='h-4 w-4 mr-2 text-green-600' />
                 ) : (
                   <Copy className='h-4 w-4 mr-2' />
                 )}
@@ -183,33 +184,39 @@ function greet(name) {
 
         <TabsContent value='split'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+            {/* 编辑面板 */}
             <Card>
-              <CardHeader>
-                <CardTitle>Markdown 编辑器</CardTitle>
+              <CardHeader className='pb-4'>
+                <CardTitle className='text-lg'>Markdown 编辑器</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
                   value={markdown}
                   onChange={e => setMarkdown(e.target.value)}
-                  className='min-h-[400px] font-mono text-sm'
+                  className='min-h-[450px] font-mono text-sm resize-none'
                   placeholder='在这里输入 Markdown 内容...'
                 />
               </CardContent>
             </Card>
 
+            {/* 预览面板 */}
             <Card>
-              <CardHeader>
-                <CardTitle>实时预览</CardTitle>
+              <CardHeader className='pb-4'>
+                <CardTitle className='text-lg'>实时预览</CardTitle>
               </CardHeader>
               <CardContent>
-                <div
-                  className='min-h-[400px] prose prose-sm max-w-none'
-                  dangerouslySetInnerHTML={{ __html: markdownToHtml(markdown) }}
-                  style={{
-                    lineHeight: '1.6',
-                    color: 'inherit',
-                  }}
-                />
+                <div className='min-h-[450px] border rounded-lg p-4 bg-muted/20 overflow-auto'>
+                  <div
+                    className='prose prose-sm max-w-none dark:prose-invert'
+                    dangerouslySetInnerHTML={{
+                      __html: markdownToHtml(markdown),
+                    }}
+                    style={{
+                      lineHeight: '1.6',
+                      color: 'inherit',
+                    }}
+                  />
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -217,28 +224,30 @@ function greet(name) {
 
         <TabsContent value='preview'>
           <Card>
-            <CardHeader>
-              <CardTitle>预览结果</CardTitle>
+            <CardHeader className='pb-4'>
+              <CardTitle className='text-lg'>预览结果</CardTitle>
               <CardDescription>Markdown 渲染后的效果</CardDescription>
             </CardHeader>
             <CardContent className='space-y-4'>
-              <div
-                className='min-h-[500px] prose prose-sm max-w-none p-4 border rounded-lg'
-                dangerouslySetInnerHTML={{ __html: markdownToHtml(markdown) }}
-                style={{
-                  lineHeight: '1.6',
-                  color: 'inherit',
-                }}
-              />
+              <div className='min-h-[500px] border rounded-lg p-6 bg-muted/20 overflow-auto'>
+                <div
+                  className='prose prose-sm max-w-none dark:prose-invert'
+                  dangerouslySetInnerHTML={{ __html: markdownToHtml(markdown) }}
+                  style={{
+                    lineHeight: '1.6',
+                    color: 'inherit',
+                  }}
+                />
+              </div>
               <Button
                 onClick={() =>
                   copyToClipboard(markdownToHtml(markdown), 'HTML 内容')
                 }
                 variant='outline'
-                className='w-full'
+                className='w-full h-10'
               >
                 {copied ? (
-                  <Check className='h-4 w-4 mr-2' />
+                  <Check className='h-4 w-4 mr-2 text-green-600' />
                 ) : (
                   <Copy className='h-4 w-4 mr-2' />
                 )}
@@ -249,39 +258,48 @@ function greet(name) {
         </TabsContent>
       </Tabs>
 
+      {/* Markdown 语法参考 */}
       <Card>
-        <CardHeader>
-          <CardTitle>Markdown 语法参考</CardTitle>
+        <CardHeader className='pb-4'>
+          <CardTitle className='text-lg'>Markdown 语法参考</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-sm'>
-            <div className='space-y-2'>
-              <h4>标题</h4>
-              <code># 一级标题</code>
-              <br />
-              <code>## 二级标题</code>
-              <br />
-              <code>### 三级标题</code>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6 text-sm'>
+            <div className='space-y-3'>
+              <div className='space-y-2'>
+                <h4 className='font-medium text-foreground'>标题</h4>
+                <div className='space-y-1 font-mono text-xs bg-muted/50 p-2 rounded'>
+                  <div># 一级标题</div>
+                  <div>## 二级标题</div>
+                  <div>### 三级标题</div>
+                </div>
+              </div>
+              <div className='space-y-2'>
+                <h4 className='font-medium text-foreground'>文本样式</h4>
+                <div className='space-y-1 font-mono text-xs bg-muted/50 p-2 rounded'>
+                  <div>**粗体文字**</div>
+                  <div>*斜体文字*</div>
+                  <div>`行内代码`</div>
+                </div>
+              </div>
             </div>
-            <div className='space-y-2'>
-              <h4>文本样式</h4>
-              <code>**粗体**</code>
-              <br />
-              <code>*斜体*</code>
-              <br />
-              <code>`行内代码`</code>
-            </div>
-            <div className='space-y-2'>
-              <h4>列表</h4>
-              <code>- 无序列表</code>
-              <br />
-              <code>1. 有序列表</code>
-            </div>
-            <div className='space-y-2'>
-              <h4>链接和引用</h4>
-              <code>[链接文字](URL)</code>
-              <br />
-              <code>&gt; 引用文字</code>
+            <div className='space-y-3'>
+              <div className='space-y-2'>
+                <h4 className='font-medium text-foreground'>列表</h4>
+                <div className='space-y-1 font-mono text-xs bg-muted/50 p-2 rounded'>
+                  <div>- 无序列表项</div>
+                  <div>1. 有序列表项</div>
+                  <div> - 嵌套列表项</div>
+                </div>
+              </div>
+              <div className='space-y-2'>
+                <h4 className='font-medium text-foreground'>链接和其他</h4>
+                <div className='space-y-1 font-mono text-xs bg-muted/50 p-2 rounded'>
+                  <div>[链接文字](URL)</div>
+                  <div>&gt; 引用文字</div>
+                  <div>```代码块```</div>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>

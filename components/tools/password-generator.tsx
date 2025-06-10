@@ -90,20 +90,26 @@ export function PasswordGenerator() {
 
   return (
     <div className='p-6 space-y-6'>
-      <div>
-        <h1 className='text-2xl font-bold'>密码生成器</h1>
+      {/* 页面标题区域 */}
+      <div className='space-y-2'>
+        <h1 className='text-2xl font-bold tracking-tight'>密码生成器</h1>
         <p className='text-muted-foreground'>生成安全的随机密码</p>
       </div>
 
+      {/* 主要内容区域 */}
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+        {/* 设置面板 */}
         <Card>
-          <CardHeader>
-            <CardTitle>密码设置</CardTitle>
+          <CardHeader className='pb-4'>
+            <CardTitle className='text-lg'>密码设置</CardTitle>
             <CardDescription>配置密码生成选项</CardDescription>
           </CardHeader>
           <CardContent className='space-y-6'>
-            <div className='space-y-2'>
-              <Label>密码长度: {length[0]}</Label>
+            {/* 长度设置 */}
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>
+                密码长度: {length[0]}
+              </Label>
               <Slider
                 value={length}
                 onValueChange={setLength}
@@ -114,135 +120,195 @@ export function PasswordGenerator() {
               />
             </div>
 
+            {/* 字符类型选择 */}
             <div className='space-y-4'>
-              <div className='flex items-center space-x-2'>
-                <Checkbox
-                  id='uppercase'
-                  checked={includeUppercase}
-                  onCheckedChange={checked =>
-                    setIncludeUppercase(checked === true)
-                  }
-                />
-                <Label htmlFor='uppercase'>包含大写字母 (A-Z)</Label>
-              </div>
+              <Label className='text-sm font-medium'>字符类型</Label>
+              <div className='space-y-3'>
+                <div className='flex items-center space-x-3'>
+                  <Checkbox
+                    id='uppercase'
+                    checked={includeUppercase}
+                    onCheckedChange={checked =>
+                      setIncludeUppercase(checked === true)
+                    }
+                  />
+                  <Label
+                    htmlFor='uppercase'
+                    className='text-sm font-normal cursor-pointer'
+                  >
+                    包含大写字母 (A-Z)
+                  </Label>
+                </div>
 
-              <div className='flex items-center space-x-2'>
-                <Checkbox
-                  id='lowercase'
-                  checked={includeLowercase}
-                  onCheckedChange={checked =>
-                    setIncludeLowercase(checked === true)
-                  }
-                />
-                <Label htmlFor='lowercase'>包含小写字母 (a-z)</Label>
-              </div>
+                <div className='flex items-center space-x-3'>
+                  <Checkbox
+                    id='lowercase'
+                    checked={includeLowercase}
+                    onCheckedChange={checked =>
+                      setIncludeLowercase(checked === true)
+                    }
+                  />
+                  <Label
+                    htmlFor='lowercase'
+                    className='text-sm font-normal cursor-pointer'
+                  >
+                    包含小写字母 (a-z)
+                  </Label>
+                </div>
 
-              <div className='flex items-center space-x-2'>
-                <Checkbox
-                  id='numbers'
-                  checked={includeNumbers}
-                  onCheckedChange={checked =>
-                    setIncludeNumbers(checked === true)
-                  }
-                />
-                <Label htmlFor='numbers'>包含数字 (0-9)</Label>
-              </div>
+                <div className='flex items-center space-x-3'>
+                  <Checkbox
+                    id='numbers'
+                    checked={includeNumbers}
+                    onCheckedChange={checked =>
+                      setIncludeNumbers(checked === true)
+                    }
+                  />
+                  <Label
+                    htmlFor='numbers'
+                    className='text-sm font-normal cursor-pointer'
+                  >
+                    包含数字 (0-9)
+                  </Label>
+                </div>
 
-              <div className='flex items-center space-x-2'>
-                <Checkbox
-                  id='symbols'
-                  checked={includeSymbols}
-                  onCheckedChange={checked =>
-                    setIncludeSymbols(checked === true)
-                  }
-                />
-                <Label htmlFor='symbols'>包含特殊字符 (!@#$%^&*)</Label>
-              </div>
+                <div className='flex items-center space-x-3'>
+                  <Checkbox
+                    id='symbols'
+                    checked={includeSymbols}
+                    onCheckedChange={checked =>
+                      setIncludeSymbols(checked === true)
+                    }
+                  />
+                  <Label
+                    htmlFor='symbols'
+                    className='text-sm font-normal cursor-pointer'
+                  >
+                    包含特殊字符 (!@#$%^&*)
+                  </Label>
+                </div>
 
-              <div className='flex items-center space-x-2'>
-                <Checkbox
-                  id='exclude-similar'
-                  checked={excludeSimilar}
-                  onCheckedChange={checked =>
-                    setExcludeSimilar(checked === true)
-                  }
-                />
-                <Label htmlFor='exclude-similar'>排除相似字符 (il1Lo0O)</Label>
+                <div className='flex items-center space-x-3'>
+                  <Checkbox
+                    id='exclude-similar'
+                    checked={excludeSimilar}
+                    onCheckedChange={checked =>
+                      setExcludeSimilar(checked === true)
+                    }
+                  />
+                  <Label
+                    htmlFor='exclude-similar'
+                    className='text-sm font-normal cursor-pointer'
+                  >
+                    排除相似字符 (il1Lo0O)
+                  </Label>
+                </div>
               </div>
             </div>
 
-            <Button onClick={generatePassword} className='w-full'>
+            {/* 生成按钮 */}
+            <Button onClick={generatePassword} className='w-full h-10'>
               <RefreshCw className='h-4 w-4 mr-2' />
               生成密码
             </Button>
           </CardContent>
         </Card>
 
+        {/* 结果面板 */}
         <Card>
-          <CardHeader>
-            <CardTitle>生成的密码</CardTitle>
+          <CardHeader className='pb-4'>
+            <CardTitle className='text-lg'>生成的密码</CardTitle>
             <CardDescription>您的安全密码</CardDescription>
           </CardHeader>
           <CardContent className='space-y-4'>
-            <div className='space-y-2'>
-              <Input
-                value={password}
-                readOnly
-                className='font-mono text-lg'
-                placeholder='点击生成密码...'
-              />
-              {password && (
-                <div className='flex items-center justify-between text-sm'>
-                  <span>
-                    密码强度:{' '}
-                    <span className={getPasswordStrength().color}>
-                      {getPasswordStrength().text}
-                    </span>
-                  </span>
-                  <span>长度: {password.length}</span>
-                </div>
-              )}
+            {/* 密码输出 */}
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>密码</Label>
+              <div className='relative'>
+                <Input
+                  value={password}
+                  readOnly
+                  className='font-mono text-base pr-10'
+                  placeholder='点击生成密码...'
+                />
+                {password && (
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    className='absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0'
+                    onClick={copyToClipboard}
+                  >
+                    {copied ? (
+                      <Check className='h-4 w-4 text-green-600' />
+                    ) : (
+                      <Copy className='h-4 w-4' />
+                    )}
+                  </Button>
+                )}
+              </div>
             </div>
 
-            <div className='flex gap-2'>
-              <Button
-                onClick={copyToClipboard}
-                disabled={!password}
-                variant='outline'
-                className='flex-1'
-              >
-                {copied ? (
-                  <Check className='h-4 w-4 mr-2' />
-                ) : (
-                  <Copy className='h-4 w-4 mr-2' />
-                )}
-                {copied ? '已复制' : '复制密码'}
-              </Button>
-              <Button
-                onClick={generatePassword}
-                disabled={!password}
-                variant='outline'
-              >
-                <RefreshCw className='h-4 w-4' />
-              </Button>
-            </div>
+            {/* 密码强度 */}
+            {password && (
+              <div className='space-y-2'>
+                <div className='flex items-center justify-between'>
+                  <Label className='text-sm font-medium'>密码强度</Label>
+                  <span
+                    className={`text-sm font-medium ${getPasswordStrength().color}`}
+                  >
+                    {getPasswordStrength().text}
+                  </span>
+                </div>
+                <div className='text-sm text-muted-foreground space-y-1'>
+                  <div>长度: {password.length} 字符</div>
+                </div>
+              </div>
+            )}
+
+            {/* 密码分析 */}
+            {password && (
+              <div className='p-4 rounded-lg bg-muted/30 space-y-2'>
+                <div className='text-sm font-medium'>密码构成</div>
+                <div className='grid grid-cols-2 gap-2 text-xs text-muted-foreground'>
+                  <div>大写字母: {(password.match(/[A-Z]/g) || []).length}</div>
+                  <div>小写字母: {(password.match(/[a-z]/g) || []).length}</div>
+                  <div>数字: {(password.match(/[0-9]/g) || []).length}</div>
+                  <div>
+                    特殊字符: {(password.match(/[^A-Za-z0-9]/g) || []).length}
+                  </div>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
 
+      {/* 安全提示卡片 */}
       <Card>
-        <CardHeader>
-          <CardTitle>密码安全建议</CardTitle>
+        <CardHeader className='pb-4'>
+          <CardTitle className='text-lg'>密码安全建议</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className='space-y-2 text-sm text-muted-foreground'>
-            <li>• 使用至少 12 个字符的密码</li>
-            <li>• 包含大小写字母、数字和特殊字符</li>
-            <li>• 避免使用个人信息或常见词汇</li>
-            <li>• 为不同账户使用不同的密码</li>
-            <li>• 定期更换重要账户的密码</li>
-            <li>• 使用密码管理器来安全存储密码</li>
-          </ul>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground'>
+            <div className='space-y-2'>
+              <h4 className='font-medium text-foreground'>强密码特征</h4>
+              <ul className='space-y-1'>
+                <li>• 至少 12 个字符长度</li>
+                <li>• 包含大小写字母</li>
+                <li>• 包含数字和特殊字符</li>
+                <li>• 避免个人信息</li>
+              </ul>
+            </div>
+            <div className='space-y-2'>
+              <h4 className='font-medium text-foreground'>安全使用</h4>
+              <ul className='space-y-1'>
+                <li>• 每个账户使用不同密码</li>
+                <li>• 定期更换重要密码</li>
+                <li>• 使用密码管理器</li>
+                <li>• 启用双因素认证</li>
+              </ul>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>

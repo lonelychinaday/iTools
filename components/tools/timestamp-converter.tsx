@@ -134,52 +134,58 @@ export function TimestampConverter() {
 
   return (
     <div className='p-6 space-y-6'>
-      <div>
-        <h1 className='text-2xl font-bold'>时间戳转换工具</h1>
+      {/* 页面标题区域 */}
+      <div className='space-y-2'>
+        <h1 className='text-2xl font-bold tracking-tight'>时间戳转换工具</h1>
         <p className='text-muted-foreground'>时间戳和日期时间互相转换</p>
       </div>
 
+      {/* 当前时间显示 */}
       <Card>
-        <CardHeader>
-          <CardTitle>当前时间</CardTitle>
+        <CardHeader className='pb-4'>
+          <CardTitle className='text-lg'>当前时间</CardTitle>
           <CardDescription>实时显示当前时间和时间戳</CardDescription>
         </CardHeader>
         <CardContent className='space-y-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <div className='space-y-2'>
-              <Label>当前日期时间</Label>
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>当前日期时间</Label>
               <div className='flex gap-2'>
                 <Input
                   value={formatCurrentTime()}
                   readOnly
-                  className='font-mono'
+                  className='font-mono text-sm'
                 />
                 <Button
                   variant='outline'
                   size='sm'
+                  className='h-10 w-10 p-0'
                   onClick={() =>
                     copyToClipboard(formatCurrentTime(), '当前时间')
                   }
                 >
                   {copied === '当前时间' ? (
-                    <Check className='h-4 w-4' />
+                    <Check className='h-4 w-4 text-green-600' />
                   ) : (
                     <Copy className='h-4 w-4' />
                   )}
                 </Button>
               </div>
             </div>
-            <div className='space-y-2'>
-              <Label>当前时间戳 ({unit === 'seconds' ? '秒' : '毫秒'})</Label>
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>
+                当前时间戳 ({unit === 'seconds' ? '秒' : '毫秒'})
+              </Label>
               <div className='flex gap-2'>
                 <Input
                   value={getCurrentTimestampFormatted()}
                   readOnly
-                  className='font-mono'
+                  className='font-mono text-sm'
                 />
                 <Button
                   variant='outline'
                   size='sm'
+                  className='h-10 w-10 p-0'
                   onClick={() =>
                     copyToClipboard(
                       getCurrentTimestampFormatted(),
@@ -188,7 +194,7 @@ export function TimestampConverter() {
                   }
                 >
                   {copied === '当前时间戳' ? (
-                    <Check className='h-4 w-4' />
+                    <Check className='h-4 w-4 text-green-600' />
                   ) : (
                     <Copy className='h-4 w-4' />
                   )}
@@ -196,6 +202,7 @@ export function TimestampConverter() {
                 <Button
                   variant='outline'
                   size='sm'
+                  className='h-10'
                   onClick={getCurrentTimestamp}
                 >
                   <RefreshCw className='h-4 w-4' />
@@ -206,142 +213,153 @@ export function TimestampConverter() {
         </CardContent>
       </Card>
 
+      {/* 转换工具区域 */}
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+        {/* 时间戳转换为日期 */}
         <Card>
-          <CardHeader>
-            <CardTitle>时间戳转日期</CardTitle>
+          <CardHeader className='pb-4'>
+            <CardTitle className='text-lg'>时间戳转日期</CardTitle>
             <CardDescription>将时间戳转换为可读的日期时间</CardDescription>
           </CardHeader>
           <CardContent className='space-y-4'>
-            <div className='space-y-2'>
-              <Label>时间戳单位</Label>
-              <Select value={unit} onValueChange={setUnit}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='seconds'>秒 (10位)</SelectItem>
-                  <SelectItem value='milliseconds'>毫秒 (13位)</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>时间戳</Label>
+              <div className='flex gap-2'>
+                <Input
+                  type='text'
+                  placeholder='输入时间戳...'
+                  value={timestamp}
+                  onChange={e => setTimestamp(e.target.value)}
+                  className='font-mono'
+                />
+                <Select value={unit} onValueChange={setUnit}>
+                  <SelectTrigger className='w-20'>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value='seconds'>秒</SelectItem>
+                    <SelectItem value='milliseconds'>毫秒</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            <div className='space-y-2'>
-              <Label>时间戳</Label>
-              <Input
-                placeholder={
-                  unit === 'seconds' ? '1640995200' : '1640995200000'
-                }
-                value={timestamp}
-                onChange={e => setTimestamp(e.target.value)}
-                className='font-mono'
-              />
-            </div>
-
-            <Button onClick={timestampToDate} className='w-full'>
-              转换为日期时间
-            </Button>
-
-            <div className='space-y-2'>
-              <Label>转换结果</Label>
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>转换结果</Label>
               <div className='flex gap-2'>
                 <Input
                   value={dateTime}
                   readOnly
-                  className='font-mono'
+                  className='font-mono text-sm'
                   placeholder='转换结果将显示在这里...'
                 />
-                <Button
-                  variant='outline'
-                  size='sm'
-                  disabled={!dateTime}
-                  onClick={() => copyToClipboard(dateTime, '日期时间')}
-                >
-                  {copied === '日期时间' ? (
-                    <Check className='h-4 w-4' />
-                  ) : (
-                    <Copy className='h-4 w-4' />
-                  )}
-                </Button>
+                {dateTime && (
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    className='h-10 w-10 p-0'
+                    onClick={() => copyToClipboard(dateTime, '转换结果')}
+                  >
+                    {copied === '转换结果' ? (
+                      <Check className='h-4 w-4 text-green-600' />
+                    ) : (
+                      <Copy className='h-4 w-4' />
+                    )}
+                  </Button>
+                )}
               </div>
             </div>
+
+            <Button onClick={timestampToDate} className='w-full h-10'>
+              转换为日期
+            </Button>
           </CardContent>
         </Card>
 
+        {/* 日期转换为时间戳 */}
         <Card>
-          <CardHeader>
-            <CardTitle>日期转时间戳</CardTitle>
+          <CardHeader className='pb-4'>
+            <CardTitle className='text-lg'>日期转时间戳</CardTitle>
             <CardDescription>将日期时间转换为时间戳</CardDescription>
           </CardHeader>
           <CardContent className='space-y-4'>
-            <div className='space-y-2'>
-              <Label>日期时间</Label>
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>日期时间</Label>
               <Input
                 type='datetime-local'
-                value={dateTime.replace(
-                  /(\d{4})\/(\d{2})\/(\d{2}) (\d{2}):(\d{2}):(\d{2}).*/,
-                  '$1-$2-$3T$4:$5:$6'
-                )}
-                onChange={e => {
-                  const date = new Date(e.target.value);
-                  setDateTime(date.toLocaleString('zh-CN'));
-                }}
-              />
-            </div>
-
-            <div className='space-y-2'>
-              <Label>或手动输入</Label>
-              <Input
-                placeholder='2024-01-01 12:00:00'
                 value={dateTime}
                 onChange={e => setDateTime(e.target.value)}
                 className='font-mono'
               />
             </div>
 
-            <Button onClick={dateToTimestamp} className='w-full'>
-              转换为时间戳
-            </Button>
-
-            <div className='space-y-2'>
-              <Label>转换结果 ({unit === 'seconds' ? '秒' : '毫秒'})</Label>
+            <div className='space-y-3'>
+              <Label className='text-sm font-medium'>
+                转换结果 ({unit === 'seconds' ? '秒' : '毫秒'})
+              </Label>
               <div className='flex gap-2'>
                 <Input
                   value={timestamp}
                   readOnly
-                  className='font-mono'
+                  className='font-mono text-sm'
                   placeholder='转换结果将显示在这里...'
                 />
-                <Button
-                  variant='outline'
-                  size='sm'
-                  disabled={!timestamp}
-                  onClick={() => copyToClipboard(timestamp, '时间戳')}
-                >
-                  {copied === '时间戳' ? (
-                    <Check className='h-4 w-4' />
-                  ) : (
-                    <Copy className='h-4 w-4' />
-                  )}
-                </Button>
+                {timestamp && (
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    className='h-10 w-10 p-0'
+                    onClick={() => copyToClipboard(timestamp, '时间戳')}
+                  >
+                    {copied === '时间戳' ? (
+                      <Check className='h-4 w-4 text-green-600' />
+                    ) : (
+                      <Copy className='h-4 w-4' />
+                    )}
+                  </Button>
+                )}
               </div>
             </div>
+
+            <Button onClick={dateToTimestamp} className='w-full h-10'>
+              转换为时间戳
+            </Button>
           </CardContent>
         </Card>
       </div>
 
+      {/* 常用时间戳 */}
       <Card>
-        <CardHeader>
-          <CardTitle>使用说明</CardTitle>
+        <CardHeader className='pb-4'>
+          <CardTitle className='text-lg'>常用时间戳</CardTitle>
+          <CardDescription>一些常用的时间戳参考</CardDescription>
         </CardHeader>
         <CardContent>
-          <ul className='space-y-2 text-sm text-muted-foreground'>
-            <li>• 时间戳是从 1970年1月1日 00:00:00 UTC 开始的秒数或毫秒数</li>
-            <li>• 10位时间戳表示秒，13位时间戳表示毫秒</li>
-            <li>• 支持当前时间的实时显示和快速获取</li>
-            <li>• 可以输入日期时间或使用日期选择器</li>
-            <li>• 支持多种日期时间格式的输入</li>
-          </ul>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-4 text-sm'>
+            <div className='space-y-2'>
+              <h4 className='font-medium'>Unix 纪元</h4>
+              <div className='space-y-1 text-muted-foreground'>
+                <div className='flex justify-between'>
+                  <span>1970-01-01 00:00:00</span>
+                  <span className='font-mono'>0</span>
+                </div>
+              </div>
+            </div>
+            <div className='space-y-2'>
+              <h4 className='font-medium'>常用格式</h4>
+              <div className='space-y-1 text-muted-foreground'>
+                <div>秒级: 10位数字</div>
+                <div>毫秒级: 13位数字</div>
+              </div>
+            </div>
+            <div className='space-y-2'>
+              <h4 className='font-medium'>时区说明</h4>
+              <div className='space-y-1 text-muted-foreground'>
+                <div>时间戳为UTC时间</div>
+                <div>显示为本地时间</div>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
