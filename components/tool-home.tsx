@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Logo } from '@/components/ui/logo';
@@ -47,7 +46,7 @@ export function ToolHome({
     <div className='min-h-full'>
       {/* 顶部区域 */}
       <div className='relative'>
-        <div className='max-w-6xl mx-auto px-6 py-12'>
+        <div className='max-w-6xl mx-auto px-6 pt-12 pb-6'>
           <div className='text-center space-y-4'>
             {/* Logo */}
             <div className='flex justify-center mb-6'>
@@ -70,7 +69,7 @@ export function ToolHome({
                   placeholder='搜索工具'
                   value={searchQuery}
                   onChange={e => onSearchChange(e.target.value)}
-                  className='pl-10 pr-10 h-11 bg-background/50 border border-border/50 backdrop-blur-sm focus:bg-background transition-colors relative z-0'
+                  className='pl-10 pr-10 h-11 bg-muted/50 border border-border/20 backdrop-blur-sm focus:bg-background transition-colors relative z-0'
                 />
                 {searchQuery && (
                   <button
@@ -87,7 +86,7 @@ export function ToolHome({
       </div>
 
       {/* 工具展示区域 */}
-      <div className='max-w-6xl mx-auto px-6 py-8 relative'>
+      <div className='max-w-6xl mx-auto px-6 md:py-8 relative'>
         {/* 工具展示 */}
         <div>
           {searchQuery && (

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import {
   Search,
   Moon,
@@ -27,9 +26,9 @@ function ThemeToggle() {
 
   return (
     <Button
-      variant='ghost'
+      variant='outline'
       size='sm'
-      className='h-8 w-8 p-0 rounded-md hover:bg-muted/40 transition-colors'
+      className='h-8 w-8 p-0'
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       <Sun className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
@@ -127,9 +126,9 @@ export function Header({
           {/* Right section with tool list button and theme toggle */}
           <div className='flex items-center gap-1 flex-shrink-0'>
             <Button
-              variant='ghost'
+              variant='outline'
               size='sm'
-              className='flex items-center gap-1 md:gap-1.5 h-8 px-1.5 md:px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+              className='flex items-center gap-1 md:gap-1.5 h-8 px-1.5 md:px-2.5'
               onClick={handleShowToolList}
             >
               <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
@@ -203,7 +202,7 @@ export function Header({
               placeholder='搜索工具...'
               value={searchQuery}
               onChange={e => onSearchChange?.(e.target.value)}
-              className='w-48 pl-8 pr-8 h-8 bg-muted/30 border-0 rounded-md focus:bg-background focus:ring-1 focus:ring-ring/30 transition-all text-sm placeholder:text-muted-foreground/70'
+              className='w-48 pl-8 pr-8 h-8 bg-muted/50 border border-border/20 rounded-md focus:bg-background focus:ring-1 focus:ring-ring/30 transition-all text-sm placeholder:text-muted-foreground/70'
             />
             {searchQuery && (
               <button
@@ -217,9 +216,9 @@ export function Header({
 
           {/* Tool List button - Mobile only */}
           <Button
-            variant='ghost'
+            variant='outline'
             size='sm'
-            className='sm:hidden flex items-center gap-1 h-8 px-1.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+            className='sm:hidden flex items-center gap-1 h-8 px-1.5'
             onClick={handleShowToolList}
           >
             <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
@@ -228,9 +227,9 @@ export function Header({
 
           {/* Home button */}
           <Button
-            variant='ghost'
+            variant='outline'
             size='sm'
-            className='hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+            className='hidden sm:flex items-center gap-1.5 h-8 px-2.5'
             onClick={handleGoHome}
           >
             <HomeIcon className='h-4 w-4 flex-shrink-0' />
