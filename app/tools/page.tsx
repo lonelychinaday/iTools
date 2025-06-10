@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { Search, Moon, Sun, Menu, X, Home as HomeIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Logo as LogoComponent } from '@/components/ui/logo';
 import { ToolSidebar } from '@/components/tool-sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { useTheme } from 'next-themes';
@@ -12,15 +12,7 @@ import { useRouter } from 'next/navigation';
 import { toolCategories } from '@/lib/tools';
 
 function Logo() {
-  return (
-    <Image
-      src='/icon.svg'
-      alt='iTools Logo'
-      width={20}
-      height={20}
-      className='w-5 h-5'
-    />
-  );
+  return <LogoComponent size='sm' />;
 }
 
 export default function ToolsPage() {

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Logo } from '@/components/ui/logo';
 import {
   Card,
   CardContent,
@@ -51,13 +51,7 @@ export function ToolHome({
           <div className='text-center space-y-4'>
             {/* Logo */}
             <div className='flex justify-center mb-6'>
-              <Image
-                src='/icon.svg'
-                alt='iTools Logo'
-                width={100}
-                height={100}
-                className='w-20 h-20 md:w-[100px] md:h-[100px]'
-              />
+              <Logo />
             </div>
 
             <h1 className='text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent'>
