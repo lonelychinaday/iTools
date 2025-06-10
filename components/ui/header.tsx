@@ -110,7 +110,7 @@ export function Header({
           {/* Left section with logo and title */}
           <div className='flex items-center min-w-0 flex-1'>
             {/* Logo and title - always visible */}
-            <div className='flex items-center gap-2 flex-shrink-0'>
+            <div className='flex items-center gap-0.5 md:gap-2 flex-shrink-0'>
               <div className='p-1 cursor-pointer' onClick={handleGoHome}>
                 <Logo />
               </div>
@@ -133,7 +133,7 @@ export function Header({
               onClick={handleShowToolList}
             >
               <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
-              <span className='leading-4 inline'>工具列表</span>
+              <span className='leading-4 inline'>全部工具</span>
             </Button>
             <ThemeToggle />
           </div>
@@ -164,7 +164,7 @@ export function Header({
           </Button>
 
           {/* Logo and title - always visible */}
-          <div className='flex items-center gap-2 flex-shrink-0'>
+          <div className='flex items-center gap-0.5 md:gap-2 flex-shrink-0'>
             <div className='p-1 cursor-pointer' onClick={handleGoHome}>
               <Logo />
             </div>
@@ -214,6 +214,17 @@ export function Header({
               </button>
             )}
           </div>
+
+          {/* Tool List button - Mobile only */}
+          <Button
+            variant='ghost'
+            size='sm'
+            className='sm:hidden flex items-center gap-1 h-8 px-1.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+            onClick={handleShowToolList}
+          >
+            <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
+            <span className='leading-4'>全部工具</span>
+          </Button>
 
           {/* Home button */}
           <Button

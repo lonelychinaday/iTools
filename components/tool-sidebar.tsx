@@ -161,7 +161,7 @@ export function ToolSidebar({
   return (
     <div
       className={cn(
-        'h-full border-r bg-background flex flex-col transition-all duration-200 ease-in-out relative shadow-md',
+        'h-full border-r bg-background flex flex-col transition-all duration-200 ease-in-out relative',
         collapsed ? 'w-12 overflow-hidden' : 'w-52'
       )}
     >

@@ -32,7 +32,7 @@ export default function ToolsPage() {
   };
 
   return (
-    <div className='absolute inset-0 overflow-auto'>
+    <div className='overflow-auto md:absolute md:inset-0'>
       <div className='p-6 space-y-6'>
         {/* 页面标题区域 */}
         <div className='space-y-2'>
