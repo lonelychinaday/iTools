@@ -22,7 +22,7 @@ function ThemeToggle() {
     <Button
       variant='ghost'
       size='sm'
-      className='rounded-lg'
+      className='h-8 w-8 p-0 rounded-md hover:bg-muted/40 transition-colors'
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       <Sun className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
@@ -137,36 +137,37 @@ export default function ToolsLayout({
           </div>
 
           {/* Right section with search and theme toggle */}
-          <div className='flex items-center gap-3 flex-shrink-0'>
-            {/* Home button */}
-            <Button
-              variant='ghost'
-              size='sm'
-              className='hidden sm:flex items-center gap-1 rounded-lg'
-              onClick={handleGoHome}
-            >
-              <HomeIcon className='h-4 w-4' />
-              <span className='text-sm'>首页</span>
-            </Button>
-
+          <div className='flex items-center gap-1 flex-shrink-0'>
             {/* Search */}
-            <div className='relative hidden sm:block'>
-              <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none z-10' />
+            <div className='relative hidden sm:block mr-2'>
+              <Search className='absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none z-10' />
               <Input
-                placeholder='搜索工具'
+                placeholder='搜索工具...'
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className='w-48 pl-9 pr-8 h-7 bg-muted/30 border-0 rounded-md focus:bg-background focus:ring-1 focus:ring-ring transition-colors text-sm'
+                className='w-48 pl-8 pr-8 h-8 bg-muted/30 border-0 rounded-md focus:bg-background focus:ring-1 focus:ring-ring/30 transition-all text-sm placeholder:text-muted-foreground/70'
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className='absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10'
+                  className='absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-foreground transition-colors z-10'
                 >
                   <X className='h-3 w-3' />
                 </button>
               )}
             </div>
+
+            {/* Home button */}
+            <Button
+              variant='ghost'
+              size='sm'
+              className='hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
+              onClick={handleGoHome}
+            >
+              <HomeIcon className='h-4 w-4 flex-shrink-0' />
+              <span className='leading-4'>首页</span>
+            </Button>
+
             <ThemeToggle />
           </div>
         </div>

@@ -45,16 +45,16 @@ export default function Home() {
           </div>
 
           {/* Right section with tool list button and theme toggle */}
-          <div className='flex items-center gap-3 flex-shrink-0'>
+          <div className='flex items-center gap-1 flex-shrink-0'>
             {/* Tool List button */}
             <Button
               variant='ghost'
               size='sm'
-              className='hidden sm:flex items-center gap-1 rounded-lg'
+              className='hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-md hover:bg-muted/40 transition-colors text-sm font-normal'
               onClick={handleShowToolList}
             >
-              <Grid3X3 className='h-4 w-4' />
-              <span className='text-sm'>工具列表</span>
+              <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-px' />
+              <span className='leading-4'>工具列表</span>
             </Button>
 
             <ThemeToggle />
@@ -81,7 +81,7 @@ function ThemeToggle() {
     <Button
       variant='ghost'
       size='sm'
-      className='rounded-lg'
+      className='h-8 w-8 p-0 rounded-md hover:bg-muted/40 transition-colors'
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       <Sun className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
