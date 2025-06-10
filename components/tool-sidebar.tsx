@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { toolCategories } from '@/lib/tools';
 
 interface ToolSidebarProps {
-  selectedTool: string;
+  selectedTool?: string;
   onToolSelect: (toolId: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
