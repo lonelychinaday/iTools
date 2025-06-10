@@ -28,7 +28,7 @@ export default function ToolPage() {
   }
 
   return (
-    <div className='absolute inset-0 overflow-auto'>
+    <div className='overflow-auto md:absolute md:inset-0'>
       <ToolContent selectedTool={toolId} />
     </div>
   );

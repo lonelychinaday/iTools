@@ -82,9 +82,9 @@ export default function ToolsLayout({
   };
 
   return (
-    <div className='min-h-screen md:h-screen md:overflow-hidden bg-background flex flex-col'>
+    <div className='min-h-screen bg-background flex flex-col md:h-screen md:overflow-hidden'>
       {/* Header */}
-      <header className='border-b static md:sticky md:top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 flex-shrink-0'>
+      <header className='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 flex-shrink-0 md:sticky md:top-0 md:z-50'>
         <div className='flex h-12 items-center justify-between px-4'>
           {/* Left section with logo, title and breadcrumb */}
           <div className='flex items-center min-w-0 flex-1'>
@@ -178,7 +178,7 @@ export default function ToolsLayout({
         {/* Sidebar */}
         <div
           className={`
-              fixed top-12 md:top-0 bottom-0 left-0 z-40 transform transition-transform duration-200 ease-in-out bg-background
+              fixed top-0 md:top-0 bottom-0 left-0 z-40 transform transition-transform duration-200 ease-in-out bg-background
               md:relative md:translate-x-0 md:z-0 md:flex-shrink-0
               ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             `}
@@ -186,15 +186,21 @@ export default function ToolsLayout({
             width: sidebarOpen ? '208px' : sidebarCollapsed ? '48px' : '208px',
           }}
         >
-          <ToolSidebar
-            selectedTool={isValidTool ? toolId : undefined}
-            onToolSelect={handleToolSelect}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onClose={() => setSidebarOpen(false)}
-            collapsed={sidebarCollapsed}
-            onToggleCollapse={handleToggleSidebarCollapse}
-          />
+          <div className='h-full flex flex-col'>
+            {/* 移动端顶部间距，为header留出空间 */}
+            <div className='h-12 flex-shrink-0 md:hidden'></div>
+            <div className='flex-1'>
+              <ToolSidebar
+                selectedTool={isValidTool ? toolId : undefined}
+                onToolSelect={handleToolSelect}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onClose={() => setSidebarOpen(false)}
+                collapsed={sidebarCollapsed}
+                onToggleCollapse={handleToggleSidebarCollapse}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Overlay for mobile */}
