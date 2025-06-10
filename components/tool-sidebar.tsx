@@ -144,7 +144,7 @@ export function ToolSidebar({
     }
 
     onToolSelect(toolId);
-    onClose();
+    // 不自动关闭侧边栏，让用户手动控制
   };
 
   const filteredCategories = toolCategories
