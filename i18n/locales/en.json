@@ -18,9 +18,9 @@
     },
     "home": {
         "title": "iTools - Toolbox",
-        "description": "Modern developer tools collection, including Base64 encoding and decoding utilities",
-        "welcomeTitle": "Developer Tools Collection",
-        "welcomeSubtitle": "Powerful and simple online tools to make development more efficient",
+        "description": "Modern online tools collection, including Base64 encoding and decoding utilities",
+        "welcomeTitle": "Online Tools Collection",
+        "welcomeSubtitle": "Powerful and simple online tools to make work more efficient",
         "searchPlaceholder": "Search tools or press ⌘K",
         "noToolsFound": "No matching tools found",
         "tryDifferentKeywords": "Try different keywords"

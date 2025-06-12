@@ -18,9 +18,9 @@
     },
     "home": {
         "title": "iTools - 工具箱",
-        "description": "现代化的开发者工具集合，包含Base64编码解码等实用工具",
-        "welcomeTitle": "开发者工具集合",
-        "welcomeSubtitle": "强大而简洁的在线工具，让开发更高效",
+        "description": "现代化的在线工具集合，包含Base64编码解码等实用工具",
+        "welcomeTitle": "在线工具集合",
+        "welcomeSubtitle": "强大而简洁的在线工具，让工作更高效",
         "searchPlaceholder": "搜索工具或按 ⌘K",
         "noToolsFound": "未找到匹配的工具",
         "tryDifferentKeywords": "尝试不同的关键词"

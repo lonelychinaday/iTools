@@ -31,10 +31,10 @@ export default function ToolsPage() {
         {/* 页面标题区域 */}
         <div className='space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight'>
-            {ts('home.welcomeTitle', '开发者工具集合')} iTools
+            {ts('home.welcomeTitle', '在线工具集合')} iTools
           </h1>
           <p className='text-muted-foreground'>
-            {ts('home.welcomeSubtitle', '强大而简洁的在线工具，让开发更高效')}
+            {ts('home.welcomeSubtitle', '强大而简洁的在线工具，让工作更高效')}
           </p>
         </div>
 

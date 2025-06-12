@@ -25,7 +25,6 @@ interface ToolHomeProps {
 export function ToolHome({
   onToolSelect,
   searchQuery,
-  onSearchChange,
   onCommandPaletteTrigger,
 }: ToolHomeProps) {
   const { ts, locale } = useTranslation();
@@ -62,11 +61,11 @@ export function ToolHome({
             </div>
 
             <h1 className='text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent'>
-              {ts('home.welcomeTitle', '开发者工具集合')}{' '}
+              {ts('home.welcomeTitle', '在线工具集合')}{' '}
               <span className='font-lilita-one tracking-wider'>iTools</span>
             </h1>
             <p className='text-xl text-muted-foreground max-w-2xl mx-auto'>
-              {ts('home.welcomeSubtitle', '强大而简洁的在线工具，让开发更高效')}
+              {ts('home.welcomeSubtitle', '强大而简洁的在线工具，让工作更高效')}
             </p>
 
             {/* 搜索框 */}
@@ -126,7 +125,7 @@ interface ToolCardProps {
     id: string;
     name: string;
     description: string;
-    icon: React.ComponentType<any>;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   };
   categoryName: string;
   onSelect: (toolId: string) => void;

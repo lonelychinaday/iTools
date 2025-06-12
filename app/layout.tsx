@@ -19,7 +19,7 @@ const lilitaOne = Lilita_One({
 export const metadata: Metadata = {
   title: 'iTools - 工具箱',
   description:
-    '现代化的开发者工具集合，包含JSON格式化、Base64编码、密码生成等实用工具',
+    '现代化的在线工具集合，包含JSON格式化、Base64编码、密码生成等实用工具',
 };
 
 export default async function RootLayout({
