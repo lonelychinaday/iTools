@@ -14,15 +14,7 @@ import { locales, type Locale } from '@/i18n';
 
 export function LanguageSwitch() {
   const { locale, changeLocale } = useLocaleContext();
-  const { t, isInitialized } = useTranslation();
-
-  // 为避免水合错误，在初始化完成前使用默认文本
-  const getLanguageText = () => {
-    if (!isInitialized) {
-      return 'Language';
-    }
-    return t('common.language');
-  };
+  const { ts } = useTranslation();
 
   return (
     <DropdownMenu>
@@ -31,10 +23,10 @@ export function LanguageSwitch() {
           variant='outline'
           size='sm'
           className='h-8 w-8 p-0'
-          title={getLanguageText()}
+          title={ts('common.language', 'Language')}
         >
           <Languages className='h-4 w-4' />
-          <span className='sr-only'>{getLanguageText()}</span>
+          <span className='sr-only'>{ts('common.language', 'Language')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>

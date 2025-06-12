@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ChevronDown, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { toolCategories } from '@/lib/tools';
+
 import { getLocalizedToolCategories } from '@/lib/tools-i18n';
 import { useLocaleContext } from '@/components/locale-provider';
 
@@ -26,7 +26,7 @@ export function ToolSidebar({
   collapsed = false,
   onToggleCollapse,
 }: ToolSidebarProps) {
-  const { locale, isInitialized } = useLocaleContext();
+  const { locale } = useLocaleContext();
 
   // 获取国际化的工具数据
   const localizedCategories = getLocalizedToolCategories(locale);
@@ -164,24 +164,6 @@ export function ToolSidebar({
       ),
     }))
     .filter(category => category.tools.length > 0);
-
-  // 在语言初始化完成前显示加载状态
-  if (!isInitialized) {
-    return (
-      <div
-        className={cn(
-          'h-full border-r bg-background flex flex-col transition-all duration-200 ease-in-out relative',
-          collapsed
-            ? 'w-12 overflow-hidden'
-            : 'min-w-[200px] max-w-[320px] w-fit'
-        )}
-      >
-        <div className='flex-1 flex items-center justify-center'>
-          <div className='text-sm text-muted-foreground'>Loading...</div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div
