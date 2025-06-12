@@ -6,6 +6,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import { LocaleProvider } from '../components/locale-provider';
 
 const lilitaOne = Lilita_One({
   weight: ['400'],
@@ -25,33 +26,56 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='zh-CN' suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
+                // 设置主题
                 const theme = localStorage.getItem('theme')
                 if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                   document.documentElement.classList.add('dark')
                 } else {
                   document.documentElement.classList.remove('dark')
                 }
+                
+                // 设置语言
+                function detectBrowserLanguage() {
+                  const browserLang = navigator.language.toLowerCase();
+                  if (browserLang.startsWith('en')) return 'en';
+                  if (browserLang.startsWith('zh')) return 'zh';
+                  return 'zh';
+                }
+                
+                function getCurrentLocale() {
+                  const stored = localStorage.getItem('locale');
+                  if (stored && (stored === 'zh' || stored === 'en')) {
+                    return stored;
+                  }
+                  return detectBrowserLanguage();
+                }
+                
+                const locale = getCurrentLocale();
+                const langMap = { zh: 'zh-CN', en: 'en-US' };
+                document.documentElement.lang = langMap[locale] || 'en-US';
               } catch (_) {}
             `,
           }}
         />
       </head>
       <body className={`${lilitaOne.variable}`} suppressHydrationWarning={true}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          // disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <LocaleProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            // disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </LocaleProvider>
         <SpeedInsights />
         <Analytics />
       </body>

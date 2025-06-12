@@ -5,6 +5,8 @@ import { ChevronDown, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { toolCategories } from '@/lib/tools';
+import { getLocalizedToolCategories } from '@/lib/tools-i18n';
+import { useLocaleContext } from '@/components/locale-provider';
 
 interface ToolSidebarProps {
   selectedTool?: string;
@@ -24,10 +26,15 @@ export function ToolSidebar({
   collapsed = false,
   onToggleCollapse,
 }: ToolSidebarProps) {
+  const { locale, isInitialized } = useLocaleContext();
+
+  // 获取国际化的工具数据
+  const localizedCategories = getLocalizedToolCategories(locale);
+
   // 初始状态：总是从选中工具开始，避免SSR不一致
   const getSSRSafeInitialCategories = () => {
     if (selectedTool) {
-      const categoryWithTool = toolCategories.find(category =>
+      const categoryWithTool = localizedCategories.find(category =>
         category.tools.some(tool => tool.id === selectedTool)
       );
       return categoryWithTool ? [categoryWithTool.id] : ['text-tools'];
@@ -51,7 +58,7 @@ export function ToolSidebar({
         const parsedSaved = JSON.parse(saved);
         // 确保选中工具的分类包含在内
         if (selectedTool) {
-          const categoryWithTool = toolCategories.find(category =>
+          const categoryWithTool = localizedCategories.find(category =>
             category.tools.some(tool => tool.id === selectedTool)
           );
           if (categoryWithTool && !parsedSaved.includes(categoryWithTool.id)) {
@@ -94,7 +101,7 @@ export function ToolSidebar({
   // 只在选中工具真正变化时才确保对应分类展开
   useEffect(() => {
     if (selectedTool && selectedTool !== previousSelectedTool.current) {
-      const categoryWithTool = toolCategories.find(category =>
+      const categoryWithTool = localizedCategories.find(category =>
         category.tools.some(tool => tool.id === selectedTool)
       );
 
@@ -111,7 +118,7 @@ export function ToolSidebar({
 
       previousSelectedTool.current = selectedTool;
     }
-  }, [selectedTool, isHydrated]);
+  }, [selectedTool, isHydrated, localizedCategories]);
 
   const toggleCategory = (categoryId: string) => {
     if (collapsed) return;
@@ -126,7 +133,7 @@ export function ToolSidebar({
 
   const handleToolSelect = (toolId: string) => {
     if (collapsed) {
-      const categoryWithTool = toolCategories.find(category =>
+      const categoryWithTool = localizedCategories.find(category =>
         category.tools.some(tool => tool.id === toolId)
       );
 
@@ -147,7 +154,7 @@ export function ToolSidebar({
     // 不自动关闭侧边栏，让用户手动控制
   };
 
-  const filteredCategories = toolCategories
+  const filteredCategories = localizedCategories
     .map(category => ({
       ...category,
       tools: category.tools.filter(
@@ -158,11 +165,29 @@ export function ToolSidebar({
     }))
     .filter(category => category.tools.length > 0);
 
+  // 在语言初始化完成前显示加载状态
+  if (!isInitialized) {
+    return (
+      <div
+        className={cn(
+          'h-full border-r bg-background flex flex-col transition-all duration-200 ease-in-out relative',
+          collapsed
+            ? 'w-12 overflow-hidden'
+            : 'min-w-[200px] max-w-[320px] w-fit'
+        )}
+      >
+        <div className='flex-1 flex items-center justify-center'>
+          <div className='text-sm text-muted-foreground'>Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(
         'h-full border-r bg-background flex flex-col transition-all duration-200 ease-in-out relative',
-        collapsed ? 'w-12 overflow-hidden' : 'w-52'
+        collapsed ? 'w-12 overflow-hidden' : 'min-w-[200px] max-w-[320px] w-fit'
       )}
     >
       {/* Scrollable content */}
@@ -172,7 +197,7 @@ export function ToolSidebar({
           collapsed ? 'overflow-hidden' : 'overflow-y-auto'
         )}
       >
-        <div className={cn('py-3', collapsed ? 'px-1' : 'px-4')}>
+        <div className={cn('py-3', collapsed ? 'px-1' : 'px-3')}>
           {/* Tool Categories */}
           <div className='space-y-1.5'>
             {filteredCategories.map(category => (
@@ -209,7 +234,7 @@ export function ToolSidebar({
                   <>
                     <Button
                       variant='ghost'
-                      className='w-full justify-between px-0 py-1.5 h-auto text-sm font-semibold text-muted-foreground hover:bg-muted/50'
+                      className='w-auto min-w-full justify-between px-2 py-1.5 h-auto text-sm font-semibold text-muted-foreground hover:bg-muted/50'
                       onClick={() => toggleCategory(category.id)}
                     >
                       <div className='flex items-center gap-2'>
@@ -230,7 +255,7 @@ export function ToolSidebar({
                             key={tool.id}
                             variant='ghost'
                             className={cn(
-                              'w-full justify-start px-2 py-1.5 h-auto text-left text-sm hover:bg-muted/70',
+                              'w-auto min-w-full justify-start px-2 py-1.5 h-auto text-left text-sm hover:bg-muted/70',
                               selectedTool === tool.id
                                 ? 'bg-accent text-accent-foreground font-medium'
                                 : 'text-muted-foreground hover:text-foreground font-normal'
@@ -246,7 +271,7 @@ export function ToolSidebar({
                                     : 'text-muted-foreground'
                                 )}
                               />
-                              <span className='text-sm truncate'>
+                              <span className='text-sm whitespace-nowrap'>
                                 {tool.name}
                               </span>
                             </div>

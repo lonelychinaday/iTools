@@ -1,0 +1,121 @@
+{
+    "common": {
+        "theme": "主题",
+        "switchTheme": "切换主题",
+        "home": "首页",
+        "allTools": "全部工具",
+        "search": "搜索",
+        "searchTools": "搜索工具...",
+        "language": "语言",
+        "chinese": "中文",
+        "english": "English",
+        "copy": "复制",
+        "copied": "已复制",
+        "copySuccess": "复制成功",
+        "copyFailed": "复制失败",
+        "copyToClipboard": "已复制到剪贴板",
+        "cannotCopyToClipboard": "无法复制到剪贴板"
+    },
+    "home": {
+        "title": "iTools - 工具箱",
+        "description": "现代化的开发者工具集合，包含Base64编码解码等实用工具",
+        "welcomeTitle": "开发者工具集合",
+        "welcomeSubtitle": "强大而简洁的在线工具，让开发更高效",
+        "searchPlaceholder": "搜索工具或按 ⌘K",
+        "noToolsFound": "未找到匹配的工具",
+        "tryDifferentKeywords": "尝试不同的关键词"
+    },
+    "tools": {
+        "categories": {
+            "text-tools": "文本工具"
+        },
+        "names": {
+            "base64-tool": "Base64 编码"
+        },
+        "descriptions": {
+            "base64-tool": "Base64 编码和解码工具"
+        },
+        "usage": "使用说明",
+        "input": "输入",
+        "output": "输出",
+        "result": "结果",
+        "encode": "编码",
+        "decode": "解码",
+        "clear": "清空",
+        "reset": "重置"
+    },
+    "toolsDetail": {
+        "base64Tool": {
+            "title": "Base64 编码/解码工具",
+            "description": "Base64 格式的编码和解码转换",
+            "encodeTab": "编码",
+            "decodeTab": "解码",
+            "originalText": "原始文本",
+            "originalTextDesc": "输入需要编码的文本",
+            "base64Result": "Base64 结果",
+            "base64ResultDesc": "编码后的 Base64 字符串",
+            "base64String": "Base64 字符串",
+            "base64StringDesc": "输入需要解码的 Base64 字符串",
+            "decodeResult": "解码结果",
+            "decodeResultDesc": "解码后的原始文本",
+            "originalPlaceholder": "请输入要编码的文本...",
+            "base64Placeholder": "请输入 Base64 字符串...",
+            "encodeResultPlaceholder": "编码结果将显示在这里...",
+            "decodeResultPlaceholder": "解码结果将显示在这里...",
+            "encodeButton": "编码为 Base64",
+            "decodeButton": "解码 Base64",
+            "copyResult": "复制结果",
+            "encodeFailed": "编码失败",
+            "encodeFailedDesc": "输入包含无效字符",
+            "decodeFailed": "解码失败",
+            "decodeFailedDesc": "输入不是有效的 Base64 格式",
+            "copySuccessDesc": "结果已复制到剪贴板",
+            "featuresTitle": "Base64 特点",
+            "featuresList": {
+                "0": "基于64个可打印字符的编码方式",
+                "1": "将3个字节转换为4个字符",
+                "2": "编码后数据长度增加约33%",
+                "3": "支持中文和特殊字符"
+            },
+            "useCasesTitle": "应用场景",
+            "useCasesList": {
+                "0": "电子邮件附件传输",
+                "1": "网页中嵌入图片数据",
+                "2": "API 接口数据传输",
+                "3": "配置文件中存储二进制数据"
+            }
+        }
+    },
+    "navigation": {
+        "breadcrumb": {
+            "tools": "工具"
+        }
+    },
+    "pages": {
+        "tools": {
+            "quickStart": "快速开始",
+            "quickStartDescription": "选择一个热门工具立即开始使用"
+        }
+    },
+    "commandPalette": {
+        "searchPlaceholder": "搜索工具或执行操作...",
+        "noResults": "未找到相关结果",
+        "groups": {
+            "tools": "工具",
+            "actions": "操作",
+            "external": "外部"
+        },
+        "actions": {
+            "goHome": "返回首页",
+            "goHomeDescription": "回到 iTools 主页面",
+            "browseAllTools": "浏览所有工具",
+            "browseAllToolsDescription": "查看完整的工具列表和分类",
+            "switchToDark": "切换到深色模式",
+            "switchToDarkDescription": "启用深色主题界面",
+            "switchToLight": "切换到浅色模式",
+            "switchToLightDescription": "启用浅色主题界面",
+            "githubRepo": "Github 仓库",
+            "githubRepoDescription": "查看 iTools 的源代码"
+        }
+    }
+}

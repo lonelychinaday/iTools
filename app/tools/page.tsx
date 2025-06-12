@@ -1,15 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  ChevronRight,
-  Search,
-  Menu,
-  ChevronLeft,
-  Grid3X3,
-  Sidebar,
-} from 'lucide-react';
+import { ChevronRight, Search, Menu, ChevronLeft, Sidebar } from 'lucide-react';
 
 import {
   Card,
@@ -19,17 +12,116 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { toolCategories } from '@/lib/tools';
-import { cn } from '@/lib/utils';
+
+import { getLocalizedToolCategories } from '@/lib/tools-i18n';
+import { useTranslation } from '@/hooks/use-translation';
 
 export default function ToolsPage() {
+  const [isInitialized, setIsInitialized] = useState(false);
   const router = useRouter();
+  const { t, locale } = useTranslation();
+  const localizedCategories = getLocalizedToolCategories(locale);
+
+  useEffect(() => {
+    setIsInitialized(true);
+  }, []);
 
   // 处理工具选择 - 跳转到对应路由
   const handleToolSelect = (toolId: string) => {
     router.push(`/tools/${toolId}`);
   };
+
+  if (!isInitialized) {
+    return (
+      <div className='overflow-auto md:absolute md:inset-0'>
+        <div className='p-6 space-y-6'>
+          {/* 页面标题区域 */}
+          <div className='space-y-2'>
+            <h1 className='text-2xl font-bold tracking-tight'>
+              开发者工具集合 iTools
+            </h1>
+            <p className='text-muted-foreground'>
+              强大而简洁的在线工具，让开发更高效
+            </p>
+          </div>
+
+          {/* 布局介绍区域 */}
+          <Card>
+            <CardHeader className='pb-4'>
+              <CardTitle className='text-lg'>使用指南</CardTitle>
+              <CardDescription>了解如何使用iTools工具箱</CardDescription>
+            </CardHeader>
+            <CardContent className='space-y-6'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <div className='flex items-center gap-2'>
+                      <Sidebar className='h-5 w-5 text-accent-foreground' />
+                      <h3 className='font-medium text-lg'>导航侧边栏</h3>
+                    </div>
+                    <p className='text-sm text-muted-foreground'>
+                      左侧侧边栏包含了所有工具分类，点击分类标题可以展开或折叠
+                    </p>
+                  </div>
+                </div>
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <div className='flex items-center gap-2'>
+                      <Search className='h-5 w-5 text-accent-foreground' />
+                      <h3 className='font-medium text-lg'>搜索功能</h3>
+                    </div>
+                    <p className='text-sm text-muted-foreground'>
+                      顶部导航栏的搜索框可以帮助您快速找到需要的工具
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 工具分类区域 */}
+          <div className='space-y-6'>
+            <h2 className='text-xl font-semibold tracking-tight'>全部工具</h2>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              <Card className='overflow-hidden border-border/40'>
+                <CardHeader className='pb-4 bg-muted/30'>
+                  <div className='flex items-center gap-2'>
+                    <div className='h-5 w-5 text-accent-foreground' />
+                    <CardTitle className='text-base'>文本工具</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className='pt-4 space-y-3'>
+                  <div className='flex items-center justify-between p-2 rounded-md hover:bg-muted/70 cursor-pointer transition-colors'>
+                    <div className='flex items-center gap-2'>
+                      <div className='h-4 w-4 text-muted-foreground' />
+                      <span className='text-sm'>Base64 编码</span>
+                    </div>
+                    <ChevronRight className='h-4 w-4 text-muted-foreground' />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* 快速开始区域 */}
+          <Card className='border-accent/40 bg-muted/20'>
+            <CardHeader className='pb-4'>
+              <CardTitle className='text-lg'>快速开始</CardTitle>
+              <CardDescription>选择一个热门工具立即开始使用</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
+                <Button variant='outline' className='justify-start h-10'>
+                  <div className='h-4 w-4 mr-2' />
+                  Base64 编码
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='overflow-auto md:absolute md:inset-0'>
@@ -37,11 +129,9 @@ export default function ToolsPage() {
         {/* 页面标题区域 */}
         <div className='space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight'>
-            欢迎使用iTools工具箱
+            {t('home.welcomeTitle')} iTools
           </h1>
-          <p className='text-muted-foreground'>
-            这里集合了各种实用的开发工具，帮助您高效完成工作
-          </p>
+          <p className='text-muted-foreground'>{t('home.welcomeSubtitle')}</p>
         </div>
 
         {/* 布局介绍区域 */}
@@ -115,12 +205,12 @@ export default function ToolsPage() {
         {/* 工具分类区域 */}
         <div className='space-y-6'>
           <h2 className='text-xl font-semibold tracking-tight'>
-            选择工具开始使用
+            {t('common.allTools')}
           </h2>
 
           {/* 工具分类网格 */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {toolCategories.map(category => (
+            {localizedCategories.map(category => (
               <Card
                 key={category.id}
                 className='overflow-hidden border-border/40'
@@ -154,12 +244,16 @@ export default function ToolsPage() {
         {/* 快速开始区域 */}
         <Card className='border-accent/40 bg-muted/20'>
           <CardHeader className='pb-4'>
-            <CardTitle className='text-lg'>快速开始</CardTitle>
-            <CardDescription>选择一个热门工具立即开始使用</CardDescription>
+            <CardTitle className='text-lg'>
+              {t('pages.tools.quickStart')}
+            </CardTitle>
+            <CardDescription>
+              {t('pages.tools.quickStartDescription')}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
-              {toolCategories.flatMap(category =>
+              {localizedCategories.flatMap(category =>
                 category.tools.slice(0, 2).map(tool => (
                   <Button
                     key={tool.id}

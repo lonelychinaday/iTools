@@ -1,0 +1,121 @@
+{
+    "common": {
+        "theme": "Theme",
+        "switchTheme": "Switch theme",
+        "home": "Home",
+        "allTools": "All Tools",
+        "search": "Search",
+        "searchTools": "Search tools...",
+        "language": "Language",
+        "chinese": "中文",
+        "english": "English",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copySuccess": "Copy successful",
+        "copyFailed": "Copy failed",
+        "copyToClipboard": "Copied to clipboard",
+        "cannotCopyToClipboard": "Cannot copy to clipboard"
+    },
+    "home": {
+        "title": "iTools - Toolbox",
+        "description": "Modern developer tools collection, including Base64 encoding and decoding utilities",
+        "welcomeTitle": "Developer Tools Collection",
+        "welcomeSubtitle": "Powerful and simple online tools to make development more efficient",
+        "searchPlaceholder": "Search tools or press ⌘K",
+        "noToolsFound": "No matching tools found",
+        "tryDifferentKeywords": "Try different keywords"
+    },
+    "tools": {
+        "categories": {
+            "text-tools": "Text Tools"
+        },
+        "names": {
+            "base64-tool": "Base64 Encoder"
+        },
+        "descriptions": {
+            "base64-tool": "Base64 encoding and decoding tool"
+        },
+        "usage": "Usage",
+        "input": "Input",
+        "output": "Output",
+        "result": "Result",
+        "encode": "Encode",
+        "decode": "Decode",
+        "clear": "Clear",
+        "reset": "Reset"
+    },
+    "toolsDetail": {
+        "base64Tool": {
+            "title": "Base64 Encoder/Decoder",
+            "description": "Base64 encoding and decoding conversion",
+            "encodeTab": "Encode",
+            "decodeTab": "Decode",
+            "originalText": "Original Text",
+            "originalTextDesc": "Enter text to be encoded",
+            "base64Result": "Base64 Result",
+            "base64ResultDesc": "Encoded Base64 string",
+            "base64String": "Base64 String",
+            "base64StringDesc": "Enter Base64 string to be decoded",
+            "decodeResult": "Decode Result",
+            "decodeResultDesc": "Decoded original text",
+            "originalPlaceholder": "Please enter text to encode...",
+            "base64Placeholder": "Please enter Base64 string...",
+            "encodeResultPlaceholder": "Encoding result will be displayed here...",
+            "decodeResultPlaceholder": "Decoding result will be displayed here...",
+            "encodeButton": "Encode to Base64",
+            "decodeButton": "Decode Base64",
+            "copyResult": "Copy Result",
+            "encodeFailed": "Encoding failed",
+            "encodeFailedDesc": "Input contains invalid characters",
+            "decodeFailed": "Decoding failed",
+            "decodeFailedDesc": "Input is not a valid Base64 format",
+            "copySuccessDesc": "Result copied to clipboard",
+            "featuresTitle": "Base64 Features",
+            "featuresList": {
+                "0": "Encoding method based on 64 printable characters",
+                "1": "Converts 3 bytes to 4 characters",
+                "2": "Encoded data length increases by about 33%",
+                "3": "Supports Chinese and special characters"
+            },
+            "useCasesTitle": "Use Cases",
+            "useCasesList": {
+                "0": "Email attachment transmission",
+                "1": "Embedding image data in web pages",
+                "2": "API interface data transmission",
+                "3": "Storing binary data in configuration files"
+            }
+        }
+    },
+    "navigation": {
+        "breadcrumb": {
+            "tools": "Tools"
+        }
+    },
+    "pages": {
+        "tools": {
+            "quickStart": "Quick Start",
+            "quickStartDescription": "Choose a popular tool to get started immediately"
+        }
+    },
+    "commandPalette": {
+        "searchPlaceholder": "Search tools or execute actions...",
+        "noResults": "No results found",
+        "groups": {
+            "tools": "Tools",
+            "actions": "Actions",
+            "external": "External"
+        },
+        "actions": {
+            "goHome": "Go to Home",
+            "goHomeDescription": "Return to iTools main page",
+            "browseAllTools": "Browse All Tools",
+            "browseAllToolsDescription": "View complete tool list and categories",
+            "switchToDark": "Switch to Dark Mode",
+            "switchToDarkDescription": "Enable dark theme interface",
+            "switchToLight": "Switch to Light Mode",
+            "switchToLightDescription": "Enable light theme interface",
+            "githubRepo": "Github Repository",
+            "githubRepoDescription": "View iTools source code"
+        }
+    }
+}

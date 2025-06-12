@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { toolCategories } from '@/lib/tools';
+import { getLocalizedToolCategories } from '@/lib/tools-i18n';
+import { useLocaleContext } from '@/components/locale-provider';
 
 interface BreadcrumbProps {
   selectedTool: string;
@@ -17,11 +19,23 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ selectedTool, onToolSelect }: BreadcrumbProps) {
+  const { locale, isInitialized } = useLocaleContext();
+  const localizedCategories = getLocalizedToolCategories(locale);
+
+  // 在语言初始化完成前不渲染，避免水合错误
+  if (!isInitialized) {
+    return (
+      <div className='flex items-center text-sm h-6'>
+        {/* 占位符，保持布局稳定 */}
+      </div>
+    );
+  }
+
   // 找到当前工具所属的分类和工具信息
   let currentCategory = null;
   let currentTool = null;
 
-  for (const category of toolCategories) {
+  for (const category of localizedCategories) {
     const tool = category.tools.find(t => t.id === selectedTool);
     if (tool) {
       currentCategory = category;
@@ -48,7 +62,7 @@ export function Breadcrumb({ selectedTool, onToolSelect }: BreadcrumbProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='start'>
-          {toolCategories.map(category => (
+          {localizedCategories.map(category => (
             <DropdownMenuItem
               key={category.id}
               onClick={() => {

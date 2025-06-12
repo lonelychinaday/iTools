@@ -13,6 +13,8 @@ import {
   CommandSeparator,
 } from '@/components/ui/command';
 import { toolCategories } from '@/lib/tools';
+import { getLocalizedToolCategories } from '@/lib/tools-i18n';
+import { useTranslation } from '@/hooks/use-translation';
 import { Home, Grid3X3, Github, Sun, Moon, ExternalLink } from 'lucide-react';
 
 interface CommandPaletteProps {
@@ -30,17 +32,23 @@ interface CommandPaletteProps {
 export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const router = useRouter();
   const { setTheme } = useTheme();
+  const { t, locale } = useTranslation();
+
+  // 获取国际化的工具数据
+  const localizedCategories = React.useMemo(() => {
+    return getLocalizedToolCategories(locale);
+  }, [locale]);
 
   // 获取所有工具的平铺列表
   const allTools = React.useMemo(() => {
-    return toolCategories.flatMap(category =>
+    return localizedCategories.flatMap(category =>
       category.tools.map(tool => ({
         ...tool,
         categoryName: category.name,
         categoryIcon: category.icon,
       }))
     );
-  }, []);
+  }, [localizedCategories]);
 
   // 处理工具选择
   const handleToolSelect = (toolId: string) => {
@@ -68,12 +76,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput placeholder='搜索工具或执行操作...' />
+      <CommandInput placeholder={t('commandPalette.searchPlaceholder')} />
       <CommandList>
-        <CommandEmpty>未找到相关结果</CommandEmpty>
+        <CommandEmpty>{t('commandPalette.noResults')}</CommandEmpty>
 
         {/* 工具分组 */}
-        <CommandGroup heading='工具'>
+        <CommandGroup heading={t('commandPalette.groups.tools')}>
           {allTools.map(tool => (
             <CommandItem
               key={tool.id}
@@ -99,7 +107,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         <CommandSeparator />
 
         {/* 快捷操作分组 */}
-        <CommandGroup heading='操作'>
+        <CommandGroup heading={t('commandPalette.groups.actions')}>
           <CommandItem
             value='home 首页 导航'
             onSelect={() => handleNavigation('/')}
@@ -109,9 +117,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               <Home className='h-4 w-4 text-blue-600' />
             </div>
             <div className='flex-1'>
-              <div className='font-medium text-sm'>返回首页</div>
+              <div className='font-medium text-sm'>
+                {t('commandPalette.actions.goHome')}
+              </div>
               <div className='text-xs text-muted-foreground'>
-                回到 iTools 主页面
+                {t('commandPalette.actions.goHomeDescription')}
               </div>
             </div>
           </CommandItem>
@@ -125,9 +135,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               <Grid3X3 className='h-4 w-4 text-purple-600' />
             </div>
             <div className='flex-1'>
-              <div className='font-medium text-sm'>浏览所有工具</div>
+              <div className='font-medium text-sm'>
+                {t('commandPalette.actions.browseAllTools')}
+              </div>
               <div className='text-xs text-muted-foreground'>
-                查看完整的工具列表和分类
+                {t('commandPalette.actions.browseAllToolsDescription')}
               </div>
             </div>
           </CommandItem>
@@ -141,9 +153,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               <Moon className='h-4 w-4 text-gray-600' />
             </div>
             <div className='flex-1'>
-              <div className='font-medium text-sm'>切换到深色模式</div>
+              <div className='font-medium text-sm'>
+                {t('commandPalette.actions.switchToDark')}
+              </div>
               <div className='text-xs text-muted-foreground'>
-                启用深色主题界面
+                {t('commandPalette.actions.switchToDarkDescription')}
               </div>
             </div>
           </CommandItem>
@@ -157,9 +171,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               <Sun className='h-4 w-4 text-yellow-600' />
             </div>
             <div className='flex-1'>
-              <div className='font-medium text-sm'>切换到浅色模式</div>
+              <div className='font-medium text-sm'>
+                {t('commandPalette.actions.switchToLight')}
+              </div>
               <div className='text-xs text-muted-foreground'>
-                启用浅色主题界面
+                {t('commandPalette.actions.switchToLightDescription')}
               </div>
             </div>
           </CommandItem>
@@ -168,7 +184,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         <CommandSeparator />
 
         {/* 外部链接分组 */}
-        <CommandGroup heading='外部'>
+        <CommandGroup heading={t('commandPalette.groups.external')}>
           <CommandItem
             value='github repository 源码 代码仓库'
             onSelect={() => handleExternalLink('https://github.com')}
@@ -178,9 +194,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               <Github className='h-4 w-4 text-gray-600' />
             </div>
             <div className='flex-1'>
-              <div className='font-medium text-sm'>Github 仓库</div>
+              <div className='font-medium text-sm'>
+                {t('commandPalette.actions.githubRepo')}
+              </div>
               <div className='text-xs text-muted-foreground'>
-                查看 iTools 的源代码
+                {t('commandPalette.actions.githubRepoDescription')}
               </div>
             </div>
             <ExternalLink className='h-3 w-3 text-muted-foreground' />

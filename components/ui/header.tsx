@@ -4,9 +4,11 @@ import { Moon, Sun, Menu, X, Home as HomeIcon, Grid3X3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SearchBox } from '@/components/ui/search-box';
 import { Logo as LogoComponent } from '@/components/ui/logo';
+import { LanguageSwitch } from '@/components/ui/language-switch';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { useTheme } from 'next-themes';
 import { useRouter, usePathname } from 'next/navigation';
+import { useTranslation } from '@/hooks/use-translation';
 import { toolCategories } from '@/lib/tools';
 
 function Logo() {
@@ -15,6 +17,14 @@ function Logo() {
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const { t, isInitialized } = useTranslation();
+
+  const getThemeText = () => {
+    if (!isInitialized) {
+      return 'Switch theme';
+    }
+    return t('common.switchTheme');
+  };
 
   return (
     <Button
@@ -25,7 +35,7 @@ function ThemeToggle() {
     >
       <Sun className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
       <Moon className='absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
-      <span className='sr-only'>切换主题</span>
+      <span className='sr-only'>{getThemeText()}</span>
     </Button>
   );
 }
@@ -66,6 +76,7 @@ export function Header({
 }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { t, isInitialized } = useTranslation();
 
   // 从pathname提取当前工具ID
   const pathSegments = pathname.split('/');
@@ -88,6 +99,14 @@ export function Header({
   const handleShowToolList = () => {
     onShowToolList?.();
     router.push('/tools');
+  };
+
+  // 为避免水合错误，在初始化完成前使用默认文本
+  const getLocalizedText = (key: string, fallback: string) => {
+    if (!isInitialized) {
+      return fallback;
+    }
+    return t(key as any);
   };
 
   // 渲染首页Header
@@ -123,8 +142,11 @@ export function Header({
               onClick={handleShowToolList}
             >
               <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
-              <span className='leading-4 inline'>全部工具</span>
+              <span className='leading-4 inline'>
+                {getLocalizedText('common.allTools', 'All Tools')}
+              </span>
             </Button>
+            <LanguageSwitch />
             <ThemeToggle />
           </div>
         </div>
@@ -191,7 +213,10 @@ export function Header({
             <SearchBox
               value=''
               onChange={() => {}}
-              placeholder='搜索工具...'
+              placeholder={getLocalizedText(
+                'common.searchTools',
+                'Search tools...'
+              )}
               size='sm'
               variant='header'
               className='w-48'
@@ -209,7 +234,9 @@ export function Header({
             onClick={handleShowToolList}
           >
             <Grid3X3 className='h-4 w-4 flex-shrink-0 -translate-y-[0.5px]' />
-            <span className='leading-4'>全部工具</span>
+            <span className='leading-4'>
+              {getLocalizedText('common.allTools', 'All Tools')}
+            </span>
           </Button>
 
           {/* Home button */}
@@ -220,9 +247,12 @@ export function Header({
             onClick={handleGoHome}
           >
             <HomeIcon className='h-4 w-4 flex-shrink-0' />
-            <span className='leading-4'>首页</span>
+            <span className='leading-4'>
+              {getLocalizedText('common.home', 'Home')}
+            </span>
           </Button>
 
+          <LanguageSwitch />
           <ThemeToggle />
         </div>
       </div>
