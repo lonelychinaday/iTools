@@ -12,55 +12,17 @@ export const contentType = 'image/png';
 export default function AppleIcon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          position: 'relative',
-          background: 'white',
-          borderRadius: '20px',
-        }}
+      <svg
+        width='180'
+        height='180'
+        viewBox='0 0 64 64'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
       >
-        {/* 橙色圆形 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '112px',
-            top: '73px',
-            width: '45px',
-            height: '45px',
-            borderRadius: '50%',
-            background: '#FF9B0F',
-          }}
-        />
-
-        {/* 绿色三角形 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '118px',
-            top: '62px',
-            width: '0',
-            height: '0',
-            borderLeft: '17px solid transparent',
-            borderRight: '17px solid transparent',
-            borderBottom: '38px solid #28E361',
-          }}
-        />
-
-        {/* 蓝色矩形 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '28px',
-            top: '84px',
-            width: '67px',
-            height: '67px',
-            background: '#1ABAFA',
-          }}
-        />
-      </div>
+        <circle cx='40' cy='26' r='16' fill='#FF9B0F' />
+        <path d='M42 22L54.1244 49H29.8756L42 22Z' fill='#28E361' />
+        <rect x='10' y='30' width='24' height='24' fill='#1ABAFA' />
+      </svg>
     ),
     {
       ...size,

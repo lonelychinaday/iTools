@@ -12,55 +12,17 @@ export const contentType = 'image/png';
 export default function Icon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          position: 'relative',
-          background: 'white',
-          borderRadius: '2px',
-        }}
+      <svg
+        width='32'
+        height='32'
+        viewBox='0 0 64 64'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
       >
-        {/* 橙色圆形 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '20px',
-            top: '13px',
-            width: '16px',
-            height: '16px',
-            borderRadius: '50%',
-            background: '#FF9B0F',
-          }}
-        />
-
-        {/* 绿色三角形 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '15px',
-            top: '11px',
-            width: '0',
-            height: '0',
-            borderLeft: '6px solid transparent',
-            borderRight: '6px solid transparent',
-            borderBottom: '13.5px solid #28E361',
-          }}
-        />
-
-        {/* 蓝色矩形 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '5px',
-            top: '15px',
-            width: '12px',
-            height: '12px',
-            background: '#1ABAFA',
-          }}
-        />
-      </div>
+        <circle cx='40' cy='26' r='16' fill='#FF9B0F' />
+        <path d='M42 22L54.1244 49H29.8756L42 22Z' fill='#28E361' />
+        <rect x='10' y='30' width='24' height='24' fill='#1ABAFA' />
+      </svg>
     ),
     {
       ...size,
