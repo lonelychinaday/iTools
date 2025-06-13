@@ -130,6 +130,10 @@
             "githubRepoDescription": "View VerseTool source code"
         }
     },
+    "sidebar": {
+        "noResults": "No matching tools found",
+        "footer": "Tip: Cmd/Ctrl + B to toggle sidebar"
+    },
     "error": {
         "404Title": "Page Not Found",
         "404Description": "Sorry, the page you are looking for does not exist or has been removed.",

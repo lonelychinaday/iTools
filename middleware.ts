@@ -63,6 +63,9 @@ export function middleware(request: NextRequest) {
   // 这对所有路由都很重要，包括404页面
   response.headers.set('x-locale', locale);
 
+  // 添加路径信息，供服务端组件使用
+  response.headers.set('x-pathname', pathname);
+
   // 确保cookie中有locale信息，保持服务端和客户端一致
   // 只在正常页面请求时设置cookie，避免在静态渲染时出现问题
   if (!request.cookies.get('locale') && !pathname.startsWith('/_')) {

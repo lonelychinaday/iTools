@@ -1,33 +1,37 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { STORAGE_KEYS } from '@/lib/copy-config';
+import { useMemo } from 'react';
 import { ChevronDown, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import { getLocalizedToolCategories } from '@/lib/tools-i18n';
 import { useLocaleContext } from '@/components/locale-provider';
+import { useSidebarContext } from '@/components/sidebar-provider';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface ToolSidebarProps {
   selectedTool?: string;
   onToolSelect: (toolId: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  _onClose: () => void;
-  collapsed?: boolean;
-  onToggleCollapse?: () => void;
 }
 
 export function ToolSidebar({
   selectedTool,
   onToolSelect,
   searchQuery,
-  _onClose,
-  collapsed = false,
-  onToggleCollapse,
 }: ToolSidebarProps) {
   const { locale } = useLocaleContext();
+  const { ts } = useTranslation();
+  const {
+    collapsed,
+    expandedCategories,
+    isMobile,
+    toggleCollapsed,
+    toggleCategory,
+    setExpandedCategories,
+  } = useSidebarContext();
 
   // 获取国际化的工具数据，使用 useMemo 缓存避免无限重渲染
   const localizedCategories = useMemo(
@@ -35,119 +39,9 @@ export function ToolSidebar({
     [locale]
   );
 
-  // 初始状态：总是从选中工具开始，避免SSR不一致
-  const getSSRSafeInitialCategories = () => {
-    if (selectedTool) {
-      const categoryWithTool = localizedCategories.find(category =>
-        category.tools.some(tool => tool.id === selectedTool)
-      );
-      return categoryWithTool ? [categoryWithTool.id] : ['text-tools'];
-    }
-    return ['text-tools'];
-  };
-
-  const [expandedCategories, setExpandedCategories] = useState<string[]>(
-    getSSRSafeInitialCategories()
-  );
-  const [isHydrated, setIsHydrated] = useState(false);
-  const previousSelectedTool = useRef<string | undefined>(selectedTool);
-
-  // 客户端hydration后，从localStorage恢复用户偏好
-  useEffect(() => {
-    setIsHydrated(true);
-
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.expandedCategories);
-      if (saved) {
-        const parsedSaved = JSON.parse(saved);
-        // 确保选中工具的分类包含在内
-        if (selectedTool) {
-          const categoryWithTool = localizedCategories.find(category =>
-            category.tools.some(tool => tool.id === selectedTool)
-          );
-          if (categoryWithTool && !parsedSaved.includes(categoryWithTool.id)) {
-            const mergedCategories = [...parsedSaved, categoryWithTool.id];
-            setExpandedCategories(mergedCategories);
-            localStorage.setItem(
-              STORAGE_KEYS.expandedCategories,
-              JSON.stringify(mergedCategories)
-            );
-            return;
-          }
-        }
-        setExpandedCategories(parsedSaved);
-      }
-    } catch (error) {
-      // 开发环境显示警告
-      if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'Failed to load expanded categories from localStorage:',
-          error
-        );
-      }
-    }
-  }, [selectedTool, localizedCategories]);
-
-  // 保存展开状态到localStorage（只在客户端）
-  const saveExpandedCategories = useCallback(
-    (categories: string[]) => {
-      if (isHydrated) {
-        try {
-          localStorage.setItem(
-            STORAGE_KEYS.expandedCategories,
-            JSON.stringify(categories)
-          );
-        } catch (error) {
-          // 开发环境显示警告
-          if (process.env.NODE_ENV === 'development') {
-            // eslint-disable-next-line no-console
-            console.warn(
-              'Failed to save expanded categories to localStorage:',
-              error
-            );
-          }
-        }
-      }
-    },
-    [isHydrated]
-  );
-
-  // 只在选中工具真正变化时才确保对应分类展开
-  useEffect(() => {
-    if (selectedTool && selectedTool !== previousSelectedTool.current) {
-      const categoryWithTool = localizedCategories.find(category =>
-        category.tools.some(tool => tool.id === selectedTool)
-      );
-
-      if (categoryWithTool) {
-        setExpandedCategories(prev => {
-          if (!prev.includes(categoryWithTool.id)) {
-            const newCategories = [...prev, categoryWithTool.id];
-            saveExpandedCategories(newCategories);
-            return newCategories;
-          }
-          return prev;
-        });
-      }
-
-      previousSelectedTool.current = selectedTool;
-    }
-  }, [selectedTool, localizedCategories, saveExpandedCategories]);
-
-  const toggleCategory = (categoryId: string) => {
-    if (collapsed) return;
-
-    const newExpandedCategories = expandedCategories.includes(categoryId)
-      ? expandedCategories.filter(id => id !== categoryId)
-      : [...expandedCategories, categoryId];
-
-    setExpandedCategories(newExpandedCategories);
-    saveExpandedCategories(newExpandedCategories);
-  };
-
   const handleToolSelect = (toolId: string) => {
-    if (collapsed) {
+    // 桌面端：如果侧边栏收起且点击的工具分类未展开，先展开分类
+    if (!isMobile && collapsed) {
       const categoryWithTool = localizedCategories.find(category =>
         category.tools.some(tool => tool.id === toolId)
       );
@@ -161,12 +55,15 @@ export function ToolSidebar({
           categoryWithTool.id,
         ];
         setExpandedCategories(newExpandedCategories);
-        saveExpandedCategories(newExpandedCategories);
       }
     }
 
     onToolSelect(toolId);
-    // 不自动关闭侧边栏，让用户手动控制
+  };
+
+  const handleCategoryToggle = (categoryId: string) => {
+    if (collapsed) return; // 收起状态下不允许切换分类
+    toggleCategory(categoryId);
   };
 
   const filteredCategories = localizedCategories
@@ -232,7 +129,7 @@ export function ToolSidebar({
                     <Button
                       variant='ghost'
                       className='w-auto min-w-full justify-between px-2 py-1.5 h-auto text-sm font-semibold text-muted-foreground hover:bg-muted/50'
-                      onClick={() => toggleCategory(category.id)}
+                      onClick={() => handleCategoryToggle(category.id)}
                     >
                       <div className='flex items-center gap-2'>
                         <category.icon className='h-4 w-4 text-muted-foreground' />
@@ -285,7 +182,7 @@ export function ToolSidebar({
       </div>
 
       {/* 收起/展开按钮 - 右下角 */}
-      {onToggleCollapse && (
+      {!isMobile && (
         <div className='absolute bottom-2 right-2'>
           <Button
             variant='ghost'
@@ -294,7 +191,7 @@ export function ToolSidebar({
               'h-8 w-8 p-0 hover:bg-muted/50 rounded-md shadow-sm border border-border/50 bg-background/80 backdrop-blur-sm',
               collapsed ? 'w-8' : 'w-8'
             )}
-            onClick={onToggleCollapse}
+            onClick={toggleCollapsed}
             title={collapsed ? '展开侧边栏' : '收起侧边栏'}
           >
             {collapsed ? (
