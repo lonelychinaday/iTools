@@ -42,8 +42,8 @@ export interface HeaderProps {
   // 工具页面相关props
   sidebarOpen?: boolean;
   onSidebarToggle?: () => void;
-  searchQuery?: string;
-  onSearchChange?: (query: string) => void;
+  _searchQuery?: string;
+  _onSearchChange?: (query: string) => void;
   selectedTool?: string;
   onToolSelect?: (toolId: string) => void;
 
@@ -61,8 +61,8 @@ export function Header({
   variant = 'home',
   sidebarOpen = false,
   onSidebarToggle,
-  searchQuery = '',
-  onSearchChange,
+  _searchQuery,
+  _onSearchChange,
   selectedTool,
   onToolSelect,
   onShowToolList,
@@ -115,7 +115,7 @@ export function Header({
                 className='p-0 h-auto font-lilita-one text-foreground text-lg tracking-wider font-bold hover:bg-transparent'
                 onClick={handleGoHome}
               >
-                iTools
+                VerseTool
               </Button>
             </div>
           </div>
@@ -172,7 +172,7 @@ export function Header({
               className='p-0 h-auto font-lilita-one text-foreground text-lg tracking-wider font-bold hover:bg-transparent'
               onClick={handleGoHome}
             >
-              iTools
+              VerseTool
             </Button>
           </div>
 

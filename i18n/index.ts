@@ -92,8 +92,15 @@ type NestedKeyOf<ObjectType extends object> = {
 type TranslationKey = NestedKeyOf<typeof zhLocale>;
 
 // 根据路径获取嵌套对象的值
-function getNestedValue(obj: any, path: string): string {
-  return path.split('.').reduce((current, key) => current?.[key], obj) || path;
+function getNestedValue(obj: Record<string, unknown>, path: string): string {
+  return (
+    (path.split('.').reduce((current, key) => {
+      if (current && typeof current === 'object' && key in current) {
+        return (current as Record<string, unknown>)[key];
+      }
+      return undefined;
+    }, obj as unknown) as string) || path
+  );
 }
 
 // 翻译函数

@@ -14,10 +14,12 @@
         "copySuccess": "复制成功",
         "copyFailed": "复制失败",
         "copyToClipboard": "已复制到剪贴板",
-        "cannotCopyToClipboard": "无法复制到剪贴板"
+        "cannotCopyToClipboard": "无法复制到剪贴板",
+        "backHome": "返回首页",
+        "goBack": "返回上页"
     },
     "home": {
-        "title": "iTools - 工具箱",
+        "title": "VerseTool - 工具箱",
         "description": "现代化的在线工具集合，包含Base64编码解码等实用工具",
         "welcomeTitle": "在线工具集合",
         "welcomeSubtitle": "强大而简洁的在线工具，让工作更高效",
@@ -107,7 +109,7 @@
         },
         "actions": {
             "goHome": "返回首页",
-            "goHomeDescription": "回到 iTools 主页面",
+            "goHomeDescription": "回到 VerseTool 主页面",
             "browseAllTools": "浏览所有工具",
             "browseAllToolsDescription": "查看完整的工具列表和分类",
             "switchToDark": "切换到深色模式",
@@ -115,7 +117,12 @@
             "switchToLight": "切换到浅色模式",
             "switchToLightDescription": "启用浅色主题界面",
             "githubRepo": "Github 仓库",
-            "githubRepoDescription": "查看 iTools 的源代码"
+            "githubRepoDescription": "查看 VerseTool 的源代码"
         }
+    },
+    "error": {
+        "404Title": "页面未找到",
+        "404Description": "抱歉，您访问的页面不存在或已被移除。",
+        "404Suggestion": "您可以尝试以下操作："
     }
 }

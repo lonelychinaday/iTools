@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ToolSidebar } from '@/components/tool-sidebar';
 import { Header } from '@/components/ui/header';
 import { CommandPalette } from '@/components/ui/command-palette';
 import { useCommandPalette } from '@/hooks/use-command-palette';
 import { useRouter, usePathname } from 'next/navigation';
 import { toolCategories } from '@/lib/tools';
+
+// 注意：由于这是客户端组件，metadata需要在父级服务端组件中设置
+// 或者考虑重构为服务端组件
 
 export default function ToolsLayout({
   children,
@@ -17,7 +20,6 @@ export default function ToolsLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   // 初始状态总是false（展开），避免SSR不一致
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { open, setOpen, openCommandPalette } = useCommandPalette();
@@ -33,11 +35,6 @@ export default function ToolsLayout({
         category.tools.some(tool => tool.id === toolId)
       )
   );
-
-  // 客户端hydration后设置标志
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
 
   // 处理工具选择 - 跳转到对应路由
   const handleToolSelect = (newToolId: string) => {
@@ -60,8 +57,8 @@ export default function ToolsLayout({
         variant='tools'
         sidebarOpen={sidebarOpen}
         onSidebarToggle={() => setSidebarOpen(!sidebarOpen)}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        _searchQuery={searchQuery}
+        _onSearchChange={setSearchQuery}
         selectedTool={isValidTool ? toolId : undefined}
         onToolSelect={handleToolSelect}
         onCommandPaletteTrigger={openCommandPalette}
@@ -88,7 +85,7 @@ export default function ToolsLayout({
                 onToolSelect={handleToolSelect}
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
-                onClose={() => setSidebarOpen(false)}
+                _onClose={() => setSidebarOpen(false)}
                 collapsed={sidebarCollapsed}
                 onToggleCollapse={handleToggleSidebarCollapse}
               />

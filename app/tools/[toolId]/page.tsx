@@ -5,6 +5,52 @@ import { useRouter, useParams } from 'next/navigation';
 import { ToolContent } from '@/components/tool-content';
 import { toolCategories } from '@/lib/tools';
 
+// 获取工具信息
+const getToolInfo = (toolId: string) => {
+  for (const category of toolCategories) {
+    const tool = category.tools.find(t => t.id === toolId);
+    if (tool) {
+      return { tool, category };
+    }
+  }
+  return null;
+};
+
+// 生成工具页面的结构化数据
+const generateToolStructuredData = (toolId: string) => {
+  const toolInfo = getToolInfo(toolId);
+  if (!toolInfo) return null;
+
+  const { tool, category } = toolInfo;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description: tool.description || `${tool.name} - VerseTool在线工具`,
+    url: `https://itools.jmxr.fun/tools/${tool.id}`,
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    category: category.name,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    creator: {
+      '@type': 'Organization',
+      name: 'VerseTool',
+      url: 'https://itools.jmxr.fun',
+    },
+    mainEntity: {
+      '@type': 'WebApplication',
+      name: tool.name,
+      description: tool.description,
+      url: `https://itools.jmxr.fun/tools/${tool.id}`,
+    },
+  };
+};
+
 export default function ToolPage() {
   const router = useRouter();
   const params = useParams();
@@ -14,6 +60,8 @@ export default function ToolPage() {
   const isValidTool = toolCategories.some(category =>
     category.tools.some(tool => tool.id === toolId)
   );
+
+  const structuredData = generateToolStructuredData(toolId);
 
   useEffect(() => {
     // 如果工具ID无效，重定向到工具列表页面
@@ -28,8 +76,18 @@ export default function ToolPage() {
   }
 
   return (
-    <div className='overflow-auto md:absolute md:inset-0'>
-      <ToolContent selectedTool={toolId} />
-    </div>
+    <>
+      {/* 结构化数据 */}
+      {structuredData && (
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      )}
+
+      <div className='overflow-auto md:absolute md:inset-0'>
+        <ToolContent selectedTool={toolId} />
+      </div>
+    </>
   );
 }

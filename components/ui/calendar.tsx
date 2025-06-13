@@ -54,13 +54,21 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className='h-4 w-4' />,
-        IconRight: ({ ...props }) => <ChevronRight className='h-4 w-4' />,
+        IconLeft,
+        IconRight,
       }}
       {...props}
     />
   );
 }
 Calendar.displayName = 'Calendar';
+
+function IconLeft(_props: React.ComponentProps<'svg'>) {
+  return <ChevronLeft className='h-4 w-4' />;
+}
+
+function IconRight(_props: React.ComponentProps<'svg'>) {
+  return <ChevronRight className='h-4 w-4' />;
+}
 
 export { Calendar };

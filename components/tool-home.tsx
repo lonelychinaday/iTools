@@ -62,7 +62,7 @@ export function ToolHome({
 
             <h1 className='text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent'>
               {ts('home.welcomeTitle', '在线工具集合')}{' '}
-              <span className='font-lilita-one tracking-wider'>iTools</span>
+              <span className='font-lilita-one tracking-wider'>VerseTool</span>
             </h1>
             <p className='text-xl text-muted-foreground max-w-2xl mx-auto'>
               {ts('home.welcomeSubtitle', '强大而简洁的在线工具，让工作更高效')}

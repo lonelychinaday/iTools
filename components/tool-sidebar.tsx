@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { STORAGE_KEYS } from '@/lib/copy-config';
 import { ChevronDown, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -13,7 +14,7 @@ interface ToolSidebarProps {
   onToolSelect: (toolId: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  onClose: () => void;
+  _onClose: () => void;
   collapsed?: boolean;
   onToggleCollapse?: () => void;
 }
@@ -22,7 +23,7 @@ export function ToolSidebar({
   selectedTool,
   onToolSelect,
   searchQuery,
-  onClose,
+  _onClose,
   collapsed = false,
   onToggleCollapse,
 }: ToolSidebarProps) {
@@ -53,7 +54,7 @@ export function ToolSidebar({
     setIsHydrated(true);
 
     try {
-      const saved = localStorage.getItem('itools-expanded-categories');
+      const saved = localStorage.getItem(STORAGE_KEYS.expandedCategories);
       if (saved) {
         const parsedSaved = JSON.parse(saved);
         // 确保选中工具的分类包含在内
@@ -65,7 +66,7 @@ export function ToolSidebar({
             const mergedCategories = [...parsedSaved, categoryWithTool.id];
             setExpandedCategories(mergedCategories);
             localStorage.setItem(
-              'itools-expanded-categories',
+              STORAGE_KEYS.expandedCategories,
               JSON.stringify(mergedCategories)
             );
             return;
@@ -74,29 +75,40 @@ export function ToolSidebar({
         setExpandedCategories(parsedSaved);
       }
     } catch (error) {
-      console.warn(
-        'Failed to load expanded categories from localStorage:',
-        error
-      );
-    }
-  }, [selectedTool]);
-
-  // 保存展开状态到localStorage（只在客户端）
-  const saveExpandedCategories = (categories: string[]) => {
-    if (isHydrated) {
-      try {
-        localStorage.setItem(
-          'itools-expanded-categories',
-          JSON.stringify(categories)
-        );
-      } catch (error) {
+      // 开发环境显示警告
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
         console.warn(
-          'Failed to save expanded categories to localStorage:',
+          'Failed to load expanded categories from localStorage:',
           error
         );
       }
     }
-  };
+  }, [selectedTool, localizedCategories]);
+
+  // 保存展开状态到localStorage（只在客户端）
+  const saveExpandedCategories = useCallback(
+    (categories: string[]) => {
+      if (isHydrated) {
+        try {
+          localStorage.setItem(
+            STORAGE_KEYS.expandedCategories,
+            JSON.stringify(categories)
+          );
+        } catch (error) {
+          // 开发环境显示警告
+          if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
+            console.warn(
+              'Failed to save expanded categories to localStorage:',
+              error
+            );
+          }
+        }
+      }
+    },
+    [isHydrated]
+  );
 
   // 只在选中工具真正变化时才确保对应分类展开
   useEffect(() => {
@@ -118,7 +130,7 @@ export function ToolSidebar({
 
       previousSelectedTool.current = selectedTool;
     }
-  }, [selectedTool, isHydrated, localizedCategories]);
+  }, [selectedTool, localizedCategories, saveExpandedCategories]);
 
   const toggleCategory = (categoryId: string) => {
     if (collapsed) return;

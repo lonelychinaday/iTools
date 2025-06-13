@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import {
@@ -12,7 +12,6 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
-import { toolCategories } from '@/lib/tools';
 import { getLocalizedToolCategories } from '@/lib/tools-i18n';
 import { useTranslation } from '@/hooks/use-translation';
 import { Home, Grid3X3, Github, Sun, Moon, ExternalLink } from 'lucide-react';

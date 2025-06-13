@@ -9,6 +9,9 @@ import { Toaster } from '@/components/ui/sonner';
 import { LocaleProvider } from '../components/locale-provider';
 import { getServerLocale } from '@/lib/locale-server';
 import { getHtmlLang } from '@/lib/locale-utils';
+import { SEOMonitor } from '@/components/seo-monitor';
+import { BRAND, OG_CONFIG } from '@/lib/copy-config';
+import { getLocalizedSEO } from '@/lib/seo-i18n';
 
 const lilitaOne = Lilita_One({
   weight: ['400'],
@@ -16,11 +19,83 @@ const lilitaOne = Lilita_One({
   variable: '--font-lilita-one',
 });
 
-export const metadata: Metadata = {
-  title: 'iTools - 工具箱',
-  description:
-    '现代化的在线工具集合，包含JSON格式化、Base64编码、密码生成等实用工具',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedSEO = await getLocalizedSEO(locale);
+
+  return {
+    title: {
+      default: localizedSEO.title.default,
+      template: localizedSEO.title.template,
+    },
+    description: localizedSEO.description.main,
+    keywords: [...localizedSEO.keywords.main],
+    authors: [{ name: BRAND.name }],
+    creator: BRAND.name,
+    publisher: BRAND.name,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    metadataBase: new URL(BRAND.domain),
+    alternates: {
+      canonical: '/',
+      languages: {
+        'zh-CN': '/',
+        'en-US': '/?lang=en',
+        'x-default': '/',
+      },
+    },
+    openGraph: {
+      type: OG_CONFIG.type,
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      alternateLocale: locale === 'zh' ? 'en_US' : 'zh_CN',
+      url: BRAND.domain,
+      title: localizedSEO.title.default,
+      description: localizedSEO.description.main,
+      siteName: BRAND.name,
+      images: [
+        {
+          url: '/api/og',
+          width: OG_CONFIG.image.width,
+          height: OG_CONFIG.image.height,
+          alt: OG_CONFIG.image.alt,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: localizedSEO.title.short,
+      description: localizedSEO.description.short,
+      creator: BRAND.twitter,
+      images: ['/api/og'],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    verification: {
+      google: 'google-site-verification-code',
+      yandex: 'yandex-verification-code',
+      yahoo: 'yahoo-verification-code',
+    },
+    other: {
+      'theme-color': '#3b82f6',
+      'msapplication-TileColor': '#3b82f6',
+      'apple-mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-status-bar-style': 'default',
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -64,6 +139,12 @@ export default async function RootLayout({
         </LocaleProvider>
         <SpeedInsights />
         <Analytics />
+        <SEOMonitor />
+        {process.env.NODE_ENV === 'development' && (
+          <div style={{ display: 'none' }}>
+            {/* SEO调试信息仅在开发环境显示 */}
+          </div>
+        )}
       </body>
     </html>
   );

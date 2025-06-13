@@ -22,45 +22,50 @@ export function Base64Tool() {
   const { toast } = useToast();
   const { t } = useTranslation();
 
-  const encode = () => {
-    try {
-      const encoded = btoa(unescape(encodeURIComponent(input)));
-      setOutput(encoded);
-    } catch (err) {
-      toast({
-        title: t('toolsDetail.base64Tool.encodeFailed'),
-        description: t('toolsDetail.base64Tool.encodeFailedDesc'),
-        variant: 'destructive',
-      });
+  const processInput = (operation: 'encode' | 'decode') => {
+    if (!input.trim()) return;
+
+    if (operation === 'encode') {
+      try {
+        const encoded = btoa(unescape(encodeURIComponent(input)));
+        setOutput(encoded);
+      } catch {
+        toast({
+          title: t('toolsDetail.base64Tool.encodeFailed', '编码失败'),
+          description: t('toolsDetail.base64Tool.encodeFailedDesc'),
+          variant: 'destructive',
+        });
+      }
+    } else {
+      try {
+        const decoded = decodeURIComponent(escape(atob(input)));
+        setOutput(decoded);
+      } catch {
+        toast({
+          title: t('toolsDetail.base64Tool.decodeFailed', '解码失败'),
+          description: t('toolsDetail.base64Tool.decodeFailedDesc'),
+          variant: 'destructive',
+        });
+      }
     }
   };
 
-  const decode = () => {
+  const copyToClipboard = async (content: string) => {
     try {
-      const decoded = decodeURIComponent(escape(atob(input)));
-      setOutput(decoded);
-    } catch (err) {
-      toast({
-        title: t('toolsDetail.base64Tool.decodeFailed'),
-        description: t('toolsDetail.base64Tool.decodeFailedDesc'),
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(output);
+      await navigator.clipboard.writeText(content);
       setCopied(true);
       toast({
-        title: t('common.copySuccess'),
-        description: t('toolsDetail.base64Tool.copySuccessDesc'),
+        title: t('common.copySuccess', '复制成功'),
+        description: t(
+          'toolsDetail.base64Tool.copySuccessDesc',
+          '结果已复制到剪贴板'
+        ),
       });
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast({
-        title: t('common.copyFailed'),
-        description: t('common.cannotCopyToClipboard'),
+        title: t('common.copyFailed', '复制失败'),
+        description: t('common.cannotCopyToClipboard', '无法复制到剪贴板'),
         variant: 'destructive',
       });
     }
@@ -107,7 +112,10 @@ export function Base64Tool() {
                   onChange={e => setInput(e.target.value)}
                   className='min-h-[250px] resize-none'
                 />
-                <Button onClick={encode} className='w-full h-10'>
+                <Button
+                  onClick={() => processInput('encode')}
+                  className='w-full h-10'
+                >
                   {t('toolsDetail.base64Tool.encodeButton')}
                 </Button>
               </CardContent>
@@ -133,7 +141,7 @@ export function Base64Tool() {
                   )}
                 />
                 <Button
-                  onClick={copyToClipboard}
+                  onClick={() => copyToClipboard(output)}
                   disabled={!output}
                   variant='outline'
                   className='w-full h-10'
@@ -171,7 +179,10 @@ export function Base64Tool() {
                   onChange={e => setInput(e.target.value)}
                   className='min-h-[250px] font-mono text-sm resize-none'
                 />
-                <Button onClick={decode} className='w-full h-10'>
+                <Button
+                  onClick={() => processInput('decode')}
+                  className='w-full h-10'
+                >
                   {t('toolsDetail.base64Tool.decodeButton')}
                 </Button>
               </CardContent>
@@ -197,7 +208,7 @@ export function Base64Tool() {
                   )}
                 />
                 <Button
-                  onClick={copyToClipboard}
+                  onClick={() => copyToClipboard(output)}
                   disabled={!output}
                   variant='outline'
                   className='w-full h-10'

@@ -152,3 +152,6 @@ logs
 
 # Development configuration files
 .cursorrules
+
+# Hidden documentation and reports
+.hidden/

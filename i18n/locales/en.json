@@ -14,10 +14,12 @@
         "copySuccess": "Copy successful",
         "copyFailed": "Copy failed",
         "copyToClipboard": "Copied to clipboard",
-        "cannotCopyToClipboard": "Cannot copy to clipboard"
+        "cannotCopyToClipboard": "Cannot copy to clipboard",
+        "backHome": "Back to Home",
+        "goBack": "Go Back"
     },
     "home": {
-        "title": "iTools - Toolbox",
+        "title": "VerseTool - Toolbox",
         "description": "Modern online tools collection, including Base64 encoding and decoding utilities",
         "welcomeTitle": "Online Tools Collection",
         "welcomeSubtitle": "Powerful and simple online tools to make work more efficient",
@@ -107,7 +109,7 @@
         },
         "actions": {
             "goHome": "Go to Home",
-            "goHomeDescription": "Return to iTools main page",
+            "goHomeDescription": "Return to VerseTool main page",
             "browseAllTools": "Browse All Tools",
             "browseAllToolsDescription": "View complete tool list and categories",
             "switchToDark": "Switch to Dark Mode",
@@ -115,7 +117,12 @@
             "switchToLight": "Switch to Light Mode",
             "switchToLightDescription": "Enable light theme interface",
             "githubRepo": "Github Repository",
-            "githubRepoDescription": "View iTools source code"
+            "githubRepoDescription": "View VerseTool source code"
         }
+    },
+    "error": {
+        "404Title": "Page Not Found",
+        "404Description": "Sorry, the page you are looking for does not exist or has been removed.",
+        "404Suggestion": "You can try the following:"
     }
 }

@@ -14,7 +14,11 @@ export async function serverTranslate(
     const actualLocale = locale || (await getServerLocale());
     return translateFn(key, actualLocale);
   } catch (error) {
-    console.warn(`Server translation missing for key: ${key}`, error);
+    // 开发环境显示翻译错误
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.warn(`Server translation missing for key: ${key}`, error);
+    }
     return fallback || key;
   }
 }
@@ -27,7 +31,11 @@ export function createServerTranslator(locale: Locale) {
     try {
       return translateFn(key, locale);
     } catch (error) {
-      console.warn(`Server translation missing for key: ${key}`, error);
+      // 开发环境显示翻译错误
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn(`Server translation missing for key: ${key}`, error);
+      }
       return fallback || key;
     }
   };
@@ -42,4 +50,44 @@ export function createServerTranslator(locale: Locale) {
 export async function getServerTranslator() {
   const locale = await getServerLocale();
   return createServerTranslator(locale);
+}
+
+export function loadTranslations(locale: Locale): Record<string, unknown> {
+  try {
+    // 动态导入翻译文件
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const translations = require(`@/i18n/locales/${locale}.json`);
+    return translations;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(`Failed to load translations for locale: ${locale}`, error);
+    // 如果加载失败，尝试加载默认语言
+    if (locale !== 'zh') {
+      return loadTranslations('zh');
+    }
+    return {};
+  }
+}
+
+// 根据路径获取嵌套对象的值
+function getNestedValue(obj: Record<string, unknown>, path: string): string {
+  return (
+    (path.split('.').reduce((current, key) => {
+      if (current && typeof current === 'object' && key in current) {
+        return (current as Record<string, unknown>)[key];
+      }
+      return undefined;
+    }, obj as unknown) as string) || path
+  );
+}
+
+export function t(key: TranslationKey, locale: Locale = 'zh'): string {
+  try {
+    const translations = loadTranslations(locale);
+    return getNestedValue(translations, key) || key;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(`Translation error for key: ${key}`, error);
+    return key;
+  }
 }
