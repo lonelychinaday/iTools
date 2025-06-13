@@ -14,19 +14,52 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 24,
-          background: 'linear-gradient(90deg, #3b82f6 0%, #6366f1 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontWeight: 'bold',
-          borderRadius: '4px',
+          position: 'relative',
+          background: 'white',
+          borderRadius: '2px',
         }}
       >
-        VT
+        {/* 橙色圆形 */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '20px',
+            top: '13px',
+            width: '16px',
+            height: '16px',
+            borderRadius: '50%',
+            background: '#FF9B0F',
+          }}
+        />
+
+        {/* 绿色三角形 */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '15px',
+            top: '11px',
+            width: '0',
+            height: '0',
+            borderLeft: '6px solid transparent',
+            borderRight: '6px solid transparent',
+            borderBottom: '13.5px solid #28E361',
+          }}
+        />
+
+        {/* 蓝色矩形 */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '5px',
+            top: '15px',
+            width: '12px',
+            height: '12px',
+            background: '#1ABAFA',
+          }}
+        />
       </div>
     ),
     {

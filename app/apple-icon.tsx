@@ -14,21 +14,52 @@ export default function AppleIcon() {
     (
       <div
         style={{
-          fontSize: 72,
-          background:
-            'linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontWeight: 'bold',
+          position: 'relative',
+          background: 'white',
           borderRadius: '20px',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
         }}
       >
-        VT
+        {/* 橙色圆形 */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '112px',
+            top: '73px',
+            width: '45px',
+            height: '45px',
+            borderRadius: '50%',
+            background: '#FF9B0F',
+          }}
+        />
+
+        {/* 绿色三角形 */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '118px',
+            top: '62px',
+            width: '0',
+            height: '0',
+            borderLeft: '17px solid transparent',
+            borderRight: '17px solid transparent',
+            borderBottom: '38px solid #28E361',
+          }}
+        />
+
+        {/* 蓝色矩形 */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '28px',
+            top: '84px',
+            width: '67px',
+            height: '67px',
+            background: '#1ABAFA',
+          }}
+        />
       </div>
     ),
     {
