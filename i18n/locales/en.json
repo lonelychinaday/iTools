@@ -20,12 +20,22 @@
     },
     "home": {
         "title": "VerseTool - Toolbox",
-        "description": "Modern online tools collection, including Base64 encoding and decoding utilities",
-        "welcomeTitle": "Online Tools Collection",
-        "welcomeSubtitle": "Powerful and simple online tools to make work more efficient",
+        "description": "Free online tools collection including Base64 encoder/decoder, JSON formatter and more practical utilities. No downloads required, instant access for efficient work and study",
+        "welcomeTitle": "Every Tool, Perfectly Crafted",
+        "welcomeSubtitle": "Thoughtfully designed practical tools that make everyday tasks simple and easy. No downloads required, ready to use instantly",
         "searchPlaceholder": "Search tools or press ⌘K",
         "noToolsFound": "No matching tools found",
-        "tryDifferentKeywords": "Try different keywords"
+        "tryDifferentKeywords": "Try different keywords",
+        "heroFeature1": "⚡ Instant Processing",
+        "heroFeature1Desc": "Fast response, instant results",
+        "heroFeature2": "🔒 Privacy First",
+        "heroFeature2Desc": "Data processed locally, never uploaded to servers",
+        "heroFeature3": "🎨 Clean & Simple",
+        "heroFeature3Desc": "Intuitive design, easy for everyone to use",
+        "getStarted": "Get Started",
+        "popularTools": "Popular Tools",
+        "searchResults": "Search Results",
+        "foundTools": "Found {count} related tools"
     },
     "tools": {
         "categories": {

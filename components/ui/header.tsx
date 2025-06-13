@@ -106,13 +106,13 @@ export function Header({
           {/* Left section with logo and title */}
           <div className='flex items-center min-w-0 flex-1'>
             {/* Logo and title - always visible */}
-            <div className='flex items-center gap-0.5 md:gap-2 flex-shrink-0'>
+            <div className='flex items-center gap-0.5 md:gap-0.5 flex-shrink-0'>
               <div className='p-1 cursor-pointer' onClick={handleGoHome}>
                 <Logo />
               </div>
               <Button
                 variant='ghost'
-                className='p-0 h-auto font-lilita-one text-foreground text-lg tracking-wider font-bold hover:bg-transparent'
+                className='p-0 h-auto font-lilita-one bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent text-lg tracking-wider font-normal hover:text-transparent'
                 onClick={handleGoHome}
               >
                 VerseTool
@@ -163,13 +163,13 @@ export function Header({
           </Button>
 
           {/* Logo and title - always visible */}
-          <div className='flex items-center gap-0.5 md:gap-2 flex-shrink-0'>
+          <div className='flex items-center gap-0.5 md:gap-0.5 flex-shrink-0'>
             <div className='p-1 cursor-pointer' onClick={handleGoHome}>
               <Logo />
             </div>
             <Button
               variant='ghost'
-              className='p-0 h-auto font-lilita-one text-foreground text-lg tracking-wider font-bold hover:bg-transparent'
+              className='p-0 h-auto font-lilita-one bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent text-lg tracking-wider font-normal hover:text-transparent'
               onClick={handleGoHome}
             >
               VerseTool

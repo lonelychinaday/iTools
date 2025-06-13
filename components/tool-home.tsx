@@ -53,23 +53,35 @@ export function ToolHome({
     <div className='min-h-full'>
       {/* 顶部区域 */}
       <div className='relative'>
-        <div className='max-w-6xl mx-auto px-6 pt-12 pb-6'>
-          <div className='text-center space-y-4'>
+        <div className='max-w-6xl mx-auto px-6 pt-16 pb-12'>
+          <div className='text-center space-y-6'>
             {/* Logo */}
-            <div className='flex justify-center mb-6'>
-              <Logo />
+            <div className='flex justify-center'>
+              <Logo className='w-24 h-24 md:w-32 md:h-32' />
             </div>
 
-            <h1 className='text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent'>
-              {ts('home.welcomeTitle', '在线工具集合')}{' '}
-              <span className='font-lilita-one tracking-wider'>VerseTool</span>
+            {/* 品牌名称 */}
+            <h1 className='text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight mt-[0!important]'>
+              <span className='font-lilita-one tracking-wider bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent'>
+                VerseTool
+              </span>
             </h1>
-            <p className='text-xl text-muted-foreground max-w-2xl mx-auto'>
-              {ts('home.welcomeSubtitle', '强大而简洁的在线工具，让工作更高效')}
+
+            {/* 标语 */}
+            <h2 className='text-xl md:text-2xl lg:text-3xl font-normal tracking-tight text-muted-foreground'>
+              {ts('home.welcomeTitle', '让每个工具都恰到好处')}
+            </h2>
+
+            {/* 副标题 */}
+            <p className='text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed'>
+              {ts(
+                'home.welcomeSubtitle',
+                '精心设计的实用工具集，让日常任务变得轻松简单。无需下载安装，打开即用'
+              )}
             </p>
 
             {/* 搜索框 */}
-            <div className='max-w-md mx-auto mt-8'>
+            <div className='max-w-lg mx-auto mt-8'>
               <SearchBox
                 value=''
                 onChange={() => {}}
@@ -81,18 +93,69 @@ export function ToolHome({
                 onCommandPaletteTrigger={onCommandPaletteTrigger}
               />
             </div>
+
+            {/* 特性展示 */}
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16'>
+              <div className='text-center space-y-2 p-4 rounded-lg bg-card/30 border border-border/40 hover:bg-card/50 transition-colors'>
+                <div className='text-2xl mb-1'>⚡</div>
+                <h3 className='text-base font-semibold text-foreground'>
+                  {ts('home.heroFeature1', '即时处理').replace('⚡ ', '')}
+                </h3>
+                <p className='text-xs text-muted-foreground leading-relaxed'>
+                  {ts('home.heroFeature1Desc', '快速响应，即时获得结果')}
+                </p>
+              </div>
+              <div className='text-center space-y-2 p-4 rounded-lg bg-card/30 border border-border/40 hover:bg-card/50 transition-colors'>
+                <div className='text-2xl mb-1'>🔒</div>
+                <h3 className='text-base font-semibold text-foreground'>
+                  {ts('home.heroFeature2', '隐私安全').replace('🔒 ', '')}
+                </h3>
+                <p className='text-xs text-muted-foreground leading-relaxed'>
+                  {ts(
+                    'home.heroFeature2Desc',
+                    '数据本地处理，不会上传到服务器'
+                  )}
+                </p>
+              </div>
+              <div className='text-center space-y-2 p-4 rounded-lg bg-card/30 border border-border/40 hover:bg-card/50 transition-colors'>
+                <div className='text-2xl mb-1'>🎨</div>
+                <h3 className='text-base font-semibold text-foreground'>
+                  {ts('home.heroFeature3', '简洁易用').replace('🎨 ', '')}
+                </h3>
+                <p className='text-xs text-muted-foreground leading-relaxed'>
+                  {ts('home.heroFeature3Desc', '直观设计，人人都能轻松上手')}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* 工具展示区域 */}
-      <div className='max-w-6xl mx-auto px-6 md:py-8 relative'>
+      <div className='max-w-6xl mx-auto px-6 py-8 relative'>
         {/* 工具展示 */}
         <div>
-          {searchQuery && (
-            <h2 className='text-2xl font-semibold mb-6 text-slate-700 dark:text-slate-300'>
-              {ts('common.search', '搜索')} ({filteredTools.length})
-            </h2>
+          {searchQuery ? (
+            <div className='mb-8'>
+              <h2 className='text-2xl font-bold tracking-tight mb-2 text-foreground'>
+                {ts('common.search', '搜索')} ({filteredTools.length})
+              </h2>
+              <p className='text-muted-foreground'>
+                找到 {filteredTools.length} 个相关工具
+              </p>
+            </div>
+          ) : (
+            <div className='text-center mb-12'>
+              <h2 className='text-2xl md:text-3xl font-bold tracking-tight mb-3 text-foreground'>
+                {ts('home.popularTools', '热门工具')}
+              </h2>
+              <p className='text-base text-muted-foreground max-w-2xl mx-auto'>
+                {ts(
+                  'pages.tools.quickStartDescription',
+                  '选择一个热门工具立即开始使用'
+                )}
+              </p>
+            </div>
           )}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             {(searchQuery ? filteredTools : allTools).map(tool => (
@@ -105,11 +168,12 @@ export function ToolHome({
             ))}
           </div>
           {searchQuery && filteredTools.length === 0 && (
-            <div className='text-center py-12'>
-              <p className='text-muted-foreground text-lg'>
+            <div className='text-center py-16'>
+              <div className='text-6xl mb-4'>🔍</div>
+              <h3 className='text-xl font-semibold mb-2 text-foreground'>
                 {ts('home.noToolsFound', '未找到相关工具')}
-              </p>
-              <p className='text-muted-foreground text-sm mt-2'>
+              </h3>
+              <p className='text-muted-foreground'>
                 {ts('home.tryDifferentKeywords', '请尝试不同的关键词')}
               </p>
             </div>
@@ -135,26 +199,29 @@ function ToolCard({ tool, categoryName, onSelect }: ToolCardProps) {
   return (
     <Card
       className={cn(
-        'cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] border-border/40',
-        'bg-card/60 backdrop-blur-md hover:bg-card/90 shadow-sm'
+        'cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:scale-[1.02] border-border/50',
+        'bg-card/60 backdrop-blur-sm hover:bg-card/90 shadow-sm hover:border-primary/20',
+        'group relative overflow-hidden'
       )}
       onClick={() => onSelect(tool.id)}
     >
-      <CardHeader className='pb-2 pt-4 px-4'>
-        <div className='flex items-center justify-between mb-2'>
-          <tool.icon className='h-6 w-6 text-accent-foreground' />
+      <CardHeader className='pb-3 pt-6 px-6'>
+        <div className='flex items-center justify-between mb-3'>
+          <div className='p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors'>
+            <tool.icon className='h-6 w-6 text-primary' />
+          </div>
           <Badge
             variant='secondary'
-            className='text-xs px-2 py-0.5 text-muted-foreground'
+            className='text-xs px-2 py-1 text-muted-foreground bg-muted/60'
           >
             {categoryName}
           </Badge>
         </div>
-        <CardTitle className='text-base leading-tight text-accent-foreground'>
+        <CardTitle className='text-lg leading-tight text-foreground group-hover:text-primary transition-colors'>
           {tool.name}
         </CardTitle>
       </CardHeader>
-      <CardContent className='pt-0 px-4 pb-4'>
+      <CardContent className='pt-0 px-6 pb-6'>
         <CardDescription className='text-sm leading-relaxed text-muted-foreground'>
           {tool.description}
         </CardDescription>
