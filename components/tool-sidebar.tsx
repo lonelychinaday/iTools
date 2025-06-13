@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { STORAGE_KEYS } from '@/lib/copy-config';
 import { ChevronDown, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -29,8 +29,11 @@ export function ToolSidebar({
 }: ToolSidebarProps) {
   const { locale } = useLocaleContext();
 
-  // 获取国际化的工具数据
-  const localizedCategories = getLocalizedToolCategories(locale);
+  // 获取国际化的工具数据，使用 useMemo 缓存避免无限重渲染
+  const localizedCategories = useMemo(
+    () => getLocalizedToolCategories(locale),
+    [locale]
+  );
 
   // 初始状态：总是从选中工具开始，避免SSR不一致
   const getSSRSafeInitialCategories = () => {
