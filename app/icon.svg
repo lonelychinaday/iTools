@@ -1,5 +1,10 @@
-<svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx='40' cy='26' r='16' fill='#FF9B0F' />
+<svg
+viewBox='0 0 64 64'
+fill='none'
+xmlns='http://www.w3.org/2000/svg'
+>
+<rect x='0.5' width='64' height='64' rx='2' fill='white' />
+<circle cx='39' cy='27' r='16' fill='#FF9B0F' />
 <path d='M42 22L54.1244 49H29.8756L42 22Z' fill='#28E361' />
-<rect x='10' y='30' width='24' height='24' fill='#1ABAFA' />
+<rect x='9' y='30' width='24' height='24' fill='#1ABAFA' />
 </svg>
