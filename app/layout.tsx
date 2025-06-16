@@ -132,17 +132,17 @@ export default async function RootLayout({
         <LocaleProvider serverLocale={locale}>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             {children}
-            <SpeedInsights />
-            <Analytics />
-            <SEOMonitor />
-            {process.env.NODE_ENV === 'development' && (
-              <div style={{ display: 'none' }}>
-                {/* SEO调试信息仅在开发环境显示 */}
-              </div>
-            )}
             <Toaster />
           </ThemeProvider>
         </LocaleProvider>
+        <SpeedInsights />
+        <Analytics />
+        <SEOMonitor />
+        {process.env.NODE_ENV === 'development' && (
+          <div style={{ display: 'none' }}>
+            {/* SEO调试信息仅在开发环境显示 */}
+          </div>
+        )}
       </body>
     </html>
   );
