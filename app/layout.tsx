@@ -93,7 +93,7 @@ export async function generateMetadata(): Promise<Metadata> {
     other: {
       'theme-color': '#3b82f6',
       'msapplication-TileColor': '#3b82f6',
-      'apple-mobile-web-app-capable': 'yes',
+      'mobile-web-app-capable': 'yes',
       'apple-mobile-web-app-status-bar-style': 'default',
     },
   };
