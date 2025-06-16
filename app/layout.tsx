@@ -136,7 +136,7 @@ export default async function RootLayout({
             <Toaster />
           </ThemeProvider>
         </LocaleProvider>
-        <SpeedInsights endpoint='_vercel/speed-insights/vitals' />
+        <SpeedInsights endpoint='https://versetool.jmxr.fun/_vercel/speed-insights/vitals' />
         <Analytics />
         <SEOMonitor />
         {process.env.NODE_ENV === 'development' && (
