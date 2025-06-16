@@ -15,7 +15,14 @@ interface LocaleContextType {
   toggleLocale: () => void;
 }
 
-const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
+// 提供默认值，避免预渲染时的 Context 错误
+const defaultContextValue: LocaleContextType = {
+  locale: 'zh', // 默认中文
+  changeLocale: () => {}, // 空函数
+  toggleLocale: () => {}, // 空函数
+};
+
+const LocaleContext = createContext<LocaleContextType>(defaultContextValue);
 
 interface LocaleProviderProps {
   children: React.ReactNode;
@@ -84,8 +91,22 @@ export function LocaleProvider({
 
 export function useLocaleContext() {
   const context = useContext(LocaleContext);
-  if (context === undefined) {
-    throw new Error('useLocaleContext must be used within a LocaleProvider');
+
+  // 在预渲染阶段或 Provider 外部使用时，返回默认值而不是抛出错误
+  if (!context || context === defaultContextValue) {
+    // 开发环境下显示警告，但不阻断渲染
+    if (
+      process.env.NODE_ENV === 'development' &&
+      typeof window !== 'undefined'
+    ) {
+      console.warn(
+        'useLocaleContext is being used outside of LocaleProvider or during SSR. Using default values.'
+      );
+    }
+
+    // 返回默认的 Context 值，确保应用不会崩溃
+    return defaultContextValue;
   }
+
   return context;
 }

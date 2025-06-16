@@ -1,5 +1,6 @@
 'use client';
 
+// 移除不必要的 hooks
 import { SearchBox } from '@/components/ui/search-box';
 import { Logo } from '@/components/ui/logo';
 import {
@@ -12,8 +13,8 @@ import {
 import { Badge } from '@/components/ui/badge';
 
 import { getLocalizedToolCategories } from '@/lib/tools-i18n';
-import { useTranslation } from '@/hooks/use-translation';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface ToolHomeProps {
   onToolSelect: (toolId: string) => void;
@@ -25,6 +26,7 @@ interface ToolHomeProps {
 export function ToolHome({
   onToolSelect,
   searchQuery,
+  onSearchChange,
   onCommandPaletteTrigger,
 }: ToolHomeProps) {
   const { ts, locale } = useTranslation();
@@ -48,6 +50,8 @@ export function ToolHome({
       tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.categoryName.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // 移除加载状态，直接渲染内容
 
   return (
     <div className='min-h-full'>
@@ -83,8 +87,8 @@ export function ToolHome({
             {/* 搜索框 */}
             <div className='max-w-lg mx-auto mt-8'>
               <SearchBox
-                value=''
-                onChange={() => {}}
+                value={searchQuery}
+                onChange={onSearchChange}
                 placeholder={ts('home.searchPlaceholder', '搜索工具或按 ⌘K')}
                 size='lg'
                 variant='home'
@@ -232,3 +236,5 @@ function ToolCard({ tool, categoryName, onSelect }: ToolCardProps) {
     </Card>
   );
 }
+
+// 移除骨架屏组件，现在直接渲染内容

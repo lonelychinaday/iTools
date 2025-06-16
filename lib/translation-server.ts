@@ -27,7 +27,7 @@ export async function serverTranslate(
  * 创建绑定特定语言的服务端翻译函数
  */
 export function createServerTranslator(locale: Locale) {
-  return (key: TranslationKey, fallback?: string): string => {
+  const t = (key: TranslationKey, fallback?: string): string => {
     try {
       return translateFn(key, locale);
     } catch (error) {
@@ -39,13 +39,20 @@ export function createServerTranslator(locale: Locale) {
       return fallback || key;
     }
   };
+
+  // 安全翻译函数，总是有 fallback
+  const ts = (key: TranslationKey, fallback: string): string => {
+    return t(key, fallback);
+  };
+
+  return { t, ts, locale };
 }
 
 /**
  * 获取服务端翻译器Hook，用于Server Components
  * 使用方式：
- * const t = await getServerTranslator();
- * return <h1>{t('home.title')}</h1>
+ * const { t, ts } = await getServerTranslator();
+ * return <h1>{ts('home.title', 'Default Title')}</h1>
  */
 export async function getServerTranslator() {
   const locale = await getServerLocale();
