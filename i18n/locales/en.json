@@ -16,26 +16,26 @@
         "copyToClipboard": "Copied to clipboard",
         "cannotCopyToClipboard": "Cannot copy to clipboard",
         "backHome": "Back to Home",
-        "goBack": "Go Back"
+        "goBack": "Go Back",
+        "searchPlaceholder": "Search..."
     },
     "home": {
         "title": "VerseTool - Toolbox",
         "description": "Free online tools collection including Base64 encoder/decoder, JSON formatter and more practical utilities. No downloads required, instant access for efficient work and study",
-        "welcomeTitle": "Every Tool, Perfectly Crafted",
-        "welcomeSubtitle": "Thoughtfully designed practical tools that make everyday tasks simple and easy. No downloads required, ready to use instantly",
+        "welcomeTitle": "Every Tool, Just Right",
+        "welcomeSubtitle": "Thoughtfully designed utility collection that makes daily tasks simple and efficient. No downloads required, ready to use.",
         "searchPlaceholder": "Search tools or press ⌘K",
-        "noToolsFound": "No matching tools found",
+        "noToolsFound": "No tools found",
         "tryDifferentKeywords": "Try different keywords",
         "heroFeature1": "⚡ Instant Processing",
         "heroFeature1Desc": "Fast response, instant results",
-        "heroFeature2": "🔒 Privacy First",
+        "heroFeature2": "🔒 Privacy Secure",
         "heroFeature2Desc": "Data processed locally, never uploaded to servers",
-        "heroFeature3": "🎨 Clean & Simple",
+        "heroFeature3": "🎨 Simple & Intuitive",
         "heroFeature3Desc": "Intuitive design, easy for everyone to use",
         "getStarted": "Get Started",
         "popularTools": "Popular Tools",
-        "searchResults": "Search Results",
-        "foundTools": "Found {count} related tools"
+        "searchResults": "Found {count} related tools"
     },
     "tools": {
         "categories": {
@@ -106,7 +106,18 @@
     "pages": {
         "tools": {
             "quickStart": "Quick Start",
-            "quickStartDescription": "Choose a popular tool to get started immediately"
+            "quickStartDescription": "Choose a popular tool to get started immediately",
+            "usageGuideDescription": "Learn how to use VerseTool toolbox",
+            "sidebarTitle": "Navigation Sidebar",
+            "sidebarDescription": "The left sidebar contains all tool categories, click category titles to expand or collapse",
+            "sidebarTip1": "Click tool names to enter corresponding tool pages",
+            "sidebarTip2": "Click category names to expand all tools",
+            "sidebarTip3": "Use the button to collapse the sidebar",
+            "searchTitle": "Search Function",
+            "searchDescription": "The search box in the top navigation helps you quickly find the tools you need",
+            "searchTip1": "Enter tool names or descriptions to search",
+            "searchTip2": "Search results will be displayed in real-time in the sidebar",
+            "searchTip3": "On mobile, click the menu icon in the top left to open the sidebar"
         }
     },
     "commandPalette": {
@@ -128,15 +139,76 @@
             "switchToLightDescription": "Enable light theme interface",
             "githubRepo": "Github Repository",
             "githubRepoDescription": "View VerseTool source code"
+        },
+        "searchKeywords": {
+            "home": "home homepage navigation",
+            "tools": "tools list all tools",
+            "darkMode": "dark mode theme",
+            "lightMode": "light mode theme",
+            "github": "source code repository"
         }
     },
     "sidebar": {
         "noResults": "No matching tools found",
-        "footer": "Tip: Cmd/Ctrl + B to toggle sidebar"
+        "footer": "Tip: Cmd/Ctrl + B to toggle sidebar",
+        "expand": "Expand sidebar",
+        "collapse": "Collapse sidebar"
     },
     "error": {
         "404Title": "Page Not Found",
         "404Description": "Sorry, the page you are looking for does not exist or has been removed.",
-        "404Suggestion": "You can try the following:"
+        "404Suggestion": "You can try the following:",
+        "notFound": "Page not found",
+        "toolNotFound": "Tool does not exist",
+        "networkError": "Network error, please try again later",
+        "clipboardError": "Cannot copy to clipboard",
+        "fileError": "File processing error"
+    },
+    "success": {
+        "copied": "Copied successfully",
+        "saved": "Saved successfully",
+        "processed": "Processing completed"
+    },
+    "actions": {
+        "copy": "Copy",
+        "save": "Save",
+        "clear": "Clear",
+        "reset": "Reset",
+        "download": "Download",
+        "upload": "Upload",
+        "process": "Process",
+        "generate": "Generate",
+        "convert": "Convert",
+        "format": "Format"
+    },
+    "features": {
+        "privateSecurity": "Data processed locally, never uploaded to servers"
+    },
+    "seo": {
+        "console": {
+            "initFailed": "SEO monitoring initialization failed:",
+            "pageTitle": "Page title:",
+            "titleLengthWarning": "⚠️ Title length should be between 30-60 characters",
+            "pageDescription": "Page description:",
+            "descriptionLengthWarning": "⚠️ Description length should be between 120-160 characters",
+            "h1Count": "H1 tag count:",
+            "h1Warning": "⚠️ Each page should have only one H1 tag",
+            "imagesWithoutAlt": "images missing alt attribute"
+        }
+    },
+    "api": {
+        "og": {
+            "generateFailed": "OG image generation failed:"
+        }
+    },
+    "manifest": {
+        "name": "VerseTool - Online Toolbox",
+        "description": "Modern collection of online tools including Base64 encoder/decoder, JSON formatter, password generator and other utilities",
+        "shortcuts": {
+            "base64": {
+                "name": "Base64 Encoder",
+                "description": "Base64 encoding and decoding tool"
+            }
+        }
     }
 }

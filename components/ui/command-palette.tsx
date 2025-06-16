@@ -108,7 +108,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         {/* 快捷操作分组 */}
         <CommandGroup heading={t('commandPalette.groups.actions')}>
           <CommandItem
-            value='home 首页 导航'
+            value={t('commandPalette.searchKeywords.home', '首页 导航')}
             onSelect={() => handleNavigation('/')}
             className='flex items-center gap-2 px-2 py-2'
           >
@@ -126,7 +126,10 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           </CommandItem>
 
           <CommandItem
-            value='tools 工具列表 所有工具'
+            value={t(
+              'commandPalette.searchKeywords.tools',
+              '工具列表 所有工具'
+            )}
             onSelect={() => handleNavigation('/tools')}
             className='flex items-center gap-2 px-2 py-2'
           >
@@ -144,7 +147,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           </CommandItem>
 
           <CommandItem
-            value='dark mode 深色模式 主题'
+            value={t('commandPalette.searchKeywords.darkMode', '深色模式 主题')}
             onSelect={() => handleThemeToggle('dark')}
             className='flex items-center gap-2 px-2 py-2'
           >
@@ -162,7 +165,10 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           </CommandItem>
 
           <CommandItem
-            value='light mode 浅色模式 主题'
+            value={t(
+              'commandPalette.searchKeywords.lightMode',
+              '浅色模式 主题'
+            )}
             onSelect={() => handleThemeToggle('light')}
             className='flex items-center gap-2 px-2 py-2'
           >
@@ -185,7 +191,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         {/* 外部链接分组 */}
         <CommandGroup heading={t('commandPalette.groups.external')}>
           <CommandItem
-            value='github repository 源码 代码仓库'
+            value={t('commandPalette.searchKeywords.github', '源码 代码仓库')}
             onSelect={() => handleExternalLink('https://github.com')}
             className='flex items-center gap-2 px-2 py-2'
           >

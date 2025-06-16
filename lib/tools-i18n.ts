@@ -69,3 +69,27 @@ export function getLocalizedToolInfo(
 
   return null;
 }
+
+// 验证工具ID是否有效（不依赖语言）
+export function isValidToolId(toolId: string): boolean {
+  return toolCategories.some(category =>
+    category.tools.some(tool => tool.id === toolId)
+  );
+}
+
+// 获取工具所属的分类ID（不依赖语言）
+export function getToolCategoryId(toolId: string): string | null {
+  for (const category of toolCategories) {
+    if (category.tools.some(tool => tool.id === toolId)) {
+      return category.id;
+    }
+  }
+  return null;
+}
+
+// 获取所有工具ID列表（用于sitemap等）
+export function getAllToolIds(): string[] {
+  return toolCategories.flatMap(category =>
+    category.tools.map(tool => tool.id)
+  );
+}

@@ -6,7 +6,7 @@ import { Header } from '@/components/ui/header';
 import { CommandPalette } from '@/components/ui/command-palette';
 import { useCommandPalette } from '@/hooks/use-command-palette';
 import { useRouter, usePathname } from 'next/navigation';
-import { toolCategories } from '@/lib/tools';
+import { isValidToolId, getToolCategoryId } from '@/lib/tools-i18n';
 import { useSidebarContext } from '@/components/sidebar-provider';
 import { cn } from '@/lib/utils';
 
@@ -28,28 +28,15 @@ export function ToolsLayoutClient({ children }: ToolsLayoutClientProps) {
   const toolId = pathSegments.length > 2 ? pathSegments[2] : undefined;
 
   // 验证工具ID是否有效
-  const isValidTool = Boolean(
-    toolId &&
-      toolCategories.some(category =>
-        category.tools.some(tool => tool.id === toolId)
-      )
-  );
+  const isValidTool = Boolean(toolId && isValidToolId(toolId));
 
   // 当工具变化时，确保对应分类展开
   useEffect(() => {
     if (isValidTool && toolId && !isMobile) {
-      const categoryWithTool = toolCategories.find(category =>
-        category.tools.some(tool => tool.id === toolId)
-      );
+      const categoryId = getToolCategoryId(toolId);
 
-      if (
-        categoryWithTool &&
-        !expandedCategories.includes(categoryWithTool.id)
-      ) {
-        const newExpandedCategories = [
-          ...expandedCategories,
-          categoryWithTool.id,
-        ];
+      if (categoryId && !expandedCategories.includes(categoryId)) {
+        const newExpandedCategories = [...expandedCategories, categoryId];
         setExpandedCategories(newExpandedCategories);
       }
     }

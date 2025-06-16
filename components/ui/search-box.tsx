@@ -1,9 +1,11 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
 export interface SearchBoxProps {
   /** 搜索查询字符串 */
@@ -43,7 +45,7 @@ export interface SearchBoxProps {
 export function SearchBox({
   value,
   onChange,
-  placeholder = '搜索...',
+  placeholder,
   className,
   inputClassName,
   iconClassName,
@@ -56,6 +58,11 @@ export function SearchBox({
   triggerCommandPalette = false,
   onCommandPaletteTrigger,
 }: SearchBoxProps) {
+  const { ts } = useTranslation();
+
+  const defaultPlaceholder = ts('common.searchPlaceholder', '搜索...');
+  const finalPlaceholder = placeholder || defaultPlaceholder;
+
   // 清除搜索内容
   const handleClear = () => {
     onChange('');
@@ -135,7 +142,7 @@ export function SearchBox({
       {/* 输入框 */}
       <Input
         type='text'
-        placeholder={placeholder}
+        placeholder={finalPlaceholder}
         value={triggerCommandPalette ? '' : value}
         onChange={
           triggerCommandPalette ? undefined : e => onChange(e.target.value)

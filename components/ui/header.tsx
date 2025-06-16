@@ -9,7 +9,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { useTheme } from 'next-themes';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/use-translation';
-import { toolCategories } from '@/lib/tools';
+import { isValidToolId } from '@/lib/tools-i18n';
 
 function Logo() {
   return <LogoComponent size='sm' />;
@@ -78,12 +78,7 @@ export function Header({
   const toolId = pathSegments.length > 2 ? pathSegments[2] : '';
 
   // 验证工具ID是否有效
-  const isValidTool = Boolean(
-    toolId &&
-      toolCategories.some(category =>
-        category.tools.some(tool => tool.id === toolId)
-      )
-  );
+  const isValidTool = Boolean(toolId && isValidToolId(toolId));
 
   // 返回首页
   const handleGoHome = () => {

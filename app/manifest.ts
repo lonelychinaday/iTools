@@ -1,37 +1,34 @@
-import { MetadataRoute } from 'next';
-import { PWA_CONFIG } from '@/lib/copy-config';
+import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: PWA_CONFIG.name,
-    short_name: PWA_CONFIG.shortName,
-    description: PWA_CONFIG.description,
+    name: 'VerseTool - Online Toolbox',
+    short_name: 'VerseTool',
+    description:
+      'Modern collection of online tools including Base64 encoder/decoder, JSON formatter, password generator and other utilities',
     start_url: '/',
     display: 'standalone',
-    background_color: PWA_CONFIG.backgroundColor,
-    theme_color: PWA_CONFIG.themeColor,
-    orientation: 'portrait',
-    categories: ['productivity', 'utilities', 'developer'],
-    lang: 'zh-CN',
-    scope: '/',
+    background_color: '#ffffff',
+    theme_color: '#000000',
     icons: [
       {
-        src: '/icon',
-        sizes: '32x32',
+        src: '/icon-192.png',
+        sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/apple-icon',
-        sizes: '180x180',
+        src: '/icon-512.png',
+        sizes: '512x512',
         type: 'image/png',
       },
     ],
     shortcuts: [
       {
-        name: 'Base64 编码',
+        name: 'Base64 Encoder',
         short_name: 'Base64',
-        description: 'Base64 编码和解码工具',
+        description: 'Base64 encoding and decoding tool',
         url: '/tools/base64-tool',
+        icons: [{ src: '/icon-192.png', sizes: '192x192' }],
       },
     ],
   };

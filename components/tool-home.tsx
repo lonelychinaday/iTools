@@ -141,7 +141,10 @@ export function ToolHome({
                 {ts('common.search', '搜索')} ({filteredTools.length})
               </h2>
               <p className='text-muted-foreground'>
-                找到 {filteredTools.length} 个相关工具
+                {ts(
+                  'home.searchResults',
+                  `找到 ${filteredTools.length} 个相关工具`
+                ).replace('{count}', filteredTools.length.toString())}
               </p>
             </div>
           ) : (

@@ -12,6 +12,7 @@ import { getHtmlLang } from '@/lib/locale-utils';
 import { SEOMonitor } from '@/components/seo-monitor';
 import { BRAND, OG_CONFIG } from '@/lib/copy-config';
 import { getLocalizedSEO } from '@/lib/seo-i18n';
+import { HreflangTags } from '@/components/hreflang-tags';
 
 const lilitaOne = Lilita_One({
   weight: ['400'],
@@ -109,6 +110,9 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} suppressHydrationWarning>
       <head>
+        {/* Hreflang标签 - 改善国际化SEO */}
+        <HreflangTags />
+
         <script
           dangerouslySetInnerHTML={{
             __html: `

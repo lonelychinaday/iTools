@@ -16,7 +16,8 @@
         "copyToClipboard": "已复制到剪贴板",
         "cannotCopyToClipboard": "无法复制到剪贴板",
         "backHome": "返回首页",
-        "goBack": "返回上页"
+        "goBack": "返回上页",
+        "searchPlaceholder": "搜索..."
     },
     "home": {
         "title": "VerseTool - 工具箱",
@@ -24,8 +25,8 @@
         "welcomeTitle": "让每个工具都恰到好处",
         "welcomeSubtitle": "精心设计的实用工具集，让日常任务变得轻松简单。无需下载安装，打开即用",
         "searchPlaceholder": "搜索工具或按 ⌘K",
-        "noToolsFound": "未找到匹配的工具",
-        "tryDifferentKeywords": "尝试不同的关键词",
+        "noToolsFound": "未找到相关工具",
+        "tryDifferentKeywords": "请尝试不同的关键词",
         "heroFeature1": "⚡ 即时处理",
         "heroFeature1Desc": "快速响应，即时获得结果",
         "heroFeature2": "🔒 隐私安全",
@@ -34,8 +35,7 @@
         "heroFeature3Desc": "直观设计，人人都能轻松上手",
         "getStarted": "立即开始",
         "popularTools": "热门工具",
-        "searchResults": "搜索结果",
-        "foundTools": "找到 {count} 个相关工具"
+        "searchResults": "找到 {count} 个相关工具"
     },
     "tools": {
         "categories": {
@@ -106,7 +106,18 @@
     "pages": {
         "tools": {
             "quickStart": "快速开始",
-            "quickStartDescription": "选择一个热门工具立即开始使用"
+            "quickStartDescription": "选择一个热门工具立即开始使用",
+            "usageGuideDescription": "了解如何使用VerseTool工具箱",
+            "sidebarTitle": "导航侧边栏",
+            "sidebarDescription": "左侧侧边栏包含了所有工具分类，点击分类标题可以展开或折叠",
+            "sidebarTip1": "点击工具名称进入对应工具页面",
+            "sidebarTip2": "点击分类名称展开所有工具",
+            "sidebarTip3": "使用按钮可以折叠侧边栏",
+            "searchTitle": "搜索功能",
+            "searchDescription": "顶部导航栏的搜索框可以帮助您快速找到需要的工具",
+            "searchTip1": "输入工具名称或描述进行搜索",
+            "searchTip2": "搜索结果会实时显示在侧边栏中",
+            "searchTip3": "在手机上，点击左上角的菜单图标打开侧边栏"
         }
     },
     "commandPalette": {
@@ -128,15 +139,76 @@
             "switchToLightDescription": "启用浅色主题界面",
             "githubRepo": "Github 仓库",
             "githubRepoDescription": "查看 VerseTool 的源代码"
+        },
+        "searchKeywords": {
+            "home": "首页 导航",
+            "tools": "工具列表 所有工具",
+            "darkMode": "深色模式 主题",
+            "lightMode": "浅色模式 主题",
+            "github": "源码 代码仓库"
         }
     },
     "sidebar": {
         "noResults": "没有找到匹配的工具",
-        "footer": "提示：Cmd/Ctrl + B 可切换侧边栏"
+        "footer": "提示：Cmd/Ctrl + B 可切换侧边栏",
+        "expand": "展开侧边栏",
+        "collapse": "收起侧边栏"
     },
     "error": {
         "404Title": "页面未找到",
         "404Description": "抱歉，您访问的页面不存在或已被移除。",
-        "404Suggestion": "您可以尝试以下操作："
+        "404Suggestion": "您可以尝试以下操作：",
+        "notFound": "页面未找到",
+        "toolNotFound": "工具不存在",
+        "networkError": "网络错误，请稍后重试",
+        "clipboardError": "无法复制到剪贴板",
+        "fileError": "文件处理错误"
+    },
+    "success": {
+        "copied": "复制成功",
+        "saved": "保存成功",
+        "processed": "处理完成"
+    },
+    "actions": {
+        "copy": "复制",
+        "save": "保存",
+        "clear": "清空",
+        "reset": "重置",
+        "download": "下载",
+        "upload": "上传",
+        "process": "处理",
+        "generate": "生成",
+        "convert": "转换",
+        "format": "格式化"
+    },
+    "features": {
+        "privateSecurity": "数据本地处理，不会上传到服务器"
+    },
+    "seo": {
+        "console": {
+            "initFailed": "SEO监控初始化失败:",
+            "pageTitle": "页面标题:",
+            "titleLengthWarning": "⚠️ 标题长度建议在 30-60 字符之间",
+            "pageDescription": "页面描述:",
+            "descriptionLengthWarning": "⚠️ 描述长度建议在 120-160 字符之间",
+            "h1Count": "H1 标签数量:",
+            "h1Warning": "⚠️ 每个页面应该只有一个 H1 标签",
+            "imagesWithoutAlt": "张图片缺少 alt 属性"
+        }
+    },
+    "api": {
+        "og": {
+            "generateFailed": "OG图片生成失败:"
+        }
+    },
+    "manifest": {
+        "name": "VerseTool - 在线工具箱",
+        "description": "现代化的在线工具集合，包含Base64编码解码、JSON格式化、密码生成器等实用工具",
+        "shortcuts": {
+            "base64": {
+                "name": "Base64 编码",
+                "description": "Base64 编码和解码工具"
+            }
+        }
     }
 }

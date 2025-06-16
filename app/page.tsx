@@ -7,7 +7,36 @@ import { ClientHomePage } from '@/components/client-home-page';
 async function generateJsonLd() {
   const locale = await getServerLocale();
   const localizedSEO = await getLocalizedSEO(locale);
-  const isZh = locale === 'zh';
+
+  // 基于语言的功能列表
+  const featureList =
+    locale === 'zh'
+      ? [
+          localizedSEO.structured.base64ToolName,
+          localizedSEO.structured.jsonToolName,
+          '密码生成器',
+          'URL编码解码',
+          'Hash计算',
+          '时间戳转换',
+          '颜色转换',
+          'UUID生成',
+        ]
+      : [
+          'Base64 Encoder/Decoder',
+          'JSON Formatter',
+          'Password Generator',
+          'URL Encoder/Decoder',
+          'Hash Calculator',
+          'Timestamp Converter',
+          'Color Converter',
+          'UUID Generator',
+        ];
+
+  // 基于语言的组织描述
+  const organizationDescription =
+    locale === 'zh'
+      ? '提供免费在线开发者工具的现代化平台'
+      : 'Modern platform providing free online developer tools';
 
   return {
     '@context': 'https://schema.org',
@@ -32,27 +61,25 @@ async function generateJsonLd() {
           priceCurrency: 'USD',
           category: 'Free',
         },
-        featureList: STRUCTURED_DATA.webApplication.features,
+        featureList,
       },
       {
         '@type': 'Organization',
         '@id': `${BRAND.domain}/#organization`,
         name: STRUCTURED_DATA.organization.name,
         url: BRAND.domain,
-        description: STRUCTURED_DATA.organization.description,
+        description: organizationDescription,
         foundingDate: STRUCTURED_DATA.organization.foundingDate,
         sameAs: [BRAND.github],
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
-          name: isZh ? '在线工具集合' : 'Online Tools Collection',
+          name: localizedSEO.structured.offerCatalogName,
           itemListElement: [
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'SoftwareApplication',
-                name: isZh
-                  ? 'Base64 编码解码工具'
-                  : 'Base64 Encoder/Decoder Tool',
+                name: localizedSEO.structured.base64ToolName,
                 applicationCategory: 'DeveloperApplication',
               },
             },
@@ -60,7 +87,7 @@ async function generateJsonLd() {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'SoftwareApplication',
-                name: isZh ? 'JSON 格式化工具' : 'JSON Formatter Tool',
+                name: localizedSEO.structured.jsonToolName,
                 applicationCategory: 'DeveloperApplication',
               },
             },

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useTranslation } from '@/hooks/use-translation';
 
 // 定义性能指标类型
 interface PerformanceMetric {
@@ -17,8 +18,19 @@ interface PerformanceEntryWithValue extends PerformanceEntry {
   processingStart?: number;
 }
 
-// Core Web Vitals 监控
-export function SEOMonitor() {
+interface SEOMonitorProps {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+}
+
+/**
+ * SEO 监控组件
+ * 在开发环境下检查页面的 SEO 配置是否合理
+ */
+export function SEOMonitor(_props: SEOMonitorProps) {
+  const { ts } = useTranslation();
+
   useEffect(() => {
     // 仅在生产环境监控
     if (process.env.NODE_ENV !== 'production') return;
@@ -159,15 +171,14 @@ export function SEOMonitor() {
       setTimeout(checkSEOElements, 2000);
     } catch (error) {
       // 生产环境静默处理错误，开发环境记录日志
-      // eslint-disable-next-line no-console
-      console.warn('SEO监控初始化失败:', error);
+      console.warn(ts('seo.console.initFailed', 'SEO监控初始化失败:'), error);
     }
 
     // 清理函数
     return () => {
       // 性能观察器会自动清理
     };
-  }, []);
+  }, [ts]);
 
   return null; // 这是一个监控组件，不渲染UI
 }
@@ -192,57 +203,63 @@ export function getWebVitalsScore(
 
 // 开发环境 SEO 调试组件
 export function SEODebugger() {
+  const { ts } = useTranslation();
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       // 开发环境下的 SEO 检查
-      // eslint-disable-next-line no-console
       console.group('🔍 SEO 调试信息');
 
       // 检查标题
       const title = document.title;
-      // eslint-disable-next-line no-console
-      console.log('页面标题:', title);
-      if (!title || title.length < 30 || title.length > 60) {
-        // eslint-disable-next-line no-console
-        console.warn('⚠️ 标题长度建议在 30-60 字符之间');
+      console.log(ts('seo.console.pageTitle', '页面标题:'), title);
+      if (title && (title.length < 30 || title.length > 60)) {
+        console.warn(
+          ts(
+            'seo.console.titleLengthWarning',
+            '⚠️ 标题长度建议在 30-60 字符之间'
+          )
+        );
       }
 
       // 检查描述
       const description = document
         .querySelector('meta[name="description"]')
         ?.getAttribute('content');
-      // eslint-disable-next-line no-console
-      console.log('页面描述:', description);
+      console.log(ts('seo.console.pageDescription', '页面描述:'), description);
       if (
-        !description ||
-        description.length < 120 ||
-        description.length > 160
+        description &&
+        (description.length < 120 || description.length > 160)
       ) {
-        // eslint-disable-next-line no-console
-        console.warn('⚠️ 描述长度建议在 120-160 字符之间');
+        console.warn(
+          ts(
+            'seo.console.descriptionLengthWarning',
+            '⚠️ 描述长度建议在 120-160 字符之间'
+          )
+        );
       }
 
       // 检查 H1 标签
       const h1Count = document.querySelectorAll('h1').length;
-      // eslint-disable-next-line no-console
-      console.log('H1 标签数量:', h1Count);
+      console.log(ts('seo.console.h1Count', 'H1 标签数量:'), h1Count);
       if (h1Count !== 1) {
-        // eslint-disable-next-line no-console
-        console.warn('⚠️ 每个页面应该只有一个 H1 标签');
+        console.warn(
+          ts('seo.console.h1Warning', '⚠️ 每个页面应该只有一个 H1 标签')
+        );
       }
 
       // 检查图片 alt 属性
       const images = document.querySelectorAll('img');
       const imagesWithoutAlt = Array.from(images).filter(img => !img.alt);
       if (imagesWithoutAlt.length > 0) {
-        // eslint-disable-next-line no-console
-        console.warn(`⚠️ ${imagesWithoutAlt.length} 张图片缺少 alt 属性`);
+        console.warn(
+          `⚠️ ${imagesWithoutAlt.length} ${ts('seo.console.imagesWithoutAlt', '张图片缺少 alt 属性')}`
+        );
       }
 
-      // eslint-disable-next-line no-console
       console.groupEnd();
     }
-  }, []);
+  }, [ts]);
 
   return null;
 }

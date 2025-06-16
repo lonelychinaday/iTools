@@ -192,7 +192,11 @@ export function ToolSidebar({
               collapsed ? 'w-8' : 'w-8'
             )}
             onClick={toggleCollapsed}
-            title={collapsed ? '展开侧边栏' : '收起侧边栏'}
+            title={
+              collapsed
+                ? ts('sidebar.expand', '展开侧边栏')
+                : ts('sidebar.collapse', '收起侧边栏')
+            }
           >
             {collapsed ? (
               <ChevronRight className='h-4 w-4' />

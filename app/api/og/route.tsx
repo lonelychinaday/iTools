@@ -6,23 +6,32 @@ export const runtime = 'edge';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const title = searchParams.get('title') || 'VerseTool - 在线工具箱';
-    const description =
-      searchParams.get('description') || '现代化的在线工具集合，让工作更高效';
+    const lang = searchParams.get('lang') || 'en'; // 语言参数支持
+
+    // 根据语言设置默认文本
+    const defaultTitle =
+      lang === 'zh' ? 'VerseTool - 在线工具箱' : 'VerseTool - Online Toolbox';
+    const defaultDescription =
+      lang === 'zh'
+        ? '现代化的在线工具集合，让工作更高效'
+        : 'Modern online tools collection for efficient work';
+    const footerText =
+      lang === 'zh' ? '🛠️ 免费在线工具集合' : '🛠️ Free Online Tools Collection';
+
+    // 获取最终的标题和描述
+    const finalTitle = searchParams.get('title') || defaultTitle;
+    const finalDescription =
+      searchParams.get('description') || defaultDescription;
 
     return generateOGImage({
-      title,
-      description,
+      title: finalTitle,
+      description: finalDescription,
+      footerText,
     });
   } catch (error) {
-    // 生产环境静默处理错误，开发环境记录日志
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
-      console.error('OG图片生成失败:', error);
-    }
+    console.error('OG image generation failed:', error);
 
-    // 返回默认响应
-    return new Response('OG图片生成失败', { status: 500 });
+    return new Response('OG image generation failed', { status: 500 });
   }
 }
 
@@ -30,9 +39,11 @@ export async function GET(request: Request) {
 function generateOGImage({
   title,
   description,
+  footerText,
 }: {
   title: string;
   description: string;
+  footerText: string;
 }) {
   return new ImageResponse(
     (
@@ -96,7 +107,7 @@ function generateOGImage({
               alignItems: 'center',
             }}
           >
-            🛠️ 免费在线工具集合
+            {footerText}
           </div>
         </div>
       </div>

@@ -14,20 +14,24 @@ import { Button } from '@/components/ui/button';
 
 import { getLocalizedToolCategories } from '@/lib/tools-i18n';
 import { useTranslation } from '@/hooks/use-translation';
+import { BRAND } from '@/lib/copy-config';
 
 // 生成工具列表的结构化数据
 const generateToolsStructuredData = (
   categories: Array<{
     tools: Array<{ id: string; name: string; description?: string }>;
-  }>
+  }>,
+  locale: string
 ) => {
   const tools = categories.flatMap(category =>
     category.tools.map(
       (tool: { id: string; name: string; description?: string }) => ({
         '@type': 'SoftwareApplication',
         name: tool.name,
-        description: tool.description || `${tool.name} - VerseTool在线工具`,
-        url: `https://versetool.com/tools/${tool.id}`,
+        description:
+          tool.description ||
+          `${tool.name} - ${locale === 'zh' ? 'VerseTool在线工具' : 'VerseTool Online Tool'}`,
+        url: `${BRAND.domain}/tools/${tool.id}`,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'All',
         offers: {
@@ -42,10 +46,15 @@ const generateToolsStructuredData = (
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'VerseTool 在线工具集合',
+    name:
+      locale === 'zh'
+        ? 'VerseTool 在线工具集合'
+        : 'VerseTool Online Tools Collection',
     description:
-      '完整的在线工具集合，包含开发者工具、文本处理工具、编码解码工具等多种实用工具',
-    url: 'https://versetool.com/tools',
+      locale === 'zh'
+        ? '完整的在线工具集合，包含开发者工具、文本处理工具、编码解码工具等多种实用工具'
+        : 'Complete online tools collection including developer tools, text processing tools, encoding/decoding tools and more utilities',
+    url: `${BRAND.domain}/tools`,
     mainEntity: {
       '@type': 'ItemList',
       itemListElement: tools.map((tool, index) => ({
@@ -61,7 +70,10 @@ export default function ToolsPage() {
   const router = useRouter();
   const { ts, locale } = useTranslation();
   const localizedCategories = getLocalizedToolCategories(locale);
-  const structuredData = generateToolsStructuredData(localizedCategories);
+  const structuredData = generateToolsStructuredData(
+    localizedCategories,
+    locale
+  );
 
   // 处理工具选择 - 跳转到对应路由
   const handleToolSelect = (toolId: string) => {
@@ -94,7 +106,12 @@ export default function ToolsPage() {
               <CardTitle className='text-lg'>
                 {ts('tools.usage', '使用指南')}
               </CardTitle>
-              <CardDescription>了解如何使用VerseTool工具箱</CardDescription>
+              <CardDescription>
+                {ts(
+                  'pages.tools.usageGuideDescription',
+                  '了解如何使用VerseTool工具箱'
+                )}
+              </CardDescription>
             </CardHeader>
             <CardContent className='space-y-6'>
               {/* 侧边栏使用说明 */}
@@ -103,27 +120,52 @@ export default function ToolsPage() {
                   <div className='space-y-2'>
                     <div className='flex items-center gap-2'>
                       <Sidebar className='h-5 w-5 text-accent-foreground' />
-                      <h3 className='font-medium text-lg'>导航侧边栏</h3>
+                      <h3 className='font-medium text-lg'>
+                        {ts('pages.tools.sidebarTitle', '导航侧边栏')}
+                      </h3>
                     </div>
                     <p className='text-sm text-muted-foreground'>
-                      左侧侧边栏包含了所有工具分类，点击分类标题可以展开或折叠
+                      {ts(
+                        'pages.tools.sidebarDescription',
+                        '左侧侧边栏包含了所有工具分类，点击分类标题可以展开或折叠'
+                      )}
                     </p>
                   </div>
                   <div className='space-y-1 text-sm text-muted-foreground ml-2'>
                     <div className='flex items-center gap-2'>
                       <ChevronRight className='h-4 w-4 flex-shrink-0' />
-                      <span>点击工具名称进入对应工具页面</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <ChevronRight className='h-4 w-4 flex-shrink-0' />
-                      <span>点击分类名称展开所有工具</span>
+                      <span>
+                        {ts(
+                          'pages.tools.sidebarTip1',
+                          '点击工具名称进入对应工具页面'
+                        )}
+                      </span>
                     </div>
                     <div className='flex items-center gap-2'>
                       <ChevronRight className='h-4 w-4 flex-shrink-0' />
                       <span>
-                        使用
+                        {ts(
+                          'pages.tools.sidebarTip2',
+                          '点击分类名称展开所有工具'
+                        )}
+                      </span>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <ChevronRight className='h-4 w-4 flex-shrink-0' />
+                      <span>
+                        {
+                          ts(
+                            'pages.tools.sidebarTip3',
+                            '使用按钮可以折叠侧边栏'
+                          ).split('按钮')[0]
+                        }
                         <ChevronLeft className='h-3.5 w-3.5 inline-block mx-1' />
-                        按钮可以折叠侧边栏
+                        {
+                          ts(
+                            'pages.tools.sidebarTip3',
+                            '使用按钮可以折叠侧边栏'
+                          ).split('按钮')[1]
+                        }
                       </span>
                     </div>
                   </div>
@@ -133,24 +175,44 @@ export default function ToolsPage() {
                   <div className='space-y-2'>
                     <div className='flex items-center gap-2'>
                       <Search className='h-5 w-5 text-accent-foreground' />
-                      <h3 className='font-medium text-lg'>搜索功能</h3>
+                      <h3 className='font-medium text-lg'>
+                        {ts('pages.tools.searchTitle', '搜索功能')}
+                      </h3>
                     </div>
                     <p className='text-sm text-muted-foreground'>
-                      顶部导航栏的搜索框可以帮助您快速找到需要的工具
+                      {ts(
+                        'pages.tools.searchDescription',
+                        '顶部导航栏的搜索框可以帮助您快速找到需要的工具'
+                      )}
                     </p>
                   </div>
                   <div className='space-y-1 text-sm text-muted-foreground ml-2'>
                     <div className='flex items-center gap-2'>
                       <ChevronRight className='h-4 w-4 flex-shrink-0' />
-                      <span>输入工具名称或描述进行搜索</span>
+                      <span>
+                        {ts(
+                          'pages.tools.searchTip1',
+                          '输入工具名称或描述进行搜索'
+                        )}
+                      </span>
                     </div>
                     <div className='flex items-center gap-2'>
                       <ChevronRight className='h-4 w-4 flex-shrink-0' />
-                      <span>搜索结果会实时显示在侧边栏中</span>
+                      <span>
+                        {ts(
+                          'pages.tools.searchTip2',
+                          '搜索结果会实时显示在侧边栏中'
+                        )}
+                      </span>
                     </div>
                     <div className='flex items-center gap-2'>
                       <Menu className='h-4 w-4 flex-shrink-0' />
-                      <span>在手机上，点击左上角的菜单图标打开侧边栏</span>
+                      <span>
+                        {ts(
+                          'pages.tools.searchTip3',
+                          '在手机上，点击左上角的菜单图标打开侧边栏'
+                        )}
+                      </span>
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { toolCategories } from '@/lib/tools';
+import { getAllToolIds } from '@/lib/tools-i18n';
 import { BRAND } from '@/lib/copy-config';
 import { getServerLocale } from '@/lib/locale-server';
 import { getLocalizedToolMeta } from '@/lib/seo-i18n';
@@ -60,7 +60,7 @@ export async function generateMetadata({
       siteName: BRAND.name,
       images: [
         {
-          url: `/api/og?title=${encodeURIComponent(tool.name)}&description=${encodeURIComponent(description)}`,
+          url: `/api/og?title=${encodeURIComponent(tool.name)}&description=${encodeURIComponent(description)}&lang=${locale}`,
           width: 1200,
           height: 630,
           alt: tool.name,
@@ -73,7 +73,7 @@ export async function generateMetadata({
       title: toolMeta.title,
       description,
       images: [
-        `/api/og?title=${encodeURIComponent(tool.name)}&description=${encodeURIComponent(description)}`,
+        `/api/og?title=${encodeURIComponent(tool.name)}&description=${encodeURIComponent(description)}&lang=${locale}`,
       ],
     },
     other: {
@@ -85,11 +85,9 @@ export async function generateMetadata({
 
 // 生成静态参数（用于构建时预生成页面）
 export async function generateStaticParams() {
-  const params = toolCategories.flatMap(category =>
-    category.tools.map(tool => ({
-      toolId: tool.id,
-    }))
-  );
+  const params = getAllToolIds().map(toolId => ({
+    toolId,
+  }));
 
   return params;
 }

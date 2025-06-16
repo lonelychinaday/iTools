@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { toolCategories } from '@/lib/tools';
+import { getAllToolIds } from '@/lib/tools-i18n';
 import { BRAND } from '@/lib/copy-config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -12,13 +12,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 工具页面路由
-  const toolRoutes = toolCategories.flatMap(category =>
-    category.tools.map(tool => ({
-      path: `/tools/${tool.id}`,
-      priority: 0.8,
-      changeFrequency: 'weekly' as const,
-    }))
-  );
+  const toolRoutes = getAllToolIds().map(toolId => ({
+    path: `/tools/${toolId}`,
+    priority: 0.8,
+    changeFrequency: 'weekly' as const,
+  }));
 
   const allRoutes = [...routes, ...toolRoutes];
 
