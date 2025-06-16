@@ -80,8 +80,8 @@ export function ToolSidebar({
   return (
     <div
       className={cn(
-        'h-full border-r bg-background flex flex-col transition-all duration-200 ease-in-out relative',
-        collapsed ? 'w-12 overflow-hidden' : 'min-w-[200px] max-w-[320px] w-fit'
+        'h-full w-full bg-background flex flex-col transition-all duration-200 ease-in-out relative',
+        collapsed ? 'overflow-hidden' : ''
       )}
     >
       {/* Scrollable content */}

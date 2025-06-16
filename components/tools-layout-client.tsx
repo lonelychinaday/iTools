@@ -65,7 +65,7 @@ export function ToolsLayoutClient({
     if (isMobile) {
       return sidebarOpen ? '280px' : '0px';
     }
-    return collapsed ? '48px' : '280px';
+    return collapsed ? '48px' : '240px';
   })();
 
   return (
