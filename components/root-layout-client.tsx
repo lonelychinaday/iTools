@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, cloneElement, ReactElement } from 'react';
+import { useState, cloneElement, ReactElement, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { Header } from '@/components/ui/header';
 import { CommandPalette } from '@/components/ui/command-palette';
 import { useCommandPalette } from '@/hooks/use-command-palette';
+import { commandPaletteController } from '@/lib/command-palette-controller';
 import { isValidToolId } from '@/lib/tools-i18n';
 import { cn } from '@/lib/utils';
 
@@ -17,6 +18,14 @@ export function RootLayoutClient({ children }: RootLayoutClientProps) {
   const pathname = usePathname();
   const { open, setOpen, openCommandPalette } = useCommandPalette();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // 注册全局命令面板控制器的回调函数
+  useEffect(() => {
+    commandPaletteController.registerOpenCallback(openCommandPalette);
+    return () => {
+      commandPaletteController.unregister();
+    };
+  }, [openCommandPalette]);
 
   // 检测是否在首页
   const isHomePage = pathname === '/';

@@ -69,8 +69,18 @@ export function SearchBox({
   };
 
   // 处理输入框点击
-  const handleInputClick = () => {
+  const handleInputClick = (e: React.MouseEvent) => {
     if (triggerCommandPalette && onCommandPaletteTrigger) {
+      e.preventDefault();
+      onCommandPaletteTrigger();
+    }
+  };
+
+  // 处理输入框聚焦
+  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (triggerCommandPalette && onCommandPaletteTrigger) {
+      e.preventDefault();
+      e.target.blur(); // 立即失去焦点，避免弹出键盘
       onCommandPaletteTrigger();
     }
   };
@@ -148,6 +158,7 @@ export function SearchBox({
           triggerCommandPalette ? undefined : e => onChange(e.target.value)
         }
         onClick={handleInputClick}
+        onFocus={handleInputFocus}
         disabled={disabled}
         readOnly={triggerCommandPalette}
         className={cn(

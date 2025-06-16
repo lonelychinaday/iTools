@@ -1,7 +1,7 @@
 import { BRAND, STRUCTURED_DATA } from '@/lib/copy-config';
 import { getServerLocale } from '@/lib/locale-server';
 import { getLocalizedSEO } from '@/lib/seo-i18n';
-import { ClientHomePage } from '@/components/client-home-page';
+import { HomePageWrapper } from '@/components/home-page-wrapper';
 
 // 生成国际化的结构化数据
 async function generateJsonLd() {
@@ -137,7 +137,7 @@ export default async function Home() {
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ClientHomePage />
+      <HomePageWrapper />
     </>
   );
 }

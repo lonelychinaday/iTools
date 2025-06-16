@@ -3,17 +3,28 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ToolHome } from '@/components/tool-home';
-import { useCommandPalette } from '@/hooks/use-command-palette';
 
-export function ClientHomePage() {
+interface ClientHomePageProps {
+  onCommandPaletteTrigger?: () => void;
+}
+
+export function ClientHomePage({
+  onCommandPaletteTrigger,
+}: ClientHomePageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
-  const { openCommandPalette } = useCommandPalette();
 
   // 处理工具选择 - 跳转到对应路由
   const handleToolSelect = (toolId: string) => {
     router.push(`/tools/${toolId}`);
   };
+
+  // 如果没有传递命令面板触发函数，提供一个空函数作为fallback
+  const handleCommandPaletteTrigger =
+    onCommandPaletteTrigger ||
+    (() => {
+      console.warn('No command palette trigger provided to ClientHomePage');
+    });
 
   return (
     <div className='w-full'>
@@ -21,7 +32,7 @@ export function ClientHomePage() {
         onToolSelect={handleToolSelect}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        onCommandPaletteTrigger={openCommandPalette}
+        onCommandPaletteTrigger={handleCommandPaletteTrigger}
       />
     </div>
   );
