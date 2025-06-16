@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Lilita_One } from 'next/font/google';
 import './globals.css';
 
-// import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -136,7 +136,7 @@ export default async function RootLayout({
             <Toaster />
           </ThemeProvider>
         </LocaleProvider>
-        {/* <SpeedInsights endpoint='https://versetool.jmxr.fun/_vercel/speed-insights/vitals' /> */}
+        <SpeedInsights />
         <Analytics />
         <SEOMonitor />
         {process.env.NODE_ENV === 'development' && (
