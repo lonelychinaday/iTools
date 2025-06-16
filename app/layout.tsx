@@ -13,6 +13,7 @@ import { SEOMonitor } from '@/components/seo-monitor';
 import { BRAND, OG_CONFIG } from '@/lib/copy-config';
 import { getLocalizedSEO } from '@/lib/seo-i18n';
 import { HreflangTags } from '@/components/hreflang-tags';
+import { RootLayoutClient } from '@/components/root-layout-client';
 
 const lilitaOne = Lilita_One({
   weight: ['400'],
@@ -131,7 +132,7 @@ export default async function RootLayout({
       <body className={`${lilitaOne.variable}`}>
         <LocaleProvider serverLocale={locale}>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            {children}
+            <RootLayoutClient>{children}</RootLayoutClient>
             <Toaster />
           </ThemeProvider>
         </LocaleProvider>

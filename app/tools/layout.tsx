@@ -4,12 +4,19 @@ import { getServerLocale } from '@/lib/locale-server';
 import { getServerSidebarState } from '@/lib/sidebar-server';
 import { ToolsLayoutClient } from '@/components/tools-layout-client';
 
+// 接收从根布局传递的props
+interface ToolsLayoutProps {
+  children: React.ReactNode;
+  sidebarOpen?: boolean;
+  onSidebarToggle?: () => void;
+}
+
 // 服务端组件 - 获取初始状态
 export default async function ToolsLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  sidebarOpen,
+  onSidebarToggle,
+}: ToolsLayoutProps) {
   // 并行获取服务端状态（不传入具体工具ID，让客户端处理）
   const [locale, sidebarState] = await Promise.all([
     getServerLocale(),
@@ -19,7 +26,12 @@ export default async function ToolsLayout({
   return (
     <LocaleProvider serverLocale={locale}>
       <SidebarProvider serverSidebarState={sidebarState}>
-        <ToolsLayoutClient>{children}</ToolsLayoutClient>
+        <ToolsLayoutClient
+          sidebarOpen={sidebarOpen}
+          onSidebarToggle={onSidebarToggle}
+        >
+          {children}
+        </ToolsLayoutClient>
       </SidebarProvider>
     </LocaleProvider>
   );

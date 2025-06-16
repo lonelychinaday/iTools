@@ -88,7 +88,7 @@ export default function ToolsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className='overflow-auto md:absolute md:inset-0'>
+      <div className='h-full overflow-auto'>
         <div className='p-6 space-y-6'>
           {/* 页面标题区域 */}
           <div className='space-y-2'>
