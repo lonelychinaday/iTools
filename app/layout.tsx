@@ -112,7 +112,6 @@ export default async function RootLayout({
       <head>
         {/* Hreflang标签 - 改善国际化SEO */}
         <HreflangTags />
-
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -129,14 +128,9 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${lilitaOne.variable}`} suppressHydrationWarning={true}>
+      <body className={`${lilitaOne.variable}`}>
         <LocaleProvider serverLocale={locale}>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            // disableTransitionOnChange
-          >
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             {children}
             <SpeedInsights />
             <Analytics />
