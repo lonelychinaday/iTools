@@ -99,7 +99,7 @@ export function ToolHome({
             </div>
 
             {/* 特性展示 */}
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-[4rem!important]'>
               <div className='text-center space-y-2 p-4 rounded-lg bg-card/30 border border-border/40 hover:bg-card/50 transition-colors'>
                 <div className='text-2xl mb-1'>⚡</div>
                 <h3 className='text-base font-semibold text-foreground'>
