@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Lilita_One } from 'next/font/google';
 import './globals.css';
 
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from '@vercel/analytics/next';
+// import { SpeedInsights } from '@vercel/speed-insights/next';
+// import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { LocaleProvider } from '../components/locale-provider';
@@ -136,8 +136,8 @@ export default async function RootLayout({
             <Toaster />
           </ThemeProvider>
         </LocaleProvider>
-        <SpeedInsights />
-        <Analytics />
+        {/* <SpeedInsights /> */}
+        {/* <Analytics /> */}
         <SEOMonitor />
         {process.env.NODE_ENV === 'development' && (
           <div style={{ display: 'none' }}>
