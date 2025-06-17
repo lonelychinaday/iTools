@@ -67,7 +67,7 @@ export function ToolHome({
             {/* 品牌名称 */}
             <h1 className='text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight mt-[0!important]'>
               <span className='font-lilita-one tracking-wider bg-gradient-to-r from-[#1ABAFA] via-[#0891b2] to-[#28E361] bg-clip-text text-transparent'>
-                VerseTool 111
+                VerseTool
               </span>
             </h1>
 
