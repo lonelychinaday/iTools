@@ -9,7 +9,6 @@ import { Toaster } from '@/components/ui/sonner';
 import { LocaleProvider } from '../components/locale-provider';
 import { getServerLocale } from '@/lib/locale-server';
 import { getHtmlLang } from '@/lib/locale-utils';
-import { SEOMonitor } from '@/components/seo-monitor';
 import { BRAND, OG_CONFIG } from '@/lib/copy-config';
 import { getLocalizedSEO } from '@/lib/seo-i18n';
 import { HreflangTags } from '@/components/hreflang-tags';
@@ -138,12 +137,6 @@ export default async function RootLayout({
         </LocaleProvider>
         <SpeedInsights />
         {/* <Analytics /> */}
-        <SEOMonitor />
-        {process.env.NODE_ENV === 'development' && (
-          <div style={{ display: 'none' }}>
-            {/* SEO调试信息仅在开发环境显示 */}
-          </div>
-        )}
       </body>
     </html>
   );
