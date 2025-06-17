@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ToolSidebar } from '@/components/tool-sidebar';
 import { useRouter, usePathname } from 'next/navigation';
 import { isValidToolId, getToolCategoryId } from '@/lib/tools-i18n';
@@ -24,6 +24,9 @@ export function ToolsLayoutClient({
   const { collapsed, isMobile, setExpandedCategories, expandedCategories } =
     useSidebarContext();
 
+  // 使用 ref 来跟踪上一次的 toolId
+  const prevToolIdRef = useRef<string | undefined>(undefined);
+
   // 从pathname提取当前工具ID
   const pathSegments = pathname.split('/');
   const toolId = pathSegments.length > 2 ? pathSegments[2] : undefined;
@@ -33,21 +36,32 @@ export function ToolsLayoutClient({
 
   // 当工具变化时，确保对应分类展开
   useEffect(() => {
-    if (isValidTool && toolId && !isMobile) {
+    // 只在 toolId 实际变化时才执行（不包括初始加载）
+    if (
+      isValidTool &&
+      toolId &&
+      !isMobile &&
+      prevToolIdRef.current !== undefined && // 确保不是初始加载
+      toolId !== prevToolIdRef.current
+    ) {
       const categoryId = getToolCategoryId(toolId);
 
-      if (categoryId && !expandedCategories.includes(categoryId)) {
-        const newExpandedCategories = [...expandedCategories, categoryId];
-        setExpandedCategories(newExpandedCategories);
+      if (categoryId) {
+        // 使用函数式更新来获取最新的 expandedCategories
+        setExpandedCategories(currentExpanded => {
+          if (!currentExpanded.includes(categoryId)) {
+            return [...currentExpanded, categoryId];
+          }
+          return currentExpanded;
+        });
       }
     }
-  }, [
-    toolId,
-    isValidTool,
-    isMobile,
-    expandedCategories,
-    setExpandedCategories,
-  ]);
+
+    // 更新 ref（无论是否执行展开逻辑）
+    if (toolId) {
+      prevToolIdRef.current = toolId;
+    }
+  }, [toolId, isValidTool, isMobile, setExpandedCategories]);
 
   // 处理工具选择 - 跳转到对应路由
   const handleToolSelect = (newToolId: string) => {

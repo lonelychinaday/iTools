@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useEffect,
+  useCallback,
   ReactNode,
 } from 'react';
 import { SidebarState } from '@/lib/sidebar-server';
@@ -15,7 +16,9 @@ interface SidebarContextType {
   isMobile: boolean;
   toggleCollapsed: () => void;
   toggleCategory: (categoryId: string) => void;
-  setExpandedCategories: (categories: string[]) => void;
+  setExpandedCategories: (
+    categories: string[] | ((prev: string[]) => string[])
+  ) => void;
 }
 
 const SidebarContext = createContext<SidebarContextType | null>(null);
@@ -101,14 +104,24 @@ export function SidebarProvider({
   };
 
   // 设置展开的分类列表（仅桌面端）
-  const setExpandedCategories = (categories: string[]) => {
-    if (isMobile) return; // 移动端不保存分类状态
+  const setExpandedCategories = useCallback(
+    (categories: string[] | ((prev: string[]) => string[])) => {
+      if (isMobile) return; // 移动端不保存分类状态
 
-    setExpandedCategoriesState(categories);
+      setExpandedCategoriesState(currentExpanded => {
+        const newCategories =
+          typeof categories === 'function'
+            ? categories(currentExpanded)
+            : categories;
 
-    // 保存到Cookie
-    document.cookie = `sidebar:expanded-categories=${encodeURIComponent(JSON.stringify(categories))}; path=/; max-age=${365 * 24 * 60 * 60}; SameSite=Lax`;
-  };
+        // 保存到Cookie
+        document.cookie = `sidebar:expanded-categories=${encodeURIComponent(JSON.stringify(newCategories))}; path=/; max-age=${365 * 24 * 60 * 60}; SameSite=Lax`;
+
+        return newCategories;
+      });
+    },
+    [isMobile]
+  );
 
   const contextValue: SidebarContextType = {
     collapsed,
